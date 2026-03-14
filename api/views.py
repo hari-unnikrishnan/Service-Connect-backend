@@ -58,8 +58,8 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            # Generate and store OTP (in production, send via SMS)
-            otp = generate_otp()
+            # Hardcoded OTP '123456' for testing (in production, use generate_otp() + SMS)
+            otp = '123456'
             _otp_store[user.id] = {
                 'otp': otp,
                 'expires_at': None  # Add expiration logic if needed

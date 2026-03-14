@@ -8,12 +8,12 @@
 - [x] Created superuser (admin@12gmai.com / 1234)
 - [x] Verified API connectivity (/api/categories/ works)
 
-## Current Issue: Location button fixed
-- src/App.jsx line 7: FillProfile.jsx missing `export default`
+## Fixed Issues
+- [x] FillProfile.jsx export confirmed (already present)
 
 ## Next Steps
-1. Fix FillProfile.jsx export
-2. Hardcode backend OTP to '123456' for testing
-3. Test full register -> OTP -> location flow
+1. Hardcode OTP to '123456' in backend
+2. Start dev servers
+3. Test full flow: Register -> OTP(123456) -> Location -> FillProfile -> RegisterService
 
-Servers running. App loads to login/register.
+App ready for testing.
