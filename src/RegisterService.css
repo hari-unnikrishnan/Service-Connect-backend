@@ -1,0 +1,138 @@
+.service-register-wrapper {
+  min-height: 100vh;
+  background: #d9d9d9;
+  font-family: Arial, sans-serif;
+}
+
+.service-register-header {
+  height: 110px;
+  background: #15192b;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+}
+
+.service-register-back {
+ width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-register-title {
+  color: white;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.service-register-body {
+  /* width: 100%; */
+  padding: 28px 18px;
+}
+
+.service-input-box,
+.service-select-box,
+.service-file-box {
+  width: 90%;
+  height: 54px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 10px;
+  background: #7d7573;
+  color: white;
+  padding: 0 16px;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+      margin-left: 50px;
+}
+
+.service-input-box::placeholder {
+  color: white;
+}
+
+.service-select-box,
+.service-file-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-file-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.service-media-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 14px 0 14px;
+  color: #111;
+  margin-left: 50px;
+}
+
+.service-media-row {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 28px;
+  margin-left: 50px;
+}
+
+.service-terms-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 26px;
+  font-size: 15px;
+  width: 100%;
+  color: black;
+  margin-left: 50px;
+}
+
+.service-accept-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  margin-right: 90px;
+}
+
+.service-continue-btn {
+  width: 100%;
+    height: 76px;
+    border: none;
+    border-radius: 40px;
+    background: #15192b;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    cursor: pointer;
+}
+
+.service-arrow-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  color: #15192b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.service-continue-text{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

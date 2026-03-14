@@ -1,0 +1,123 @@
+.location-overlay-page {
+  min-height: 100vh;
+  background: #111527;
+  position: relative;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+/* Background blur layer */
+.background-layer {
+  position: absolute;
+  inset: 0;
+  filter: blur(14px);
+  opacity: 0.9;
+}
+
+/* Fake header */
+.fake-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 40px 24px;
+  color: #2a3475;
+}
+
+.fake-back-btn {
+  background: transparent;
+  border: none;
+  color: #2a3475;
+}
+
+.fake-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+/* Fake avatar */
+.fake-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: rgba(180,180,255,0.3);
+  margin: 40px auto;
+}
+
+/* Fake form */
+.fake-form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fake-input {
+  height: 62px;
+  border-radius: 18px;
+  background: rgba(180,180,255,0.25);
+}
+
+.fake-button {
+  height: 70px;
+  border-radius: 40px;
+  background: rgba(255,255,255,0.2);
+  margin-top: 20px;
+}
+
+/* Popup card */
+.location-popup-card {
+  width: 40%;
+  background: white;
+  border-radius: 28px;
+  padding: 40px 30px;
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+}
+
+/* Title */
+.popup-title {
+  font-size: 42px;
+  text-align: center;
+  margin-bottom: 32px;
+  color: #111527;
+}
+
+/* Allow button */
+.allow-btn {
+  width: 100%;
+  height: 74px;
+  border: none;
+  border-radius: 40px;
+  background: #111527;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 36px;
+}
+
+/* Label */
+.manual-label {
+  display: block;
+  font-size: 24px;
+  margin-bottom: 14px;
+  color: #111;
+}
+
+/* Input */
+.manual-input {
+  width: 95%;
+  height: 62px;
+  border: none;
+  border-radius: 16px;
+  background: #7c7272;
+  color: white;
+  font-size: 22px;
+  padding: 0 20px;
+}
+
+.manual-input::placeholder {
+  color: white;
+}

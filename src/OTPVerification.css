@@ -1,0 +1,128 @@
+.otp-screen-wrapper {
+  min-height: 100vh;
+  background: #d9d9d9;
+  /* display: flex; */
+  justify-content: center;
+  font-family: Arial, sans-serif;
+}
+
+.otp-screen-box {
+  /* width: 390px; */
+  min-height: 100vh;
+}
+
+.otp-header-bar {
+  height: 120px;
+  background: #15192b;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 20px;
+}
+
+.otp-back-button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-title-text {
+  color: white;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.otp-message-text {
+  text-align: center;
+  margin-top: 90px;
+  font-size: 18px;
+  color: #555;
+}
+
+.otp-box-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.otp-digit-box {
+  width: 70px;
+  height: 70px;
+  background: #7d7573;
+  border-radius: 18px;
+  color: white;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.18);
+}
+
+.otp-timer-text {
+  text-align: center;
+  margin-top: 45px;
+  font-size: 20px;
+  color: #555;
+}
+
+.otp-timer-text span {
+  font-weight: 700;
+  color: #16192b;
+}
+
+.otp-submit-button {
+  width: 100%;
+  height: 76px;
+  border: none;
+  border-radius: 40px;
+  background: #15192b;
+  color: white;
+  font-size: 22px;
+  font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.otp-arrow-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: white;
+  color: #15192b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-keypad-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 80px;
+  padding: 0 50px;
+}
+
+.otp-keypad-key {
+  border: none;
+  background: transparent;
+  font-size: 32px;
+  color: #555;
+  font-weight: 700;
+}
+
+.Verify-text{
+    position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

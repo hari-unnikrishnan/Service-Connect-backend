@@ -1,0 +1,118 @@
+.service-congrats-wrapper {
+  min-height: 100vh;
+  background: #15192b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.service-congrats-card {
+  width: 360px;
+  background: #eef0f4;
+  border-radius: 36px;
+  padding: 35px 25px 50px;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.35);
+}
+
+.service-congrats-image-area {
+  position: relative;
+  width: 220px;
+  margin: auto;
+}
+
+.service-profile-image {
+  width: 220px;
+  height: 122px;
+  object-fit: cover;
+}
+
+.shape-dot {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.orange {
+  left: -10px;
+  top: 35px;
+  background: orange;
+}
+
+.brown {
+  right: -10px;
+  top: 90px;
+  background: brown;
+}
+
+.shape-star {
+  position: absolute;
+  font-size: 28px;
+}
+
+.red {
+  left: -35px;
+  top: 120px;
+  color: red;
+}
+
+.yellow {
+  right: -30px;
+  top: 0;
+  color: gold;
+}
+
+.shape-triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.left {
+  left: -8px;
+  bottom: 10px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 22px solid #15192b;
+}
+
+.right {
+  right: -20px;
+  top: 120px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 22px solid #15192b;
+}
+
+.service-congrats-title {
+  text-align: center;
+  font-size: 38px;
+  color: #15192b;
+  font-weight: 700;
+  margin-top: 24px;
+}
+
+.service-congrats-text {
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #555;
+  margin-top: 18px;
+}
+
+.service-loader {
+  width: 44px;
+  height: 44px;
+  border: 5px solid #15192b;
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin: 35px auto 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

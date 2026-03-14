@@ -1,0 +1,138 @@
+.congrats-wrapper {
+  min-height: 100vh;
+  background: #15192b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.congrats-popup {
+  width: 360px;
+  background: #eef0f4;
+  border-radius: 36px;
+  padding: 30px 25px 50px;
+  position: relative;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.35);
+}
+
+.congrats-close-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  border: none;
+  background: transparent;
+  color: #111;
+}
+
+.congrats-icon-area {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 20px auto;
+}
+
+.gear-circle {
+  width: 150px;
+  height: 150px;
+  border: 16px solid #7c90a9;
+  border-radius: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lock-key-center {
+  font-size: 48px;
+}
+
+.shape {
+  position: absolute;
+}
+
+.star1 {
+  left: 0;
+  top: 80px;
+  color: red;
+  font-size: 28px;
+}
+
+.star2 {
+  right: 0;
+  top: 20px;
+  color: gold;
+  font-size: 24px;
+}
+
+.dot1 {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: orange;
+  left: 15px;
+  top: 40px;
+}
+
+.dot2 {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: brown;
+  right: 30px;
+  top: 60px;
+}
+
+.tri1 {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 22px solid teal;
+  right: 10px;
+  bottom: 40px;
+}
+
+.congrats-title {
+  text-align: center;
+  font-size: 36px;
+  color: #15192b;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.congrats-text {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  line-height: 1.5;
+  margin-top: 20px;
+}
+
+.loader-ring {
+  width: 44px;
+  height: 44px;
+  border: 5px solid #15192b;
+  border-top-color: transparent;
+  border-radius: 50%;
+  margin: 35px auto 0;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.success-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.success-image {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
