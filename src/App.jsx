@@ -14,6 +14,9 @@ import ServiceCongrats from './ServiceCongrats.jsx'
 import Home from './home.jsx'
 import AllCategoryUI from './All Category.jsx'
 import DeliveryServicesUI from './Delivery Services.jsx'
+import Search from './Search.jsx'
+import CakeDelivery from './CakeDelivery.jsx'
+import Filter from './Filter.jsx'
 import './App.css'
 
 function App() {
@@ -79,6 +82,18 @@ function App() {
     setCurrentPage('deliveryservices')
   }
 
+  const handleNavigateToSearch = () => {
+    setCurrentPage('search')
+  }
+
+  const handleNavigateToCakeDelivery = () => {
+    setCurrentPage('cakedelivery')
+  }
+
+  const handleNavigateToFilter = () => {
+    setCurrentPage('filter')
+  }
+
   return (
     <>
       {currentPage === 'serviceconnect' ? (
@@ -137,7 +152,7 @@ function App() {
 
       ) : currentPage === 'congratulations' ? (
         <CongratulationsPopup
-         onNavigateToLogin={handleNavigateToLogin}
+          onNavigateToLogin={handleNavigateToLogin}
         />
 
       ) : currentPage === 'registerservice' ? (
@@ -147,25 +162,49 @@ function App() {
 
       ) : currentPage === 'servicecongrats' ? (
         <ServiceCongrats
-          onNavigateToHome={handleNavigateToHome} 
+          onNavigateToHome={handleNavigateToHome}
         />
 
       ) : currentPage === 'home' ? (
         <Home
           onNavigateToAllCategory={handleNavigateToAllCategory}
           onNavigateToCategory={handleNavigateToDeliveryServices}
+          onNavigateToSearch={handleNavigateToSearch}
         />
 
       ) : currentPage === 'allcategory' ? (
         <AllCategoryUI
           onNavigateToHome={handleNavigateToHome}
           onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
+          onNavigateToSearch={handleNavigateToSearch}
+        />
+
+      ) : currentPage === 'search' ? (
+        <Search
+          onNavigateToAllCategory={handleNavigateToAllCategory}
+          onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
+          onNavigateToCakeDelivery={handleNavigateToCakeDelivery}
+        />
+
+      ) : currentPage === 'cakedelivery' ? (
+        <CakeDelivery
+          onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
+           onNavigateToFilter={handleNavigateToFilter}
+        />
+
+      ) : currentPage === 'filter' ? (
+        <Filter
+          onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
+           onNavigateToCakeDelivery={handleNavigateToCakeDelivery}
         />
 
       ) : (
         <DeliveryServicesUI
           onNavigateToHome={handleNavigateToHome}
           onNavigateToAllCategories={handleNavigateToAllCategory}
+          onNavigateToSearch={handleNavigateToSearch}
+          onNavigateToCakeDelivery={handleNavigateToCakeDelivery}
+          onNavigateToFilter={handleNavigateToFilter}
           category={selectedCategory}
         />
       )}

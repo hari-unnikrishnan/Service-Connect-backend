@@ -8,7 +8,9 @@ from .views import (
     UserLocationViewSet, AuthView, RegisterView, OTPVerificationView, 
     ResendOTPView, LogoutView, ProfileUpdateView,
     PasswordResetRequestView, PasswordResetVerifyView, PasswordResetConfirmView,
-    ServiceRegistrationView, HomeDataView, DeliveryServicesView
+    ServiceRegistrationView, HomeDataView, DeliveryServicesView,
+    SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
+    CongratulationsView, ServiceCongratsView
 )
 
 
@@ -69,4 +71,19 @@ urlpatterns = [
     
     # Delivery services
     path('services/delivery/', DeliveryServicesView.as_view(), name='delivery-services'),
+    
+    # Search and filter
+    path('search/', SearchView.as_view(), name='search'),
+    path('services/filter/', FilterServicesView.as_view(), name='filter-services'),
+    
+    # Cake delivery
+    path('services/cake-delivery/', CakeDeliveryView.as_view(), name='cake-delivery'),
+    
+    # Service Connect (category services)
+    path('services/category/', CategoryServicesView.as_view(), name='category-services'),
+    
+    # Congratulations endpoints
+    path('congratulations/', CongratulationsView.as_view(), name='congratulations'),
+    path('service-congrats/', ServiceCongratsView.as_view(), name='service-congrats'),
 ]
+

@@ -193,6 +193,47 @@ export const getDeliveryServices = async () => {
   return response.json();
 };
 
+// Get cake delivery services
+export const getCakeDeliveryServices = async () => {
+  const response = await fetch(`${API_BASE_URL}/services/cake-delivery/`);
+  return response.json();
+};
+
+// Search services, providers, and categories
+export const searchServices = async (query, type = 'all') => {
+  const response = await fetch(`${API_BASE_URL}/search/?q=${encodeURIComponent(query)}&type=${type}`);
+  return response.json();
+};
+
+// Filter services by category, price range, etc.
+export const filterServices = async (filters) => {
+  const params = new URLSearchParams();
+  if (filters.category) params.append('category', filters.category);
+  if (filters.min_price) params.append('min_price', filters.min_price);
+  if (filters.max_price) params.append('max_price', filters.max_price);
+  if (filters.sort_by) params.append('sort_by', filters.sort_by);
+  const response = await fetch(`${API_BASE_URL}/services/filter/?${params.toString()}`);
+  return response.json();
+};
+
+// Get services by category (Service Connect)
+export const getServicesByCategoryName = async (categoryIdOrName) => {
+  const response = await fetch(`${API_BASE_URL}/services/category/?category_id=${categoryIdOrName}`);
+  return response.json();
+};
+
+// Get congratulations message
+export const getCongratulations = async (action) => {
+  const response = await fetch(`${API_BASE_URL}/congratulations/?action=${action || 'default'}`);
+  return response.json();
+};
+
+// Get service registration congratulations
+export const getServiceCongrats = async () => {
+  const response = await fetch(`${API_BASE_URL}/service-congrats/`);
+  return response.json();
+};
+
 // ==================== PROVIDER API ====================
 
 // Register as service provider
@@ -317,6 +358,12 @@ export default {
   getPopularServices,
   getServicesByCategory,
   getDeliveryServices,
+  getCakeDeliveryServices,
+  searchServices,
+  filterServices,
+  getServicesByCategoryName,
+  getCongratulations,
+  getServiceCongrats,
   registerAsProvider,
   getTopProviders,
   getHomeData,

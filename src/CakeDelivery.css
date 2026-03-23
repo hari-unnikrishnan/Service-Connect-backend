@@ -1,0 +1,161 @@
+.cake-page {
+  background: #ededed;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.cake-phone {
+  /* width: 430px; */
+  background: #ededed;
+}
+h1{
+        color: #ffffff;
+    font-size: 18px;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+.cake-header {
+ background: #111427;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 24px;
+}
+
+.cake-left,
+.cake-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cake-back-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background: transparent;
+  color: white;
+}
+
+.icon-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid #2d314f;
+  background: transparent;
+  color: white;
+}
+
+.location-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  color: black;
+}
+
+.open-request-btn {
+  margin: 0 24px;
+  width: calc(100% - 48px);
+  height: 62px;
+  border: none;
+  border-radius: 32px;
+  background: #23263a;
+  color: white;
+  font-size: 20px;
+}
+
+.distance-filter {
+  margin: 18px 24px;
+  display: flex;
+  background: white;
+  border-radius: 34px;
+  box-shadow: 0 3px 10px rgba(0,0,0,.2);
+  border: 2px solid black;
+}
+
+.distance-filter button {
+  flex: 1;
+  height: 60px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  color: black;
+}
+
+.distance-filter .active {
+  background: #16192c;
+  color: white;
+  border-radius: 34px;
+}
+
+.provider-list {
+  padding: 0 24px 120px;
+}
+
+.provider-card {
+  display: flex;
+  background: white;
+  border-radius: 24px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+.provider-image {
+  width: 160px;
+  background: black;
+}
+
+.provider-info {
+  flex: 1;
+  padding: 18px;
+}
+
+.distance {
+  color: orange;
+  font-size: 18px;
+}
+
+.provider-info h3 {
+  color: #1c2036;
+  margin: 8px 0;
+}
+
+.provider-info h2 {
+  color: #1c2036;
+}
+
+.provider-meta {
+  display: flex;
+  gap: 10px;
+  color: #1c2036;
+  margin-top: 12px;
+}
+
+.bookmark-box {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #1c2036;
+  font-size: 12px;
+}
+
+.cake-bottom-nav {
+  margin: 18px;
+    background: #7d7474;
+    border-radius: 22px;
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    color: white;
+    margin-top: 30px;
+}

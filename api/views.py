@@ -58,8 +58,8 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            # Hardcoded OTP '123456' for testing (in production, use generate_otp() + SMS)
-            otp = '123456'
+            # Generate and store OTP (in production, send via SMS)
+            otp = generate_otp()
             _otp_store[user.id] = {
                 'otp': otp,
                 'expires_at': None  # Add expiration logic if needed
@@ -544,3 +544,216 @@ class DeliveryServicesView(APIView):
 
 # Password reset OTP store
 _password_reset_otp_store = {}
+
+
+class SearchView(APIView):
+    """Search endpoint for services, providers, and categories"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Search for services, providers, and categories"""
+        query = request.query_params.get('q', '')
+        search_type = request.query_params.get('type', 'all')  # all, services, providers, categories
+        
+        if not query:
+            return Response(
+                {'error': 'Search query is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        results = {
+            'services': [],
+            'providers': [],
+            'categories': []
+        }
+        
+        # Search services
+        if search_type in ['all', 'services']:
+            services = Service.objects.filter(
+                is_active=True,
+                name__icontains=query
+            )[:20]
+            results['services'] = ServiceSerializer(services, many=True).data
+        
+        # Search providers
+        if search_type in ['all', 'providers']:
+            providers = ProviderProfile.objects.filter(
+                user__username__icontains=query,
+                service_type__icontains=query
+            )[:20]
+            results['providers'] = ProviderProfileSerializer(providers, many=True).data
+        
+        # Search categories
+        if search_type in ['all', 'categories']:
+            categories = Category.objects.filter(
+                is_active=True,
+                name__icontains=query
+            )[:20]
+            results['categories'] = CategorySerializer(categories, many=True).data
+        
+        return Response(results, status=status.HTTP_200_OK)
+
+
+class FilterServicesView(APIView):
+    """Filter services by various criteria"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Filter services by category, price range, location"""
+        category_id = request.query_params.get('category')
+        min_price = request.query_params.get('min_price')
+        max_price = request.query_params.get('max_price')
+        city = request.query_params.get('city')
+        sort_by = request.query_params.get('sort_by', 'name')  # name, price_low, price_high, rating
+        
+        queryset = Service.objects.filter(is_active=True)
+        
+        # Filter by category
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        
+        # Filter by price range
+        if min_price:
+            queryset = queryset.filter(price_min__gte=min_price)
+        if max_price:
+            queryset = queryset.filter(price_max__lte=max_price)
+        
+        # Sort results
+        if sort_by == 'price_low':
+            queryset = queryset.order_by('price_min')
+        elif sort_by == 'price_high':
+            queryset = queryset.order_by('-price_max')
+        elif sort_by == 'rating':
+            # Sort by provider rating (requires join)
+            queryset = queryset.select_related('category').order_by('name')
+        else:
+            queryset = queryset.order_by('name')
+        
+        serializer = ServiceSerializer(queryset, many=True)
+        return Response({
+            'count': queryset.count(),
+            'services': serializer.data
+        }, status=status.HTTP_200_OK)
+
+
+class CakeDeliveryView(APIView):
+    """Cake delivery services endpoint"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Get cake delivery services"""
+        category_name = request.query_params.get('category', 'cake delivery')
+        
+        try:
+            category = Category.objects.get(
+                name__iexact=category_name, 
+                is_active=True
+            )
+        except Category.DoesNotExist:
+            return Response({
+                'category': None,
+                'services': []
+            }, status=status.HTTP_200_OK)
+        
+        services = Service.objects.filter(
+            category=category, 
+            is_active=True
+        )
+        
+        return Response({
+            'category': CategorySerializer(category).data,
+            'services': ServiceSerializer(services, many=True).data
+        }, status=status.HTTP_200_OK)
+
+
+class CategoryServicesView(APIView):
+    """Get all services for a specific category (Service Connect)"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Get services for a specific category"""
+        category_id = request.query_params.get('category_id')
+        category_name = request.query_params.get('category_name')
+        
+        if category_id:
+            try:
+                category = Category.objects.get(id=category_id, is_active=True)
+            except Category.DoesNotExist:
+                return Response(
+                    {'error': 'Category not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        elif category_name:
+            try:
+                category = Category.objects.get(name__iexact=category_name, is_active=True)
+            except Category.DoesNotExist:
+                return Response(
+                    {'error': 'Category not found'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+        else:
+            return Response(
+                {'error': 'category_id or category_name is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        services = Service.objects.filter(category=category, is_active=True)
+        
+        return Response({
+            'category': CategoryDetailSerializer(category).data,
+            'services': ServiceSerializer(services, many=True).data
+        }, status=status.HTTP_200_OK)
+
+
+class CongratulationsView(APIView):
+    """Handle congratulations/popup after successful actions"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Get congratulations message and status"""
+        action = request.query_params.get('action', 'default')
+        
+        messages = {
+            'registration': {
+                'title': 'Registration Successful!',
+                'message': 'Your account has been created successfully.',
+                'icon': 'check-circle'
+            },
+            'profile_update': {
+                'title': 'Profile Updated!',
+                'message': 'Your profile has been updated successfully.',
+                'icon': 'user-check'
+            },
+            'service_register': {
+                'title': 'Service Registered!',
+                'message': 'Your service has been registered successfully.',
+                'icon': 'briefcase'
+            },
+            'booking': {
+                'title': 'Booking Confirmed!',
+                'message': 'Your booking has been confirmed.',
+                'icon': 'calendar-check'
+            },
+            'default': {
+                'title': 'Success!',
+                'message': 'Operation completed successfully.',
+                'icon': 'check'
+            }
+        }
+        
+        return Response(messages.get(action, messages['default']), status=status.HTTP_200_OK)
+
+
+class ServiceCongratsView(APIView):
+    """Service registration congratulations"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        """Get service registration success message"""
+        return Response({
+            'title': 'Congratulations!',
+            'message': 'Your service has been registered successfully. You can now start receiving bookings.',
+            'subtitle': 'Welcome to Service Connect',
+            'icon': 'celebration'
+        }, status=status.HTTP_200_OK)
+
