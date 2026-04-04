@@ -1,8 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth import authenticate
+from django.utils import timezone
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation
+    Booking, Review, Offer, UserLocation, Request
 )
 
 
@@ -251,3 +252,27 @@ class ServiceRegistrationSerializer(serializers.ModelSerializer):
             defaults=validated_data
         )
         return provider_profile
+
+
+class RequestSerializer(serializers.ModelSerializer):
+    customer_name = serializers.CharField(source='customer.username', read_only=True)
+    provider_name = serializers.CharField(source='provider.username', read_only=True)
+    service_name = serializers.CharField(source='service.name', read_only=True)
+    location_label = serializers.CharField(source='location.label', read_only=True)
+    
+    class Meta:
+        model = Request
+        fields = [
+            'id', 'customer', 'customer_name', 'provider', 'provider_name', 
+            'service', 'service_name', 'status', 'priority', 'title', 
+            'description', 'requested_date', 'address', 'location', 
+            'location_label', 'estimated_cost', 'actual_cost', 'notes', 
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'customer_name', 'provider_name', 'service_name', 'location_label', 'created_at', 'updated_at']
+    
+    def validate(self, data):
+        # Validate requested_date is in the future
+        if data.get('requested_date') and data['requested_date'] <= timezone.now():
+            raise serializers.ValidationError("Requested date must be in the future")
+        return data

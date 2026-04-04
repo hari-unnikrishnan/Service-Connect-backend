@@ -10,7 +10,8 @@ from .views import (
     PasswordResetRequestView, PasswordResetVerifyView, PasswordResetConfirmView,
     ServiceRegistrationView, HomeDataView, DeliveryServicesView,
     SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
-    CongratulationsView, ServiceCongratsView
+    CongratulationsView, ServiceCongratsView, ProfileAPIView,
+    RequestView, BookingListView, BookingDetailView, BookingStatusUpdateView
 )
 
 
@@ -40,6 +41,7 @@ router.register(r'reviews', ReviewViewSet)
 router.register(r'offers', OfferViewSet)
 router.register(r'locations', UserLocationViewSet)
 
+
 urlpatterns = [
     path('', APIRootView.as_view(), name='api-root'),
     
@@ -60,6 +62,9 @@ urlpatterns = [
     
     # Service provider registration (use 'provider-register' to avoid conflict with router)
     path('provider-register/', ServiceRegistrationView.as_view(), name='provider-register'),
+    
+    # Profile API endpoint
+    path('profile/<int:provider_id>/', ProfileAPIView.as_view(), name='profile-detail'),
     
     # Service endpoints
     path('categories/all/', CategoryViewSet.as_view({'get': 'all'}), name='category-all'),
@@ -85,5 +90,15 @@ urlpatterns = [
     # Congratulations endpoints
     path('congratulations/', CongratulationsView.as_view(), name='congratulations'),
     path('service-congrats/', ServiceCongratsView.as_view(), name='service-congrats'),
+
+    # REQUEST
+    path('requests/', RequestView.as_view(), name='requests'),
+
+    # BOOKINGS
+    path('bookings/', BookingListView.as_view(), name='booking-list'),
+    path('bookings/<int:pk>/', BookingDetailView.as_view(), name='booking-detail'),
+    path('bookings/<int:pk>/status/', BookingStatusUpdateView.as_view(), name='booking-status'),
+    
+   
 ]
 

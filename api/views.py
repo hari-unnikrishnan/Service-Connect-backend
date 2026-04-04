@@ -9,14 +9,14 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation
+    Booking, Review, Offer, UserLocation, Request
 )
 from .serializers import (
     UserSerializer, CategorySerializer, CategoryDetailSerializer, ServiceSerializer,
     ProviderProfileSerializer, BookingSerializer, ReviewSerializer, OfferSerializer,
     RegisterSerializer, LoginSerializer, OTPSerializer, UserLocationSerializer,
     PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileUpdateSerializer,
-    ServiceRegistrationSerializer
+    ServiceRegistrationSerializer,BookingSerializer, RequestSerializer
 )
 import random
 import string
@@ -498,6 +498,43 @@ class HomeDataView(APIView):
         # Get top providers
         top_providers = ProviderProfile.objects.order_by('-rating', '-review_count')[:10]
         providers_data = ProviderProfileSerializer(top_providers, many=True).data
+
+
+class ProfileAPIView(APIView):
+    """Profile API endpoint for fetching provider profile data"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request, provider_id):
+        """Get provider profile data"""
+        try:
+            provider = User.objects.get(id=provider_id)
+            provider_profile = ProviderProfile.objects.get(user=provider)
+            services = Service.objects.filter(category__name=provider_profile.service_type)
+            
+            # Get reviews for this provider
+            reviews = Review.objects.filter(provider=provider)[:5]
+            
+            return Response({
+                'profile': {
+                    'id': provider.id,
+                    'username': provider.username,
+                    'phone': provider.phone,
+                    'address': provider.address,
+                    'profile_image': provider.profile_image.url if provider.profile_image else None,
+                    'bio': provider_profile.bio,
+                    'service_type': provider_profile.service_type,
+                    'rating': provider_profile.rating,
+                    'review_count': provider_profile.review_count,
+                    'is_verified': provider_profile.is_verified,
+                    'created_at': provider_profile.created_at
+                },
+                'services': ServiceSerializer(services, many=True).data,
+                'reviews': ReviewSerializer(reviews, many=True).data
+            }, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({'error': 'Provider not found'}, status=status.HTTP_404_NOT_FOUND)
+        except ProviderProfile.DoesNotExist:
+            return Response({'error': 'Provider profile not found'}, status=status.HTTP_404_NOT_FOUND)
         
         # Get active offers
         offers = Offer.objects.filter(is_active=True)[:5]
@@ -757,3 +794,46 @@ class ServiceCongratsView(APIView):
             'icon': 'celebration'
         }, status=status.HTTP_200_OK)
 
+# ✅ CREATE REQUEST
+class RequestView(APIView):
+    def post(self, request):
+        serializer = RequestSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(
+                {"message": "Request created", "data": serializer.data},
+                status=status.HTTP_201_CREATED
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+ # ✅ LIST BOOKINGS
+class BookingListView(APIView):
+    def get(self, request):
+        bookings = Booking.objects.all().order_by("-id")
+        serializer = BookingSerializer(bookings, many=True)
+        return Response(serializer.data)  
+
+ # ✅ BOOKING DETAIL
+class BookingDetailView(APIView):
+    def get(self, request, pk):
+        try:
+            booking = Booking.objects.get(pk=pk)
+        except Booking.DoesNotExist:
+            return Response({"error": "Not found"}, status=404)
+
+        serializer = BookingSerializer(booking)
+        return Response(serializer.data)    
+    
+    # ✅ UPDATE STATUS
+class BookingStatusUpdateView(APIView):
+    def patch(self, request, pk):
+        try:
+            booking = Booking.objects.get(pk=pk)
+        except Booking.DoesNotExist:
+            return Response({"error": "Not found"}, status=404)
+
+        status_value = request.data.get("status")
+        booking.status = status_value
+        booking.save()
+
+        return Response({"message": "Status updated"})

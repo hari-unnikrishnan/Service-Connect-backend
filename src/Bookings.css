@@ -1,0 +1,200 @@
+/* PAGE */
+.bookings-page {
+  background: #f2f2f2;
+  min-height: 100vh;
+  /* display: flex;
+  justify-content: center; */
+}
+
+.bookings-container {
+  /* width: 420px; */
+  padding-bottom: 2px;
+}
+
+/* HEADER */
+.bookings-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* CARD */
+.booking-card {
+  background: #fff;
+  margin: 20px;
+  border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.card-left {
+  width: 8px;
+}
+
+.card-left.dark {
+  background: #1c2036;
+}
+
+.card-left.green {
+  background: green;
+}
+
+.card-content {
+  padding: 15px;
+  width: 100%;
+}
+
+/* TOP */
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-top h3 {
+  flex: 1;
+}
+
+.view {
+  font-size: 12px;
+  text-decoration: underline;
+}
+
+.close {
+  margin-left: auto;
+  cursor: pointer;
+   color: #383838;
+}
+/* USER */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  background: #d6d6f2;
+  border-radius: 50%;
+}
+/* TEXT */
+.name {
+  color: #999;
+}
+
+.status {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* DATE */
+.date-time {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+/* BUTTONS */
+.waiting-btn {
+  width: 100%;
+  background: #1c2036;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+}
+
+.accept-btn {
+  width: 100%;
+  background: green;
+  color: white;
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* EXTRA */
+.amount {
+  margin: 5px 0;
+ color:  #5d5d5d;
+}
+
+.warning {
+  color: red;
+  font-size: 13px;
+}
+
+/* FOOTER */
+.bottom-navs {
+  margin: 18px;
+    background: #7d7474;
+    border-radius: 22px;
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    color: white;
+    margin-top: 88px;
+}
+.date-text{
+     color:  #5d5d5d;
+}
+
+.accept-btn-arrow-icon{
+    background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+}
+
+
+
+/* TEXT */
+.btn-text {
+  flex: 1;
+  text-align: center;
+}
+
+/* CHECK ICON */
+.btn-check {
+  font-size: 16px;
+  margin-right: 26px;
+}
+
+/* RIGHT ARROW CIRCLE */
+.arrow-circle {
+  background: #fff;
+  color: #1f7a1f;
+
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+}

@@ -17,6 +17,11 @@ import DeliveryServicesUI from './Delivery Services.jsx'
 import Search from './Search.jsx'
 import CakeDelivery from './CakeDelivery.jsx'
 import Filter from './Filter.jsx'
+import Profile from './Profile.jsx'
+import Request from './Request.jsx'
+import Bookings from './Bookings.jsx'
+import BookingDetails from './BookingDetails.jsx'
+import PaymentMethods from './PaymentMethods.jsx'   
 import './App.css'
 
 function App() {
@@ -24,75 +29,47 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [userId, setUserId] = useState(null)
 
-  const handleNavigateToLogin = () => {
-    setCurrentPage('login')
-  }
-
-  const handleNavigateToRegister = () => {
-    setCurrentPage('register')
-  }
-
-  const handleNavigateToOTP = () => {
-    setCurrentPage('otp')
-  }
-
-  const handleNavigateToLocation = () => {
-    setCurrentPage('location')
-  }
-
-  const handleNavigateToFillProfile = () => {
-    setCurrentPage('FillProfile')
-  }
-
-  const handleNavigateToForgotPassword = () => {
-    setCurrentPage('forgotpassword')
-  }
-
-  const handleNavigateToVerifyOtp = () => {
-    setCurrentPage('verifyotp')
-  }
-
-  const handleNavigateToCreateNewPassword = () => {
-    setCurrentPage('createnewpassword')
-  }
-
-  const handleNavigateToCongratulations = () => {
-    setCurrentPage('congratulations')
-  }
-
-  const handleNavigateToRegisterService = () => {
-    setCurrentPage('registerservice')
-  }
-
-  const handleNavigateToServiceCongrats = () => {
-    setCurrentPage('servicecongrats')
-  }
+  // NAVIGATION
+  const handleNavigateToLogin = () => setCurrentPage('login')
+  const handleNavigateToRegister = () => setCurrentPage('register')
+  const handleNavigateToOTP = () => setCurrentPage('otp')
+  const handleNavigateToLocation = () => setCurrentPage('location')
+  const handleNavigateToFillProfile = () => setCurrentPage('FillProfile')
+  const handleNavigateToForgotPassword = () => setCurrentPage('forgotpassword')
+  const handleNavigateToVerifyOtp = () => setCurrentPage('verifyotp')
+  const handleNavigateToCreateNewPassword = () => setCurrentPage('createnewpassword')
+  const handleNavigateToCongratulations = () => setCurrentPage('congratulations')
+  const handleNavigateToRegisterService = () => setCurrentPage('registerservice')
+  const handleNavigateToServiceCongrats = () => setCurrentPage('servicecongrats')
 
   const handleNavigateToHome = () => {
     setCurrentPage('home')
     setSelectedCategory(null)
   }
 
-  const handleNavigateToAllCategory = () => {
-    setCurrentPage('allcategory')
-  }
+  const handleNavigateToAllCategory = () => setCurrentPage('allcategory')
 
   const handleNavigateToDeliveryServices = (category) => {
     setSelectedCategory(category)
     setCurrentPage('deliveryservices')
   }
 
-  const handleNavigateToSearch = () => {
-    setCurrentPage('search')
-  }
+  const handleNavigateToSearch = () => setCurrentPage('search')
+  const handleNavigateToCakeDelivery = () => setCurrentPage('cakedelivery')
+  const handleNavigateToFilter = () => setCurrentPage('filter')
+  const handleNavigateToProfile = () => setCurrentPage('profile')
 
-  const handleNavigateToCakeDelivery = () => {
-    setCurrentPage('cakedelivery')
-  }
+  // REQUEST
+  const handleNavigateToRequest = () => setCurrentPage('request')
 
-  const handleNavigateToFilter = () => {
-    setCurrentPage('filter')
-  }
+  // BOOKINGS
+  const handleNavigateToBookings = () => setCurrentPage('bookings')
+
+  // BOOKING DETAILS
+  const handleNavigateToBookingDetails = () => setCurrentPage('bookingdetails')
+
+  // ✅ PAYMENT METHODS
+  const handleNavigateToPaymentMethods = () => setCurrentPage('paymentmethods')
 
   return (
     <>
@@ -170,6 +147,8 @@ function App() {
           onNavigateToAllCategory={handleNavigateToAllCategory}
           onNavigateToCategory={handleNavigateToDeliveryServices}
           onNavigateToSearch={handleNavigateToSearch}
+          onNavigateToProfile={handleNavigateToProfile}
+          onNavigateToBookings={handleNavigateToBookings}
         />
 
       ) : currentPage === 'allcategory' ? (
@@ -189,13 +168,44 @@ function App() {
       ) : currentPage === 'cakedelivery' ? (
         <CakeDelivery
           onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
-           onNavigateToFilter={handleNavigateToFilter}
+          onNavigateToFilter={handleNavigateToFilter}
+          onNavigateToProfile={handleNavigateToProfile}
         />
 
       ) : currentPage === 'filter' ? (
         <Filter
           onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
-           onNavigateToCakeDelivery={handleNavigateToCakeDelivery}
+          onNavigateToCakeDelivery={handleNavigateToCakeDelivery}
+        />
+
+      ) : currentPage === 'profile' ? (
+        <Profile
+          onNavigateBack={handleNavigateToCakeDelivery}
+          onNavigateToRequest={handleNavigateToRequest}
+        />
+
+      ) : currentPage === 'request' ? (
+        <Request
+          onNavigateBack={handleNavigateToProfile}
+          onNavigateToBookings={handleNavigateToBookings}
+        />
+
+      ) : currentPage === 'bookings' ? (
+        <Bookings
+          onNavigateBack={handleNavigateToRequest}
+          onNavigateToBookingDetails={handleNavigateToBookingDetails}
+        />
+
+      ) : currentPage === 'bookingdetails' ? (
+        <BookingDetails
+          onNavigateBack={handleNavigateToBookings}
+          onNavigateToPaymentMethods={handleNavigateToPaymentMethods}
+        />
+
+      ) : currentPage === 'paymentmethods' ? (
+        <PaymentMethods
+          onNavigateBack={handleNavigateToBookingDetails}
+          onNavigateToHome={handleNavigateToHome}
         />
 
       ) : (
