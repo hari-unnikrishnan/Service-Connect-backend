@@ -21,13 +21,16 @@ import Profile from './Profile.jsx'
 import Request from './Request.jsx'
 import Bookings from './Bookings.jsx'
 import BookingDetails from './BookingDetails.jsx'
-import PaymentMethods from './PaymentMethods.jsx'   
+import PaymentMethods from './PaymentMethods.jsx'
+import PaymentSuccess from './PaymentSuccess.jsx'  
 import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('serviceconnect')
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [selectedPayment, setSelectedPayment] = useState(null)
+  const [paymentAmount, setPaymentAmount] = useState(0)
 
   // NAVIGATION
   const handleNavigateToLogin = () => setCurrentPage('login')
@@ -68,8 +71,15 @@ function App() {
   // BOOKING DETAILS
   const handleNavigateToBookingDetails = () => setCurrentPage('bookingdetails')
 
-  // ✅ PAYMENT METHODS
+  // PAYMENT METHODS
   const handleNavigateToPaymentMethods = () => setCurrentPage('paymentmethods')
+
+  // PAYMENT SUCCESS
+  const handlePaymentSuccess = (selected, amount) => {
+    setSelectedPayment(selected)
+    setPaymentAmount(amount)
+    setCurrentPage('paymentsuccess')
+  }
 
   return (
     <>
@@ -205,8 +215,17 @@ function App() {
       ) : currentPage === 'paymentmethods' ? (
         <PaymentMethods
           onNavigateBack={handleNavigateToBookingDetails}
-          onNavigateToHome={handleNavigateToHome}
+          onSuccess={handlePaymentSuccess}
         />
+
+
+      ) : currentPage === 'paymentsuccess' ? (
+        <PaymentSuccess
+          selected={selectedPayment}
+          amount={paymentAmount}
+          onClose={handleNavigateToHome}
+        />
+
 
       ) : (
         <DeliveryServicesUI

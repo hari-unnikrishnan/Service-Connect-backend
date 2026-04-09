@@ -1,0 +1,119 @@
+/* OVERLAY */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #1c2036;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.success-card {
+  width: 340px;
+  background: #f5f6f7;
+  border-radius: 30px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+}
+
+/* CLOSE */
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  cursor: pointer;
+}
+
+/* GRAPHIC */
+.success-graphic {
+  margin-bottom: 20px;
+}
+
+.stars {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.shield {
+  width: 60px;
+  height: 60px;
+  background: #2bb673;
+  color: white;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  font-size: 24px;
+}
+
+/* TEXT */
+.success-card h2 {
+  color: #1c2036;
+  margin-bottom: 10px;
+}
+
+.success-text {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.watch-link {
+  color: #1fa67a;
+  font-weight: bold;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.receipt-btn {
+  width: 100%;
+  background: #1c2036;
+  color: white;
+  padding: 14px;
+  border-radius: 40px;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* PAY MESSAGE */
+.pay-message {
+  position: relative;
+  width: 100%;
+  background: #1c2036;
+  color: white;
+  padding: 16px;
+  border-radius: 40px;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pay-message .arrow {
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+  position: static;
+  margin-left: 10px;
+}
+
+.arrow {
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+}

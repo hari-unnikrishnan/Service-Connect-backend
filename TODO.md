@@ -1,19 +1,15 @@
-# Task Progress: Connection Error Fixed
+# Fix Razorpay ModuleNotFoundError - Progress Tracker
 
-## Completed Steps
-- [x] Fixed corrupted db.sqlite3 (delete + fresh migrations)
-- [x] Corrected ALLOWED_HOSTS in settings.py
-- [x] Started Django server (http://127.0.0.1:8000/)
-- [x] Started Vite dev server (http://localhost:5173)
-- [x] Created superuser (admin@12gmai.com / 1234)
-- [x] Verified API connectivity (/api/categories/ works)
+## Plan Steps:
+1. ✅ Create requirements.txt with dependencies including razorpay
+2. ✅ Add Razorpay keys to service_connect_backend/settings.py (placeholders)
+3. ✅ Dependencies installing (pip install -r requirements.txt running)
+4. [ ] User: Replace placeholder Razorpay keys with real ones from dashboard (rzp_test_... for testing)
+5. [ ] Run `python manage.py makemigrations && python manage.py migrate`
+6. [ ] Test: `python manage.py runserver`
+7. [ ] Test payment endpoint POST /api/create-razorpay-order/ with {"amount": 55}
 
-## Fixed Issues
-- [x] FillProfile.jsx export confirmed (already present)
-
-## Next Steps
-1. Hardcode OTP to '123456' in backend
-2. Start dev servers
-3. Test full flow: Register -> OTP(123456) -> Location -> FillProfile -> RegisterService
-
-App ready for testing.
+## Notes:
+- Razorpay test keys: Sign up at dashboard.razorpay.com, use test mode.
+- Server should start after install.
+- Frontend ready with PaymentMethods.jsx etc.

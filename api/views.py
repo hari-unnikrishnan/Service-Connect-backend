@@ -837,3 +837,29 @@ class BookingStatusUpdateView(APIView):
         booking.save()
 
         return Response({"message": "Status updated"})
+
+
+from django.conf import settings
+import razorpay
+
+
+class CreateRazorpayOrder(APIView):
+    def post(self, request):
+        client = razorpay.Client(auth=(
+            settings.RAZORPAY_KEY_ID,
+            settings.RAZORPAY_KEY_SECRET
+        ))
+
+        amount = int(request.data.get("amount", 55)) * 100  # ₹ → paise
+
+        order = client.order.create({
+            "amount": amount,
+            "currency": "INR",
+            "payment_capture": 1
+        })
+
+        return Response({
+            "order_id": order["id"],
+            "amount": order["amount"],
+            "key": settings.RAZORPAY_KEY_ID
+        })

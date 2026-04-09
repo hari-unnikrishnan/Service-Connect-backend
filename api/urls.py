@@ -11,7 +11,8 @@ from .views import (
     ServiceRegistrationView, HomeDataView, DeliveryServicesView,
     SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
     CongratulationsView, ServiceCongratsView, ProfileAPIView,
-    RequestView, BookingListView, BookingDetailView, BookingStatusUpdateView
+    RequestView, BookingListView, BookingDetailView, BookingStatusUpdateView,
+    CreateRazorpayOrder
 )
 
 
@@ -98,7 +99,6 @@ urlpatterns = [
     path('bookings/', BookingListView.as_view(), name='booking-list'),
     path('bookings/<int:pk>/', BookingDetailView.as_view(), name='booking-detail'),
     path('bookings/<int:pk>/status/', BookingStatusUpdateView.as_view(), name='booking-status'),
-    
-   
+    path('payments/create-order/', CreateRazorpayOrder.as_view(), name='create-razorpay-order'),
 ]
 

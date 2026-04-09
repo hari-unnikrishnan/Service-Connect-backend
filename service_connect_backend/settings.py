@@ -120,6 +120,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Razorpay Configuration (Replace with your real keys from dashboard)
+RAZORPAY_KEY_ID = 'rzp_test_YOUR_KEY_ID_HERE'
+RAZORPAY_KEY_SECRET = 'YOUR_KEY_SECRET_HERE'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
