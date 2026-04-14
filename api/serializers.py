@@ -272,7 +272,27 @@ class RequestSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'customer_name', 'provider_name', 'service_name', 'location_label', 'created_at', 'updated_at']
     
     def validate(self, data):
-        # Validate requested_date is in the future
+# Validate requested_date is in the future
         if data.get('requested_date') and data['requested_date'] <= timezone.now():
             raise serializers.ValidationError("Requested date must be in the future")
         return data
+
+class EReceiptSerializer(serializers.ModelSerializer):
+    customer_name = serializers.CharField(source='customer.username', read_only=True)
+    customer_email = serializers.CharField(source='customer.email', read_only=True)
+    service_category = serializers.CharField(source='service.category.name', read_only=True)
+    service_name = serializers.CharField(source='service.name', read_only=True)
+    transaction_id = serializers.CharField(source='payment_id', read_only=True)
+    price = serializers.DecimalField(source='total_price', max_digits=10, decimal_places=2, read_only=True)
+    date_str = serializers.SerializerMethodField()
+    status_display = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Booking
+        fields = ['customer_name', 'customer_email', 'service_category', 'service_name', 'transaction_id', 'price', 'date_str', 'status_display']
+    
+    def get_date_str(self, obj):
+        return obj.created_at.strftime('%b %d, %Y / %H:%M')
+    
+    def get_status_display(self, obj):
+        return obj.get_status_display()

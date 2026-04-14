@@ -18,17 +18,20 @@ import Search from './Search.jsx'
 import CakeDelivery from './CakeDelivery.jsx'
 import Filter from './Filter.jsx'
 import Profile from './Profile.jsx'
+import Review from './Review.jsx'  
 import Request from './Request.jsx'
 import Bookings from './Bookings.jsx'
 import BookingDetails from './BookingDetails.jsx'
 import PaymentMethods from './PaymentMethods.jsx'
-import PaymentSuccess from './PaymentSuccess.jsx'  
+import PaymentSuccess from './PaymentSuccess.jsx'
+import EReceipt from './EReceipt.jsx'
 import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('serviceconnect')
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [userId, setUserId] = useState(null)
+
   const [selectedPayment, setSelectedPayment] = useState(null)
   const [paymentAmount, setPaymentAmount] = useState(0)
 
@@ -62,6 +65,9 @@ function App() {
   const handleNavigateToFilter = () => setCurrentPage('filter')
   const handleNavigateToProfile = () => setCurrentPage('profile')
 
+  // ✅ REVIEW
+  const handleNavigateToReview = () => setCurrentPage('review')
+
   // REQUEST
   const handleNavigateToRequest = () => setCurrentPage('request')
 
@@ -80,6 +86,9 @@ function App() {
     setPaymentAmount(amount)
     setCurrentPage('paymentsuccess')
   }
+
+  // E RECEIPT
+  const handleNavigateToEReceipt = () => setCurrentPage('ereceipt')
 
   return (
     <>
@@ -138,19 +147,13 @@ function App() {
         />
 
       ) : currentPage === 'congratulations' ? (
-        <CongratulationsPopup
-          onNavigateToLogin={handleNavigateToLogin}
-        />
+        <CongratulationsPopup onNavigateToLogin={handleNavigateToLogin} />
 
       ) : currentPage === 'registerservice' ? (
-        <RegisterService
-          onNavigateToServiceCongrats={handleNavigateToServiceCongrats}
-        />
+        <RegisterService onNavigateToServiceCongrats={handleNavigateToServiceCongrats} />
 
       ) : currentPage === 'servicecongrats' ? (
-        <ServiceCongrats
-          onNavigateToHome={handleNavigateToHome}
-        />
+        <ServiceCongrats onNavigateToHome={handleNavigateToHome} />
 
       ) : currentPage === 'home' ? (
         <Home
@@ -192,6 +195,12 @@ function App() {
         <Profile
           onNavigateBack={handleNavigateToCakeDelivery}
           onNavigateToRequest={handleNavigateToRequest}
+          onNavigateToReview={handleNavigateToReview}   // ✅
+        />
+
+      ) : currentPage === 'review' ? (
+        <Review
+          onNavigateBack={handleNavigateToProfile}
         />
 
       ) : currentPage === 'request' ? (
@@ -218,14 +227,22 @@ function App() {
           onSuccess={handlePaymentSuccess}
         />
 
-
       ) : currentPage === 'paymentsuccess' ? (
         <PaymentSuccess
           selected={selectedPayment}
           amount={paymentAmount}
           onClose={handleNavigateToHome}
+          onNavigateToEReceipt={handleNavigateToEReceipt}
         />
 
+      ) : currentPage === 'ereceipt' ? (
+        <EReceipt
+            selected={selectedPayment}
+            amount={paymentAmount}
+            onNavigateToHome={handleNavigateToHome}
+            onNavigateBack={handleNavigateToPaymentMethods}
+            onNavigateToReview={handleNavigateToReview} 
+        />
 
       ) : (
         <DeliveryServicesUI

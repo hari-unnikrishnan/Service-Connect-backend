@@ -12,7 +12,8 @@ from .views import (
     SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
     CongratulationsView, ServiceCongratsView, ProfileAPIView,
     RequestView, BookingListView, BookingDetailView, BookingStatusUpdateView,
-    CreateRazorpayOrder
+    CreateRazorpayOrder,
+    EReceiptView
 )
 
 
@@ -100,5 +101,6 @@ urlpatterns = [
     path('bookings/<int:pk>/', BookingDetailView.as_view(), name='booking-detail'),
     path('bookings/<int:pk>/status/', BookingStatusUpdateView.as_view(), name='booking-status'),
     path('payments/create-order/', CreateRazorpayOrder.as_view(), name='create-razorpay-order'),
+    path('receipts/<int:booking_id>/', EReceiptView.as_view(), name='ereceipt'),
 ]
 

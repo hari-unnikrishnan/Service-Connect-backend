@@ -15,8 +15,8 @@ from .serializers import (
     UserSerializer, CategorySerializer, CategoryDetailSerializer, ServiceSerializer,
     ProviderProfileSerializer, BookingSerializer, ReviewSerializer, OfferSerializer,
     RegisterSerializer, LoginSerializer, OTPSerializer, UserLocationSerializer,
-    PasswordResetRequestSerializer, PasswordResetConfirmSerializer, ProfileUpdateSerializer,
-    ServiceRegistrationSerializer,BookingSerializer, RequestSerializer
+    ProfileUpdateSerializer,
+    ServiceRegistrationSerializer,BookingSerializer, RequestSerializer, EReceiptSerializer
 )
 import random
 import string
@@ -863,3 +863,15 @@ class CreateRazorpayOrder(APIView):
             "amount": order["amount"],
             "key": settings.RAZORPAY_KEY_ID
         })
+
+class EReceiptView(APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request, booking_id):
+        try:
+            booking = Booking.objects.get(id=booking_id, status='completed')
+        except Booking.DoesNotExist:
+            return Response({'error': 'Receipt not found or payment not completed'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = EReceiptSerializer(booking)
+        return Response(serializer.data)

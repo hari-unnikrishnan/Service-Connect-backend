@@ -297,7 +297,17 @@ export const cancelBooking = async (bookingId) => {
   return response.json();
 };
 
+// ==================== RECEIPT API ====================
+export const getReceipt = async (bookingId) => {
+  const response = await fetch(`${API_BASE_URL}/receipts/${bookingId}/`);
+  if (!response.ok) {
+    throw new Error('Receipt not found');
+  }
+  return response.json();
+};
+
 // ==================== REVIEWS API ====================
+
 
 // Get reviews for a service
 export const getServiceReviews = async (serviceId) => {
@@ -339,7 +349,24 @@ export const getUserById = async (userId) => {
   return response.json();
 };
 
+// ==================== RAZORPAY API ====================
+export const createOrder = async (amount = 55) => {
+  const res = await fetch(`${API_BASE_URL}/payments/create-order/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ amount })
+  });
+
+  if (!res.ok) {
+    throw new Error('Failed to create order');
+  }
+  return res.json();
+};
+
 export default {
+
   API_BASE_URL,
   login,
   register,
