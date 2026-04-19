@@ -308,6 +308,31 @@ export const getReceipt = async (bookingId) => {
 
 // ==================== REVIEWS API ====================
 
+// Get complaints for current user
+export const getComplaints = async () => {
+  const response = await fetch(`${API_BASE_URL}/complaints/`, {
+    headers: getAuthHeaders(),
+  });
+  return response.json();
+};
+
+// Get completed services for current user
+export const getCompletedServices = async () => {
+  const response = await fetch(`${API_BASE_URL}/service-completed/`, {
+    headers: getAuthHeaders(),
+  });
+  return response.json();
+};
+
+// Resolve/update complaint status
+export const resolveComplaint = async (complaintId, status) => {
+  const response = await fetch(`${API_BASE_URL}/complaints/${complaintId}/resolve/`, {
+    method: 'PATCH',
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ status }),
+  });
+  return response.json();
+};
 
 // Get reviews for a service
 export const getServiceReviews = async (serviceId) => {

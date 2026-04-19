@@ -12,7 +12,8 @@ from .views import (
     SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
     CongratulationsView, ServiceCongratsView, ProfileAPIView,
     RequestView, BookingListView, BookingDetailView, 
-    CreateRazorpayOrder, EReceiptView, JobsListView, ServiceDetailsView
+    CreateRazorpayOrder, EReceiptView, JobsListView, ServiceDetailsView,
+    ServiceCompletedList
 )
 
 
@@ -124,4 +125,10 @@ urlpatterns = [
     path('payments/create-order/', CreateRazorpayOrder.as_view(), 
          name='create-razorpay-order'),
     path('receipts/<int:booking_id>/', EReceiptView.as_view(), name='ereceipt'),
+    
+    # Complaint resolve action (handled by router)
+    # path('complaints/<int:pk>/resolve/', ComplaintViewSet.as_view({'patch': 'resolve'}), name='complaint-resolve'),
+    
+    # Service completed list
+    path('service-completed/', ServiceCompletedList.as_view(), name='service-completed'),
 ]

@@ -19,6 +19,7 @@ from .serializers import (
     ProfileUpdateSerializer, ServiceRegistrationSerializer, RequestSerializer,
     EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer
 )
+from django.utils import timezone
 import random
 import string
 import hashlib
@@ -269,6 +270,29 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         # Auto-set customer to authenticated user
         serializer.save(customer=self.request.user)
+
+    @action(detail=True, methods=['patch'], permission_classes=[permissions.IsAuthenticated])
+    def resolve(self, request, pk=None):
+        """Resolve/update complaint status"""
+        complaint = self.get_object()
+        if complaint.customer != request.user:
+            return Response({'error': 'Not authorized'}, status=status.HTTP_403_FORBIDDEN)
+        
+        status = request.data.get('status')
+        if status not in ['resolved', 'rejected', 'in_progress']:
+            return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        complaint.status = status
+        if status == 'resolved':
+            complaint.resolved_at = timezone.now()
+        complaint.save()
+        
+        serializer = self.get_serializer(complaint)
+        return Response({
+            'success': True,
+            'message': f'Complaint {status}',
+            'data': serializer.data
+        })
 
 
 class JobsListView(APIView):
@@ -899,6 +923,24 @@ class CreateRazorpayOrder(APIView):
             "order_id": order["id"],
             "amount": order["amount"],
             "key": settings.RAZORPAY_KEY_ID
+        })
+
+
+class ServiceCompletedList(APIView):
+    """List customer's completed services/bookings"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        completed_bookings = Booking.objects.filter(
+            customer=user,
+            status='completed'
+        ).select_related('service', 'provider').order_by('-created_at')
+        
+        serializer = JobSerializer(completed_bookings, many=True, context={'request': request})
+        return Response({
+            'count': completed_bookings.count(),
+            'services': serializer.data
         })
 
 
