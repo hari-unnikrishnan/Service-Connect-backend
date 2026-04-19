@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Review.css";
 import { ArrowLeft, UploadCloud } from "lucide-react";
 
-export default function Review({ onNavigateBack }) {
+export default function Review({ onNavigateBack, onNavigateToReviewss }) {
   const [review, setReview] = useState("");
 
   return (
@@ -53,7 +53,7 @@ export default function Review({ onNavigateBack }) {
 
         {/* BUTTON */}
         
-        <button class="submit-btn">
+        <button class="submit-btn" onClick={onNavigateToReviewss}>
             <span class="book-text">Submit Review</span>
            
             </button>

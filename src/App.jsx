@@ -18,13 +18,19 @@ import Search from './Search.jsx'
 import CakeDelivery from './CakeDelivery.jsx'
 import Filter from './Filter.jsx'
 import Profile from './Profile.jsx'
-import Review from './Review.jsx'  
+import Review from './Review.jsx'
+import Reviewss from './Reviewss.jsx'
+import Jobs from './Jobs.jsx'
+import ServiceDetails from './ServiceDetails.jsx'
+import ComplaintForm from './ComplaintForm.jsx'
+import ComplaintList from './ComplaintList.jsx'     
 import Request from './Request.jsx'
 import Bookings from './Bookings.jsx'
 import BookingDetails from './BookingDetails.jsx'
 import PaymentMethods from './PaymentMethods.jsx'
 import PaymentSuccess from './PaymentSuccess.jsx'
 import EReceipt from './EReceipt.jsx'
+import ServiceCompleted from './ServiceCompleted.jsx'   // ✅ NEW
 import './App.css'
 
 function App() {
@@ -65,29 +71,36 @@ function App() {
   const handleNavigateToFilter = () => setCurrentPage('filter')
   const handleNavigateToProfile = () => setCurrentPage('profile')
 
-  // ✅ REVIEW
+  // REVIEW
   const handleNavigateToReview = () => setCurrentPage('review')
+  const handleNavigateToReviewss = () => setCurrentPage('reviewss')
 
-  // REQUEST
+  // JOBS
+  const handleNavigateToJobs = () => setCurrentPage('jobs')
+
+  // SERVICE DETAILS
+  const handleNavigateToServiceDetails = () => setCurrentPage('servicedetails')
+
+  // ✅ COMPLAINT FORM
+  const handleNavigateToComplaintForm = () => setCurrentPage('complaint')
+  const handleNavigateToComplaintList = () => setCurrentPage('complaintlist')
+
+  // REQUEST / BOOKINGS
   const handleNavigateToRequest = () => setCurrentPage('request')
-
-  // BOOKINGS
   const handleNavigateToBookings = () => setCurrentPage('bookings')
-
-  // BOOKING DETAILS
   const handleNavigateToBookingDetails = () => setCurrentPage('bookingdetails')
 
-  // PAYMENT METHODS
+  // PAYMENT
   const handleNavigateToPaymentMethods = () => setCurrentPage('paymentmethods')
+  // ServiceCompleted
+  const handleNavigateToServiceCompleted = () => setCurrentPage('servicecompleted')
 
-  // PAYMENT SUCCESS
   const handlePaymentSuccess = (selected, amount) => {
     setSelectedPayment(selected)
     setPaymentAmount(amount)
     setCurrentPage('paymentsuccess')
   }
 
-  // E RECEIPT
   const handleNavigateToEReceipt = () => setCurrentPage('ereceipt')
 
   return (
@@ -162,6 +175,13 @@ function App() {
           onNavigateToSearch={handleNavigateToSearch}
           onNavigateToProfile={handleNavigateToProfile}
           onNavigateToBookings={handleNavigateToBookings}
+          onNavigateToJobs={handleNavigateToJobs}
+        />
+
+      ) : currentPage === 'jobs' ? (
+        <Jobs
+          onNavigateBack={handleNavigateToHome}
+          onNavigateToServiceDetails={handleNavigateToServiceDetails}
         />
 
       ) : currentPage === 'allcategory' ? (
@@ -183,7 +203,32 @@ function App() {
           onNavigateToDeliveryServices={handleNavigateToDeliveryServices}
           onNavigateToFilter={handleNavigateToFilter}
           onNavigateToProfile={handleNavigateToProfile}
+          onNavigateToServiceDetails={handleNavigateToServiceDetails}
         />
+
+      ) : currentPage === 'servicedetails' ? (
+        <ServiceDetails
+          onNavigateBack={handleNavigateToJobs}
+          onNavigateToComplaint={handleNavigateToComplaintForm}   
+        />
+
+      ) : currentPage === 'complaint' ? (
+        <ComplaintForm
+          onNavigateBack={handleNavigateToServiceDetails}
+           onNavigateToComplaintList={handleNavigateToComplaintList}
+        />
+
+        ) : currentPage === 'complaintlist' ? (
+        <ComplaintList
+          onNavigateBack={handleNavigateToComplaintForm}
+           onNavigateToServiceCompleted ={handleNavigateToServiceCompleted }
+
+        />
+
+        ) : currentPage === 'servicecompleted' ? (
+        <ServiceCompleted 
+        onNavigateToHome={handleNavigateToHome}
+         />
 
       ) : currentPage === 'filter' ? (
         <Filter
@@ -195,12 +240,19 @@ function App() {
         <Profile
           onNavigateBack={handleNavigateToCakeDelivery}
           onNavigateToRequest={handleNavigateToRequest}
-          onNavigateToReview={handleNavigateToReview}   // ✅
+          onNavigateToReview={handleNavigateToReview}
         />
 
       ) : currentPage === 'review' ? (
         <Review
           onNavigateBack={handleNavigateToProfile}
+          onNavigateToReviewss={handleNavigateToReviewss}
+        />
+
+      ) : currentPage === 'reviewss' ? (
+        <Reviewss
+          onNavigateBack={handleNavigateToReview}
+          onNavigateToJobs={handleNavigateToJobs}
         />
 
       ) : currentPage === 'request' ? (
@@ -237,11 +289,11 @@ function App() {
 
       ) : currentPage === 'ereceipt' ? (
         <EReceipt
-            selected={selectedPayment}
-            amount={paymentAmount}
-            onNavigateToHome={handleNavigateToHome}
-            onNavigateBack={handleNavigateToPaymentMethods}
-            onNavigateToReview={handleNavigateToReview} 
+          selected={selectedPayment}
+          amount={paymentAmount}
+          onNavigateToHome={handleNavigateToHome}
+          onNavigateBack={handleNavigateToPaymentMethods}
+          onNavigateToReview={handleNavigateToReview}
         />
 
       ) : (

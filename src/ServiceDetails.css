@@ -1,0 +1,223 @@
+.service-details-page {
+  background: #f2f2f2;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.service-details-container {
+  /* width: 420px; */
+  padding-bottom: 1px;
+}
+
+/* HEADER */
+.sd-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* USER */
+.user-section {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: #cfcaf6;
+  border-radius: 50%;
+}
+
+.booking-id {
+  padding: 0 15px;
+  color: #666;
+}
+
+/* CARD */
+.card {
+  background: white;
+  margin: 10px 15px;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.card textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+/* UPLOAD */
+.upload-card {
+  background: white;
+  margin: 10px 15px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* IMAGE */
+.image-row {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+}
+
+.img-box {
+  width: 50px;
+  height: 50px;
+  /* background: #3c4653; */
+  border-radius: 10px;
+}
+
+.add-box {
+  width: 50px;
+  height: 50px;
+  background: #dddddd00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* AVAILABILITY */
+.section-title {
+  padding: 10px 15px;
+}
+
+.label {
+  padding: 0 15px;
+  font-size: 13px;
+  color: #666;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  padding: 10px 15px;
+}
+
+.small-card {
+  flex: 1;
+  background: white;
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* BUTTON */
+.completed-btn {
+  margin: 15px;
+  width: calc(100% - 30px);
+  padding: 12px;
+  border-radius: 25px;
+  border: none;
+  background: #1c2036;
+  color: white;
+}
+
+/* INVOICE */
+.invoice-card {
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.date-time {
+  display: flex;
+  gap: 10px;
+}
+
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.total {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.terms {
+  margin-top: 10px;
+}
+
+.alert {
+  display: flex;
+  gap: 5px;
+  color: red;
+  margin-top: 10px;
+}
+
+.req {
+  margin-top: 5px;
+}
+
+/* BUTTONS */
+.pay-btns {
+  margin: 10px 15px;
+  width: calc(100% - 30px);
+  padding: 14px;
+  border-radius: 25px;
+  background: #1c2036;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+.complaint-btn {
+  margin: 10px 15px;
+  width: calc(100% - 30px);
+  padding: 14px;
+  border-radius: 25px;
+  background: #8b0000;
+  color: white;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+}
+.sublittle{
+    color: #000;
+}
+
+
+.textarea{
+    background-color: white;
+    color: #000;
+}
+
+.upload-cards{
+    color: #000;
+}
+
+.date{
+    color: #000;
+}
+
+.numbers{
+    color: #000;
+}
+
+.timedate{
+   background: #6d6767;
+    padding: 8px;
+    margin-right: 10px;
+    border-radius: 10px;
+}

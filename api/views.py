@@ -7,16 +7,17 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation, Request
+    Booking, Review, Offer, UserLocation, Request, Complaint
 )
 from .serializers import (
     UserSerializer, CategorySerializer, CategoryDetailSerializer, ServiceSerializer,
     ProviderProfileSerializer, BookingSerializer, ReviewSerializer, OfferSerializer,
     RegisterSerializer, LoginSerializer, OTPSerializer, UserLocationSerializer,
-    ProfileUpdateSerializer,
-    ServiceRegistrationSerializer,BookingSerializer, RequestSerializer, EReceiptSerializer
+    ProfileUpdateSerializer, ServiceRegistrationSerializer, RequestSerializer,
+    EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer
 )
 import random
 import string
@@ -58,17 +59,16 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            # Generate and store OTP (in production, send via SMS)
             otp = generate_otp()
             _otp_store[user.id] = {
                 'otp': otp,
-                'expires_at': None  # Add expiration logic if needed
+                'expires_at': None
             }
             return Response({
                 'success': True,
                 'message': 'Registration successful. OTP sent for verification.',
                 'user_id': user.id,
-                'otp': otp  # In production, don't return OTP in response
+                'otp': otp
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -96,12 +96,10 @@ class OTPVerificationView(APIView):
             )
         
         if stored_otp['otp'] == otp:
-            # Mark user as verified
             try:
                 user = User.objects.get(id=user_id)
                 user.is_active = True
                 user.save()
-                # Remove OTP after successful verification
                 del _otp_store[user_id]
                 return Response({
                     'success': True,
@@ -142,7 +140,7 @@ class ResendOTPView(APIView):
             return Response({
                 'success': True,
                 'message': 'OTP resent successfully',
-                'otp': otp  # In production, send via SMS
+                'otp': otp
             }, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response(
@@ -215,7 +213,8 @@ class ProviderProfileViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def top(self, request):
         """Get top rated providers"""
-        providers = ProviderProfile.objects.order_by('-rating', '-review_count')[:10]
+        providers = ProviderProfile.objects.order_by('-rating', 
+                                                   '-review_count')[:10]
         serializer = self.get_serializer(providers, many=True)
         return Response(serializer.data)
 
@@ -229,7 +228,6 @@ class BookingViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         user = self.request.user
         if user.is_authenticated:
-            # Customers see their bookings, providers see their bookings
             if user.role == 'customer':
                 queryset = queryset.filter(customer=user)
             elif user.role == 'provider':
@@ -240,13 +238,74 @@ class BookingViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        service_id = self.request.query_params.get('service')
+        provider_id = self.request.query_params.get('provider')
+        if service_id:
+            queryset = queryset.filter(booking__service_id=service_id)
+        if provider_id:
+            queryset = queryset.filter(provider_id=provider_id)
+        return queryset.order_by('-created_at')
 
 
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offer.objects.filter(is_active=True)
     serializer_class = OfferSerializer
     permission_classes = [permissions.AllowAny]
+
+
+class ComplaintViewSet(viewsets.ModelViewSet):
+    """Complaint CRUD operations"""
+    queryset = Complaint.objects.all()
+    serializer_class = ComplaintSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get_queryset(self):
+        return Complaint.objects.filter(customer=self.request.user)
+    
+    def perform_create(self, serializer):
+        # Auto-set customer to authenticated user
+        serializer.save(customer=self.request.user)
+
+
+class JobsListView(APIView):
+    """User jobs/bookings filtered by status"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        status = request.query_params.get('status', 'ongoing')  # ongoing, completed
+        user = request.user
+        
+        if status == 'ongoing':
+            bookings = Booking.objects.filter(
+                customer=user,
+                status__in=['pending', 'confirmed', 'in_progress']
+            )
+        else:
+            bookings = Booking.objects.filter(
+                customer=user,
+                status='completed'
+            )
+        
+        serializer = JobSerializer(bookings, many=True)
+        return Response(serializer.data)
+
+
+class ServiceDetailsView(APIView):
+    """Detailed booking view for ServiceDetails page"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request, booking_id):
+        booking = get_object_or_404(
+            Booking, 
+            id=booking_id, 
+            customer=request.user
+        )
+        serializer = ServiceDetailSerializer(booking, context={'request': request})
+        return Response(serializer.data)
 
 
 class UserLocationViewSet(viewsets.ModelViewSet):
@@ -260,8 +319,6 @@ class UserLocationViewSet(viewsets.ModelViewSet):
         return UserLocation.objects.filter(user=self.request.user)
     
     def perform_create(self, serializer):
-        """Create a new location for the user"""
-        # If this is set as default, unset other defaults
         if serializer.validated_data.get('is_default', False):
             UserLocation.objects.filter(
                 user=self.request.user, 
@@ -288,7 +345,6 @@ class UserLocationViewSet(viewsets.ModelViewSet):
     def set_default(self, request, pk=None):
         """Set a location as default"""
         location = self.get_object()
-        # Unset all other defaults
         UserLocation.objects.filter(
             user=request.user, 
             is_default=True
@@ -338,7 +394,6 @@ class PasswordResetRequestView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
         
-        # Find user by email or phone
         if email:
             try:
                 user = User.objects.get(email=email)
@@ -356,9 +411,7 @@ class PasswordResetRequestView(APIView):
                 status=status.HTTP_200_OK
             )
         
-        # Generate OTP for password reset
         otp = generate_otp()
-        # Use a different store for password reset
         _password_reset_otp_store[user.id] = {
             'otp': otp,
             'expires_at': None
@@ -368,7 +421,7 @@ class PasswordResetRequestView(APIView):
             'success': True,
             'message': 'OTP sent for password reset',
             'user_id': user.id,
-            'otp': otp  # In production, send via SMS/email
+            'otp': otp
         }, status=status.HTTP_200_OK)
 
 
@@ -438,7 +491,6 @@ class PasswordResetConfirmView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
         
-        # Verify OTP was verified first
         stored_otp = _password_reset_otp_store.get(user_id)
         if not stored_otp:
             return Response(
@@ -448,8 +500,6 @@ class PasswordResetConfirmView(APIView):
         
         user.set_password(new_password)
         user.save()
-        
-        # Clear the OTP
         del _password_reset_otp_store[user_id]
         
         return Response({
@@ -481,23 +531,34 @@ class ServiceRegistrationView(APIView):
         )
 
 
+# Password reset OTP store
+_password_reset_otp_store = {}
+
+
 class HomeDataView(APIView):
     """Home page data endpoint"""
     permission_classes = [permissions.AllowAny]
     
     def get(self, request):
-        """Get all data needed for home page"""
-        # Get categories
         categories = Category.objects.filter(is_active=True)[:8]
         categories_data = CategorySerializer(categories, many=True).data
         
-        # Get popular services
         popular_services = Service.objects.filter(is_active=True)[:10]
         services_data = ServiceSerializer(popular_services, many=True).data
         
-        # Get top providers
-        top_providers = ProviderProfile.objects.order_by('-rating', '-review_count')[:10]
+        top_providers = ProviderProfile.objects.order_by('-rating', 
+                                                       '-review_count')[:10]
         providers_data = ProviderProfileSerializer(top_providers, many=True).data
+        
+        offers = Offer.objects.filter(is_active=True)[:5]
+        offers_data = OfferSerializer(offers, many=True).data
+        
+        return Response({
+            'categories': categories_data,
+            'services': services_data,
+            'providers': providers_data,
+            'offers': offers_data
+        }, status=status.HTTP_200_OK)
 
 
 class ProfileAPIView(APIView):
@@ -509,9 +570,9 @@ class ProfileAPIView(APIView):
         try:
             provider = User.objects.get(id=provider_id)
             provider_profile = ProviderProfile.objects.get(user=provider)
-            services = Service.objects.filter(category__name=provider_profile.service_type)
-            
-            # Get reviews for this provider
+            services = Service.objects.filter(
+                category__name=provider_profile.service_type
+            )
             reviews = Review.objects.filter(provider=provider)[:5]
             
             return Response({
@@ -520,7 +581,8 @@ class ProfileAPIView(APIView):
                     'username': provider.username,
                     'phone': provider.phone,
                     'address': provider.address,
-                    'profile_image': provider.profile_image.url if provider.profile_image else None,
+                    'profile_image': (provider.profile_image.url 
+                                    if provider.profile_image else None),
                     'bio': provider_profile.bio,
                     'service_type': provider_profile.service_type,
                     'rating': provider_profile.rating,
@@ -531,21 +593,9 @@ class ProfileAPIView(APIView):
                 'services': ServiceSerializer(services, many=True).data,
                 'reviews': ReviewSerializer(reviews, many=True).data
             }, status=status.HTTP_200_OK)
-        except User.DoesNotExist:
-            return Response({'error': 'Provider not found'}, status=status.HTTP_404_NOT_FOUND)
-        except ProviderProfile.DoesNotExist:
-            return Response({'error': 'Provider profile not found'}, status=status.HTTP_404_NOT_FOUND)
-        
-        # Get active offers
-        offers = Offer.objects.filter(is_active=True)[:5]
-        offers_data = OfferSerializer(offers, many=True).data
-        
-        return Response({
-            'categories': categories_data,
-            'services': services_data,
-            'providers': providers_data,
-            'offers': offers_data
-        }, status=status.HTTP_200_OK)
+        except (User.DoesNotExist, ProviderProfile.DoesNotExist):
+            return Response({'error': 'Provider not found'}, 
+                          status=status.HTTP_404_NOT_FOUND)
 
 
 class DeliveryServicesView(APIView):
@@ -562,7 +612,6 @@ class DeliveryServicesView(APIView):
                 is_active=True
             )
         except Category.DoesNotExist:
-            # Return empty list if category not found
             return Response({
                 'category': None,
                 'services': []
@@ -579,10 +628,6 @@ class DeliveryServicesView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-# Password reset OTP store
-_password_reset_otp_store = {}
-
-
 class SearchView(APIView):
     """Search endpoint for services, providers, and categories"""
     permission_classes = [permissions.AllowAny]
@@ -590,7 +635,7 @@ class SearchView(APIView):
     def get(self, request):
         """Search for services, providers, and categories"""
         query = request.query_params.get('q', '')
-        search_type = request.query_params.get('type', 'all')  # all, services, providers, categories
+        search_type = request.query_params.get('type', 'all')
         
         if not query:
             return Response(
@@ -604,7 +649,6 @@ class SearchView(APIView):
             'categories': []
         }
         
-        # Search services
         if search_type in ['all', 'services']:
             services = Service.objects.filter(
                 is_active=True,
@@ -612,7 +656,6 @@ class SearchView(APIView):
             )[:20]
             results['services'] = ServiceSerializer(services, many=True).data
         
-        # Search providers
         if search_type in ['all', 'providers']:
             providers = ProviderProfile.objects.filter(
                 user__username__icontains=query,
@@ -620,7 +663,6 @@ class SearchView(APIView):
             )[:20]
             results['providers'] = ProviderProfileSerializer(providers, many=True).data
         
-        # Search categories
         if search_type in ['all', 'categories']:
             categories = Category.objects.filter(
                 is_active=True,
@@ -641,27 +683,23 @@ class FilterServicesView(APIView):
         min_price = request.query_params.get('min_price')
         max_price = request.query_params.get('max_price')
         city = request.query_params.get('city')
-        sort_by = request.query_params.get('sort_by', 'name')  # name, price_low, price_high, rating
+        sort_by = request.query_params.get('sort_by', 'name')
         
         queryset = Service.objects.filter(is_active=True)
         
-        # Filter by category
         if category_id:
             queryset = queryset.filter(category_id=category_id)
         
-        # Filter by price range
         if min_price:
             queryset = queryset.filter(price_min__gte=min_price)
         if max_price:
             queryset = queryset.filter(price_max__lte=max_price)
         
-        # Sort results
         if sort_by == 'price_low':
             queryset = queryset.order_by('price_min')
         elif sort_by == 'price_high':
             queryset = queryset.order_by('-price_max')
         elif sort_by == 'rating':
-            # Sort by provider rating (requires join)
             queryset = queryset.select_related('category').order_by('name')
         else:
             queryset = queryset.order_by('name')
@@ -778,7 +816,8 @@ class CongratulationsView(APIView):
             }
         }
         
-        return Response(messages.get(action, messages['default']), status=status.HTTP_200_OK)
+        return Response(messages.get(action, messages['default']), 
+                       status=status.HTTP_200_OK)
 
 
 class ServiceCongratsView(APIView):
@@ -789,12 +828,13 @@ class ServiceCongratsView(APIView):
         """Get service registration success message"""
         return Response({
             'title': 'Congratulations!',
-            'message': 'Your service has been registered successfully. You can now start receiving bookings.',
+            'message': ('Your service has been registered successfully. '
+                       'You can now start receiving bookings.'),
             'subtitle': 'Welcome to Service Connect',
             'icon': 'celebration'
         }, status=status.HTTP_200_OK)
 
-# ✅ CREATE REQUEST
+
 class RequestView(APIView):
     def post(self, request):
         serializer = RequestSerializer(data=request.data)
@@ -805,15 +845,15 @@ class RequestView(APIView):
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
- # ✅ LIST BOOKINGS
+
+
 class BookingListView(APIView):
     def get(self, request):
         bookings = Booking.objects.all().order_by("-id")
         serializer = BookingSerializer(bookings, many=True)
         return Response(serializer.data)  
 
- # ✅ BOOKING DETAIL
+
 class BookingDetailView(APIView):
     def get(self, request, pk):
         try:
@@ -824,8 +864,6 @@ class BookingDetailView(APIView):
         serializer = BookingSerializer(booking)
         return Response(serializer.data)    
     
-    # ✅ UPDATE STATUS
-class BookingStatusUpdateView(APIView):
     def patch(self, request, pk):
         try:
             booking = Booking.objects.get(pk=pk)
@@ -835,7 +873,6 @@ class BookingStatusUpdateView(APIView):
         status_value = request.data.get("status")
         booking.status = status_value
         booking.save()
-
         return Response({"message": "Status updated"})
 
 
@@ -850,7 +887,7 @@ class CreateRazorpayOrder(APIView):
             settings.RAZORPAY_KEY_SECRET
         ))
 
-        amount = int(request.data.get("amount", 55)) * 100  # ₹ → paise
+        amount = int(request.data.get("amount", 55)) * 100
 
         order = client.order.create({
             "amount": amount,
@@ -864,6 +901,7 @@ class CreateRazorpayOrder(APIView):
             "key": settings.RAZORPAY_KEY_ID
         })
 
+
 class EReceiptView(APIView):
     permission_classes = [permissions.AllowAny]
     
@@ -871,7 +909,8 @@ class EReceiptView(APIView):
         try:
             booking = Booking.objects.get(id=booking_id, status='completed')
         except Booking.DoesNotExist:
-            return Response({'error': 'Receipt not found or payment not completed'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'error': 'Receipt not found or payment not completed'}, 
+                          status=status.HTTP_404_NOT_FOUND)
         
         serializer = EReceiptSerializer(booking)
         return Response(serializer.data)

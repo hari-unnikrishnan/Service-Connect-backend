@@ -1,0 +1,179 @@
+.complaint-page {
+  background: #f2f2f2;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.complaint-container {
+  /* width: 420px; */
+  padding-bottom: 80px;
+}
+
+/* HEADER */
+.cf-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* USER */
+.user-section {
+  display: flex;
+  gap: 10px;
+  padding: 15px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: #cfcaf6;
+  border-radius: 50%;
+}
+
+/* CARD */
+.card {
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.booking-id {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.value {
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.date-row {
+  display: flex;
+  gap: 10px;
+}
+
+.invoice-title {
+  margin-top: 10px;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.total {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.terms {
+  margin-top: 10px;
+}
+
+.alert {
+  display: flex;
+  gap: 5px;
+  color: red;
+  margin-top: 10px;
+}
+
+.req {
+  margin-top: 5px;
+}
+
+/* BUTTONS */
+.status-btn {
+  margin: 10px 15px;
+  width: calc(100% - 30px);
+  padding: 14px;
+  border-radius: 25px;
+  background: #1c2036;
+  color: white;
+  border: none;
+}
+
+/* INPUT */
+.input-card {
+  background: white;
+  margin: 10px 15px;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.input-card input,
+.input-card textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: #000;
+}
+
+/* UPLOAD */
+.upload-card {
+  background: white;
+  margin: 10px 15px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* SUBMIT */
+.submit-btnsz{
+
+   width: 100%;
+    height: 76px;
+    border: none;
+    border-radius: 40px;
+     background: #8b0000;
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    cursor: pointer;
+}
+.book-text{
+position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arrow {
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 50%;
+}
+
+.tittlename{
+    color: #1c2036;
+}
+.values{
+    color: #1c2036;
+}
+
+.Desc{
+    color: #1c2036;
+}
+.Images{
+    color: #000;
+}

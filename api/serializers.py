@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.utils import timezone
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation, Request
+    Booking, Review, Offer, UserLocation, Request, Complaint
 )
 
 
@@ -21,7 +21,6 @@ class UserLocationSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         user = self.context['request'].user
-        # If this is the first location or is_default, handle accordingly
         if validated_data.get('is_default', False):
             UserLocation.objects.filter(
                 user=user, is_default=True
@@ -77,7 +76,9 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'password', 'password_confirm', 'first_name', 'last_name', 'phone', 'role']
+        fields = ['id', 'email', 'username', 'password', 
+                 'password_confirm', 'first_name', 'last_name', 
+                 'phone', 'role']
         read_only_fields = ['id']
     
     def validate(self, data):
@@ -128,7 +129,9 @@ class OTPSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'phone', 'address', 'profile_image']
+        fields = ['id', 'username', 'email', 'first_name', 
+                 'last_name', 'role', 'phone', 'address', 
+                 'profile_image']
         read_only_fields = ['id']
 
 
@@ -138,7 +141,8 @@ class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Category
-        fields = ['id', 'name', 'icon', 'image', 'image_url', 'description', 'is_active', 'order', 'services_count']
+        fields = ['id', 'name', 'icon', 'image', 'image_url', 
+                 'description', 'is_active', 'order', 'services_count']
         read_only_fields = ['id', 'services_count']
     
     def get_services_count(self, obj):
@@ -159,7 +163,9 @@ class ServiceSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Service
-        fields = ['id', 'category', 'category_name', 'name', 'description', 'price_min', 'price_max', 'image', 'image_url', 'is_active']
+        fields = ['id', 'category', 'category_name', 'name', 
+                 'description', 'price_min', 'price_max', 
+                 'image', 'image_url', 'is_active']
         read_only_fields = ['id']
     
     def get_image_url(self, obj):
@@ -177,7 +183,8 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Category
-        fields = ['id', 'name', 'icon', 'image', 'description', 'is_active', 'order', 'services', 'services_count']
+        fields = ['id', 'name', 'icon', 'image', 'description', 
+                 'is_active', 'order', 'services', 'services_count']
         read_only_fields = ['id', 'services_count']
     
     def get_services_count(self, obj):
@@ -190,7 +197,8 @@ class ProviderProfileSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ProviderProfile
-        fields = ['id', 'user', 'user_name', 'bio', 'service_type', 'rating', 'review_count', 'is_verified', 'created_at']
+        fields = ['id', 'user', 'user_name', 'bio', 'service_type', 
+                 'rating', 'review_count', 'is_verified', 'created_at']
         read_only_fields = ['id', 'rating', 'review_count']
 
 
@@ -201,18 +209,76 @@ class BookingSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Booking
-        fields = ['id', 'customer', 'customer_name', 'provider', 'provider_name', 'service', 'service_name', 'status', 'booking_date', 'address', 'notes', 'total_price', 'payment_id', 'payment_method', 'created_at']
-        read_only_fields = ['id', 'customer_name', 'provider_name', 'service_name', 'created_at']
+        fields = ['id', 'customer', 'customer_name', 'provider', 
+                 'provider_name', 'service', 'service_name', 'status', 
+                 'booking_date', 'address', 'notes', 'total_price', 
+                 'payment_id', 'payment_method', 'created_at']
+        read_only_fields = ['id', 'customer_name', 'provider_name', 
+                           'service_name', 'created_at']
 
 
 class ReviewSerializer(serializers.ModelSerializer):
     customer_name = serializers.CharField(source='customer.username', read_only=True)
     provider_name = serializers.CharField(source='provider.username', read_only=True)
+    images_url = serializers.SerializerMethodField()
     
     class Meta:
         model = Review
-        fields = ['id', 'booking', 'customer', 'customer_name', 'provider', 'provider_name', 'rating', 'comment', 'created_at']
+        fields = ['id', 'booking', 'customer', 'customer_name', 
+                 'provider', 'provider_name', 'rating', 'comment', 
+                 'images', 'images_url', 'created_at']
         read_only_fields = ['id', 'customer_name', 'provider_name', 'created_at']
+    
+    def get_images_url(self, obj):
+        if obj.images:
+            request = self.context.get('request')
+            return [request.build_absolute_uri(img) if request else img for img in obj.images]
+        return []
+
+
+class ComplaintSerializer(serializers.ModelSerializer):
+    customer_name = serializers.CharField(source='customer.username', read_only=True)
+    provider_name = serializers.CharField(source='provider.username', read_only=True)
+    booking_id = serializers.IntegerField(source='booking.id', read_only=True)
+    
+    class Meta:
+        model = Complaint
+        fields = ['id', 'booking', 'booking_id', 'customer', 'customer_name', 
+                 'provider', 'provider_name', 'title', 'description', 
+                 'images', 'status', 'notes', 'resolved_at', 'created_at']
+        read_only_fields = ['id', 'customer_name', 'provider_name', 
+                           'booking_id', 'created_at']
+    
+    def create(self, validated_data):
+        booking = validated_data.pop('booking')
+        customer = self.context['request'].user
+        provider = booking.provider
+        validated_data['customer'] = customer
+        validated_data['provider'] = provider
+        return Complaint.objects.create(booking=booking, **validated_data)
+
+
+class JobSerializer(BookingSerializer):
+    """Serializer for Jobs (filtered Bookings)"""
+    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    
+    class Meta(BookingSerializer.Meta):
+        fields = BookingSerializer.Meta.fields + ['status_display']
+
+
+class ServiceDetailSerializer(serializers.ModelSerializer):
+    """Detailed serializer for ServiceDetails page"""
+    customer_name = serializers.CharField(source='customer.username', read_only=True)
+    provider_profile = ProviderProfileSerializer(source='provider.provider_profile', read_only=True)
+    service_details = ServiceSerializer(source='service', read_only=True)
+    review = ReviewSerializer(source='review', read_only=True)
+    
+    class Meta:
+        model = Booking
+        fields = ['id', 'customer_name', 'provider_profile', 'service_details', 
+                 'status', 'booking_date', 'address', 'notes', 'total_price', 
+                 'payment_id', 'payment_method', 'review']
+        read_only_fields = ['id']
 
 
 class OfferSerializer(serializers.ModelSerializer):
@@ -220,7 +286,8 @@ class OfferSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Offer
-        fields = ['id', 'title', 'description', 'discount_percentage', 'image', 'image_url', 'is_active', 'valid_until', 'created_at']
+        fields = ['id', 'title', 'description', 'discount_percentage', 
+                 'image', 'image_url', 'is_active', 'valid_until', 'created_at']
         read_only_fields = ['id', 'created_at']
     
     def get_image_url(self, obj):
@@ -242,11 +309,9 @@ class ServiceRegistrationSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         user = self.context['request'].user
-        # Update user role to provider
         user.role = 'provider'
         user.save()
         
-        # Create or update provider profile
         provider_profile, created = ProviderProfile.objects.update_or_create(
             user=user,
             defaults=validated_data
@@ -269,13 +334,14 @@ class RequestSerializer(serializers.ModelSerializer):
             'location_label', 'estimated_cost', 'actual_cost', 'notes', 
             'created_at', 'updated_at'
         ]
-        read_only_fields = ['id', 'customer_name', 'provider_name', 'service_name', 'location_label', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'customer_name', 'provider_name', 'service_name', 
+                           'location_label', 'created_at', 'updated_at']
     
     def validate(self, data):
-# Validate requested_date is in the future
         if data.get('requested_date') and data['requested_date'] <= timezone.now():
             raise serializers.ValidationError("Requested date must be in the future")
         return data
+
 
 class EReceiptSerializer(serializers.ModelSerializer):
     customer_name = serializers.CharField(source='customer.username', read_only=True)
@@ -289,7 +355,9 @@ class EReceiptSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Booking
-        fields = ['customer_name', 'customer_email', 'service_category', 'service_name', 'transaction_id', 'price', 'date_str', 'status_display']
+        fields = ['customer_name', 'customer_email', 'service_category', 
+                 'service_name', 'transaction_id', 'price', 'date_str', 
+                 'status_display']
     
     def get_date_str(self, obj):
         return obj.created_at.strftime('%b %d, %Y / %H:%M')

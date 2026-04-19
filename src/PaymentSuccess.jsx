@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 export default function PaymentSuccess({
   selected,
   amount,
-  onNavigateToHome
+  onNavigateToHome,onNavigateToEReceipt
 }) {
   const [showLoading, setShowLoading] = useState(true);
 
@@ -66,7 +66,7 @@ export default function PaymentSuccess({
             {/* BUTTON */}
             <button
               className="receipt-btn"
-              onClick={onNavigateToHome}
+              onClick={onNavigateToEReceipt}
             >
                E - Receipt
               <span className="arrow">→</span>

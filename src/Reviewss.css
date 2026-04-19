@@ -1,0 +1,142 @@
+/* PAGE */
+.reviews-page {
+  background: #f2f2f2;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.reviews-container {
+  /* width: 420px; */
+}
+
+/* HEADER */
+.reviews-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* SUMMARY */
+.summary {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.summary h1 {
+  font-size: 40px;
+  color: #1c2036;
+}
+
+.stars {
+  margin: 5px 0;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  gap: 10px;
+  padding: 0 15px;
+  overflow-x: auto;
+}
+
+.tabs button {
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: none;
+  background: #e5e5e5;
+}
+
+.tabs .active {
+  background: #1c2036;
+  color: white;
+}
+
+/* REVIEW CARD */
+.review-card {
+  background: white;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background: black;
+  border-radius: 50%;
+}
+
+.review-content {
+  flex: 1;
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating-badge {
+  border: 2px solid #4a90e2;
+  padding: 3px 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* TEXT */
+.review-content p {
+  font-size: 14px;
+  margin: 10px 0;
+  color: #555;
+}
+
+/* BOTTOM */
+.bottom-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* BUTTON */
+.write-btn {
+  width: calc(100% - 30px);
+  margin: 20px 15px;
+  padding: 15px;
+  border-radius: 40px;
+  background: #1c2036;
+  color: white;
+  border: none;
+  font-size: 16px;
+}
+
+.starsp{
+    color: #1c2036;
+}
+
+
+.rating-text {
+  color: #000; /* BLACK color */
+  font-weight: 600;
+}

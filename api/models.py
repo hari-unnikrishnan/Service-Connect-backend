@@ -103,10 +103,35 @@ class Review(models.Model):
     provider = models.ForeignKey(User, on_delete=models.CASCADE, related_name='provider_reviews')
     rating = models.IntegerField()  # 1-5 stars
     comment = models.TextField(blank=True)
+    images = models.JSONField(default=list, blank=True)  # Store image URLs
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return f"Review by {self.customer.username} for {self.provider.username}"
+
+
+class Complaint(models.Model):
+    """Customer complaints"""
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('in_progress', 'In Progress'),
+        ('resolved', 'Resolved'),
+        ('rejected', 'Rejected'),
+    ]
+    
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE, related_name='complaints')
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='complaints')
+    provider = models.ForeignKey(User, on_delete=models.CASCADE, related_name='provider_complaints')
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    images = models.JSONField(default=list, blank=True)  # Store uploaded images
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    notes = models.TextField(blank=True)
+    resolved_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Complaint #{self.id} - {self.customer.username} for Booking {self.booking.id}"
 
 
 class Offer(models.Model):
