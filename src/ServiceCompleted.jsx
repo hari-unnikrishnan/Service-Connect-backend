@@ -3,7 +3,7 @@ import "./ServiceCompleted.css";
 import icon from "./assets/ServiceCompleted.png";
 import { Star } from "lucide-react";
 
-export default function ServiceCompleted({ onReview }) {
+export default function ServiceCompleted({ onNavigateToTransactions }) {
   return (
     <div className="sc-overlay">
 
@@ -31,7 +31,7 @@ export default function ServiceCompleted({ onReview }) {
         </div>
 
         {/* BUTTON */}
-        <button className="review-btn" onClick={onReview}>
+        <button className="review-btn" onClick={onNavigateToTransactions}>
           Write a Review
           <span className="arrow">→</span>
         </button>

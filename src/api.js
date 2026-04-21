@@ -1,6 +1,16 @@
 // API Service for Service Connect
 const API_BASE_URL = "http://127.0.0.1:8000/api";
 
+// Helper for auth headers without Content-Type (for FormData)
+const getMultipartAuthHeaders = () => {
+  const token = localStorage.getItem("token");
+  const headers = {};
+  if (token) {
+    headers.Authorization = `Token ${token}`;
+  }
+  return headers;
+};
+
 // ==================== API ROOT DATA ====================
 // The API root endpoint returns available endpoints:
 // {
@@ -19,6 +29,49 @@ export const getAPIRoot = async () => {
   const response = await fetch(`${API_BASE_URL}/`);
   return response.json();
 };
+
+// Update profile with image upload (FormData)
+export const updateProfileWithImage = async (formData) => {
+  const response = await fetch(`${API_BASE_URL}/profile/update/`, {
+    method: "PUT",
+    headers: getMultipartAuthHeaders(),
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to update profile");
+  }
+
+  return response.json();
+};
+
+
+
+// Fetch current user profile from /api/profile/me/
+export const fetchProfile = async () => {
+  const response = await fetch(`${API_BASE_URL}/profile/`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch profile');
+  }
+  const data = await response.json();
+  return data.profile;
+};
+
+// Fetch user services (ongoing/completed jobs)
+export const fetchUserServices = async (status = 'ongoing') => {
+  const response = await fetch(`${API_BASE_URL}/jobs/?status=${status}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch services');
+  }
+  const data = await response.json();
+  return data;
+};
+
+
 
 // Helper function to get auth headers
 const getAuthHeaders = () => {
@@ -123,10 +176,15 @@ export const resetPassword = async (userId, newPassword, confirmPassword) => {
 // Update user profile
 export const updateProfile = async (profileData) => {
   const response = await fetch(`${API_BASE_URL}/profile/update/`, {
-    method: "PUT",
+    method: "PUT", // or PATCH depending on backend
     headers: getAuthHeaders(),
     body: JSON.stringify(profileData),
   });
+
+  if (!response.ok) {
+    throw new Error("Failed to update profile");
+  }
+
   return response.json();
 };
 
@@ -180,6 +238,20 @@ export const getPopularServices = async () => {
   const response = await fetch(`${API_BASE_URL}/services/popular/`);
   return response.json();
 };
+
+// Get services list for Services.jsx (ongoing/completed/all)
+export const getServicesList = async (status = 'all') => {
+  const params = status !== 'all' ? `?status=${status}` : '';
+  const response = await fetch(`${API_BASE_URL}/services-list/${params}`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch services list');
+  }
+  const data = await response.json();
+  return data.services || data;
+};
+
 
 // Get services by category
 export const getServicesByCategory = async (categoryId) => {
@@ -390,7 +462,9 @@ export const createOrder = async (amount = 55) => {
   return res.json();
 };
 
+
 export default {
+
 
   API_BASE_URL,
   login,

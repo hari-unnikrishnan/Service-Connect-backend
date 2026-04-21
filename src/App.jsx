@@ -21,6 +21,7 @@ import Profile from './Profile.jsx'
 import Review from './Review.jsx'
 import Reviewss from './Reviewss.jsx'
 import Jobs from './Jobs.jsx'
+import Jobses from './Jobses.jsx'
 import ServiceDetails from './ServiceDetails.jsx'
 import ComplaintForm from './ComplaintForm.jsx'
 import ComplaintList from './ComplaintList.jsx'     
@@ -30,7 +31,11 @@ import BookingDetails from './BookingDetails.jsx'
 import PaymentMethods from './PaymentMethods.jsx'
 import PaymentSuccess from './PaymentSuccess.jsx'
 import EReceipt from './EReceipt.jsx'
-import ServiceCompleted from './ServiceCompleted.jsx'   // ✅ NEW
+import ServiceCompleted from './ServiceCompleted.jsx'  
+import Transactions from './Transactions.jsx' 
+import Services from './Services.jsx' 
+import Profiless from './Profiless.jsx' 
+import EditProfiless from './EditProfiless.jsx' 
 import './App.css'
 
 function App() {
@@ -81,7 +86,7 @@ function App() {
   // SERVICE DETAILS
   const handleNavigateToServiceDetails = () => setCurrentPage('servicedetails')
 
-  // ✅ COMPLAINT FORM
+  //  COMPLAINT FORM
   const handleNavigateToComplaintForm = () => setCurrentPage('complaint')
   const handleNavigateToComplaintList = () => setCurrentPage('complaintlist')
 
@@ -90,10 +95,22 @@ function App() {
   const handleNavigateToBookings = () => setCurrentPage('bookings')
   const handleNavigateToBookingDetails = () => setCurrentPage('bookingdetails')
 
-  // PAYMENT
+  // PAYMENTServices
   const handleNavigateToPaymentMethods = () => setCurrentPage('paymentmethods')
   // ServiceCompleted
   const handleNavigateToServiceCompleted = () => setCurrentPage('servicecompleted')
+  //  TRANSACTIONS NAVIGATION
+  const handleNavigateToTransactions = () => setCurrentPage('transactions')
+  // Services
+   const handleNavigateToServices = () => setCurrentPage('Services') 
+
+  //  Jobses
+  const handleNavigateToJobses = () => setCurrentPage('Jobses')
+  // Profiless
+  const handleNavigateToProfiless = () => setCurrentPage('Profiless')
+  
+  // EditProfiless
+  const handleNavigateToEditProfiless = () => setCurrentPage('EditProfiless')
 
   const handlePaymentSuccess = (selected, amount) => {
     setSelectedPayment(selected)
@@ -224,11 +241,42 @@ function App() {
            onNavigateToServiceCompleted ={handleNavigateToServiceCompleted }
 
         />
+        
 
         ) : currentPage === 'servicecompleted' ? (
         <ServiceCompleted 
-        onNavigateToHome={handleNavigateToHome}
+        onNavigateToTransactions={handleNavigateToTransactions}
          />
+
+         ) : currentPage === 'transactions' ? (
+        <Transactions
+          onNavigateBack={handleNavigateToComplaintList}
+           onNavigateToServices ={handleNavigateToServices }
+        />
+
+         ) : currentPage === 'Services' ? (
+        <Services
+          onNavigateBack={handleNavigateToTransactions}
+          onNavigateToJobses={handleNavigateToJobses}
+        />
+
+         ) : currentPage === 'Jobses' ? (
+        <Jobses
+          onNavigateBack={handleNavigateToServices}
+          onNavigateToProfiless={handleNavigateToProfiless}
+          
+        />
+        ) : currentPage === 'Profiless' ? (
+        <Profiless
+          onNavigateBack={handleNavigateToJobses}
+          onNavigateToEditProfiless={handleNavigateToEditProfiless}
+          
+        />
+        ) : currentPage === 'EditProfiless' ? (
+        <EditProfiless
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
 
       ) : currentPage === 'filter' ? (
         <Filter

@@ -8,12 +8,12 @@ from .views import (
     UserLocationViewSet, ComplaintViewSet, AuthView, RegisterView, 
     OTPVerificationView, ResendOTPView, LogoutView, ProfileUpdateView,
     PasswordResetRequestView, PasswordResetVerifyView, PasswordResetConfirmView,
-    ServiceRegistrationView, HomeDataView, DeliveryServicesView,
+    ServiceRegistrationView, ProfileRetrieveView, HomeDataView, DeliveryServicesView,
     SearchView, FilterServicesView, CakeDeliveryView, CategoryServicesView,
     CongratulationsView, ServiceCongratsView, ProfileAPIView,
     RequestView, BookingListView, BookingDetailView, 
     CreateRazorpayOrder, EReceiptView, JobsListView, ServiceDetailsView,
-    ServiceCompletedList
+    ServiceCompletedList, TransactionsListView, ServicesListView
 )
 
 
@@ -66,7 +66,8 @@ urlpatterns = [
          name='password-reset-confirm'),
     
     # Profile endpoints
-    path('profile/update/', ProfileUpdateView.as_view(), name='profile-update'),
+path('profile/update/', ProfileUpdateView.as_view(), name='profile-update'),
+    path('profile/', ProfileRetrieveView.as_view(), name='profile-retrieve'),
     
     # Service provider registration
     path('provider-register/', ServiceRegistrationView.as_view(), 
@@ -131,4 +132,6 @@ urlpatterns = [
     
     # Service completed list
     path('service-completed/', ServiceCompletedList.as_view(), name='service-completed'),
+    path('services-list/', ServicesListView.as_view(), name='services-list'),
+    path('transactions/', TransactionsListView.as_view(), name='transactions'),
 ]

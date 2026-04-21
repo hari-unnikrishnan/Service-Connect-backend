@@ -1,0 +1,172 @@
+.profile-page {
+  background: #f0f0f0;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.profile-container {
+  /* width: 420px; */
+      padding-bottom: 2px;
+}
+
+/* HEADER */
+.profile-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* CARD */
+.profile-card {
+  background: white;
+  margin: -3px 15px 20px;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.profile-img-wrapper {
+  position: relative;
+  margin-top: -60px;
+}
+
+.profile-img-wrapper img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 4px solid #2ecc71;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 46%;
+  background: white;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  padding: 4px;
+  color: #0f1222;
+}
+
+/* TEXT */
+.profile-card h3 {
+  margin-top: 10px;
+  color: #1c2036;
+}
+
+.email {
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+/* MENU */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.lefts {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rights {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.rights-text {
+  font-size: 13px;
+  color: #555;
+}
+
+/* TOGGLE */
+.toggle {
+  width: 42px;
+  height: 22px;
+  background: #ccc;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle .circle {
+  width: 18px;
+  height: 18px;
+  background: #1c2036;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: 0.3s;
+}
+
+.toggle.active {
+  background: #2ecc71;
+}
+
+.toggle.active .circle {
+  left: 22px;
+  background: white;
+}
+
+/* DARK MODE */
+.profile-page.dark {
+  background: #121212;
+}
+
+.profile-page.dark .profile-header {
+  background: #0f1222;
+}
+
+.profile-page.dark .profile-card {
+  background: #1e1e2f;
+}
+
+.profile-page.dark h3,
+.profile-page.dark span {
+  color: #fff;
+}
+
+.profile-page.dark .email {
+  color: #bbb;
+}
+
+.profile-page.dark .menu-item {
+  border-bottom: 1px solid #333;
+}
+
+.profile-page.dark svg {
+  color: white;
+}
+
+/* BOTTOM NAV */
+.bottom-navg {
+ margin: 18px;
+  background: #7d7474;
+  border-radius: 22px;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  color: white;
+}

@@ -1,0 +1,83 @@
+.transactions-page {
+  background: #f2f2f2;
+  /* min-height: 100vh; */
+  /* display: flex; */
+  justify-content: center;
+}
+
+.transactions-container {
+  /* width: 420px; */
+  padding-bottom: 1px;
+}
+
+/* HEADER */
+.tr-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* CARD */
+.transaction-card {
+  display: flex;
+  gap: 12px;
+  background: white;
+  margin: 15px;
+  padding: 12px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.thumb {
+  width: 70px;
+  height: 70px;
+  background: black;
+  border-radius: 15px;
+}
+
+.info h4 {
+  color: #1c2036;
+}
+
+.info p {
+  color: #777;
+  font-size: 14px;
+}
+
+/* PAID TAG */
+.paid {
+  display: inline-block;
+  margin-top: 8px;
+  background: #2e7d6b;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* BOTTOM NAV */
+.bottom-navu {
+    margin: 18px;
+    background: #7d7474;
+    border-radius: 22px;
+    display: flex;
+    justify-content: space-around;
+    padding: 16px;
+    color: white;
+}

@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate
 from django.utils import timezone
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation, Request, Complaint
+    Booking, Review, Offer, UserLocation, Request, Complaint, Transaction
 )
 
 
@@ -34,8 +34,8 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'first_name', 'last_name', 'email', 'phone', 
-            'address', 'profile_image'
+            'first_name', 'last_name', 'nickname', 'date_of_birth', 'gender',
+            'email', 'phone', 'address', 'profile_image'
         ]
     
     def update(self, instance, validated_data):
@@ -361,6 +361,33 @@ class EReceiptSerializer(serializers.ModelSerializer):
     
     def get_date_str(self, obj):
         return obj.created_at.strftime('%b %d, %Y / %H:%M')
+    
+    def get_status_display(self, obj):
+        return obj.get_status_display()
+
+class TransactionSerializer(serializers.ModelSerializer):
+    """Serializer for Transaction model"""
+    service_name = serializers.CharField(source='booking.service.name', read_only=True)
+    provider_name = serializers.CharField(source='booking.provider.username', read_only=True)
+    category_name = serializers.CharField(source='booking.service.category.name', read_only=True)
+    amount_formatted = serializers.SerializerMethodField()
+    date_formatted = serializers.SerializerMethodField()
+    status_display = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Transaction
+        fields = [
+            'id', 'service_name', 'provider_name', 'category_name', 
+            'amount', 'amount_formatted', 'payment_method', 'status', 
+            'status_display', 'date_formatted', 'razorpay_payment_id'
+        ]
+        read_only_fields = ['id']
+    
+    def get_amount_formatted(self, obj):
+        return f"${obj.amount:.2f}"
+    
+    def get_date_formatted(self, obj):
+        return obj.timestamp.strftime('%b %d, %Y')
     
     def get_status_display(self, obj):
         return obj.get_status_display()

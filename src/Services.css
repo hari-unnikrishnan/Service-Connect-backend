@@ -1,0 +1,129 @@
+.services-page {
+  background: #f2f2f2;
+  /* min-height: 100vh;
+  display: flex; */
+  justify-content: center;
+}
+
+.services-container {
+  /* width: 420px; */
+  padding-bottom: 1px;
+}
+
+/* HEADER */
+.services-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* TABS */
+.tabs {
+  margin: 15px;
+  background: #7a706b;
+  padding: 5px;
+  border-radius: 20px;
+  display: flex;
+}
+
+.tabs button {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+}
+
+.tabs .active {
+  background: white;
+  color: #1c2036;
+}
+
+/* CARD */
+.service-cards {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  margin: 15px;
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.thumb {
+  width: 100px;
+  height: 80px;
+  background: black;
+}
+
+.content {
+  padding: 10px;
+}
+
+.category {
+  color: orange;
+  font-size: 12px;
+}
+
+.content h4 {
+  color: #1c2036;
+  font-size: 15px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #1c2036;
+  font-size: 13px;
+}
+
+/* CHECK */
+.check {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.check {
+  width: 26px;
+  height: 26px;
+  background-color: #2ecc71; /* green circle */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check svg {
+  color: #ffffff; /* white tick */
+  stroke-width: 3; /* thicker tick */
+}
+/* BOTTOM NAV */
+.bottom-icon {
+  margin: 18px;
+  background: #7d7474;
+  border-radius: 22px;
+  display: flex;
+  justify-content: space-around;
+  padding: 16px;
+  color: white;
+}

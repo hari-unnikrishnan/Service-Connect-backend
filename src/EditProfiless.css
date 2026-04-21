@@ -1,0 +1,156 @@
+.edit-page {
+  background: #e9edf2;
+  min-height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.edit-container {
+  /* width: 420px; */
+   padding-bottom: 1px;
+}
+
+/* HEADER */
+.edit-header {
+  background: #1c2036;
+  color: white;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.back-btn {
+  border: 1px solid #ffffff80;
+  border-radius: 50%;
+  padding: 8px;
+  background: transparent;
+  color: white;
+}
+
+/* IMAGE */
+.profile-img-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  position: relative;
+}
+
+.profile-img-wrap img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+
+.profile-img-wrap .edit-icon {
+  position: absolute;
+  bottom: -16px;
+    right: 46%;
+  background: white;
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+   cursor: pointer;
+}
+
+/* FORM */
+.form {
+  padding: 0 15px;
+}
+
+.input-box {
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  color: #555;
+}
+
+.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.with-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.phone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* BUTTON */
+.update-btn {
+  margin: 18px 15px;
+  width: calc(100% - 30px);
+  background: #1c2036;
+  color: white;
+  padding: 15px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.update-btn .arrow {
+  background: white;
+  color: black;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+}
+
+.input-box {
+  width: 98%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  margin-bottom: 15px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+/* ICON INPUT */
+.with-icon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+}
+
+.with-icon input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  color: #000;
+}
+
+/* DROPDOWN */
+.with-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.with-right select {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
+  font-size: 14px;
+  appearance: none;
+  color: #000;
+}

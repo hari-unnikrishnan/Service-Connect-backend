@@ -10,14 +10,14 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation, Request, Complaint
+    Booking, Review, Offer, UserLocation, Request, Complaint, Transaction
 )
 from .serializers import (
     UserSerializer, CategorySerializer, CategoryDetailSerializer, ServiceSerializer,
     ProviderProfileSerializer, BookingSerializer, ReviewSerializer, OfferSerializer,
     RegisterSerializer, LoginSerializer, OTPSerializer, UserLocationSerializer,
     ProfileUpdateSerializer, ServiceRegistrationSerializer, RequestSerializer,
-    EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer
+    EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer, TransactionSerializer
 )
 from django.utils import timezone
 import random
@@ -401,6 +401,28 @@ class ProfileUpdateView(APIView):
             serializer.errors, 
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+class ProfileRetrieveView(APIView):
+    """Retrieve current user profile"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user_serializer = UserSerializer(request.user)
+        profile_data = user_serializer.data
+        profile_data['full_name'] = f"{request.user.first_name} {request.user.last_name}".strip() or request.user.username
+        profile_data['has_provider_profile'] = hasattr(request.user, 'provider_profile')
+        
+        try:
+            provider_profile = ProviderProfile.objects.get(user=request.user)
+            profile_data['provider_profile'] = ProviderProfileSerializer(provider_profile).data
+        except ProviderProfile.DoesNotExist:
+            profile_data['provider_profile'] = None
+        
+        if request.user.profile_image:
+            profile_data['profile_image_url'] = request.build_absolute_uri(request.user.profile_image.url)
+        
+        return Response({'profile': profile_data})
 
 
 class PasswordResetRequestView(APIView):
@@ -940,6 +962,41 @@ class ServiceCompletedList(APIView):
         serializer = JobSerializer(completed_bookings, many=True, context={'request': request})
         return Response({
             'count': completed_bookings.count(),
+            'services': serializer.data
+        })
+
+
+class TransactionsListView(APIView):
+    """List user's transactions (paid bookings)"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        # Get transactions for customer's completed paid bookings
+        transactions = Transaction.objects.filter(
+            booking__customer=user,
+            status='paid'
+        ).select_related(
+            'booking__service__category', 
+            'booking__provider'
+        ).order_by('-timestamp')
+        
+        serializer = TransactionSerializer(transactions, many=True, context={'request': request})
+        return Response({
+            'count': transactions.count(),
+            'transactions': serializer.data
+        })
+
+
+class ServicesListView(APIView):
+    """List all active services"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        services = Service.objects.filter(is_active=True).select_related('category').order_by('name')
+        serializer = ServiceSerializer(services, many=True, context={'request': request})
+        return Response({
+            'count': services.count(),
             'services': serializer.data
         })
 

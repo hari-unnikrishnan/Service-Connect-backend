@@ -21,6 +21,13 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, blank=True)
     address = models.TextField(blank=True)
     profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
+    nickname = models.CharField(max_length=100, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    gender = models.CharField(
+        max_length=10, 
+        choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')], 
+        blank=True
+    )
     
     def __str__(self):
         return self.username
@@ -222,3 +229,24 @@ class Request(models.Model):
     
     def __str__(self):
         return f"Request #{self.id} - {self.customer.username} - {self.service.name}"
+
+class Transaction(models.Model):
+    """Transaction model for payments"""
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('failed', 'Failed'),
+        ('refunded', 'Refunded'),
+    ]
+    
+    booking = models.OneToOneField('Booking', on_delete=models.CASCADE, related_name='transaction')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_method = models.CharField(max_length=50)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    razorpay_payment_id = models.CharField(max_length=100, blank=True, null=True)
+    razorpay_order_id = models.CharField(max_length=100, blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Transaction #{self.id} - Booking {self.booking.id} ({self.status})"
+
