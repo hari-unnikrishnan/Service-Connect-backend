@@ -21,7 +21,7 @@ import {
   CircleHelp,
   ChevronRight
 } from "lucide-react";
-export default function Home({ onNavigateToAllCategory }){
+export default function Home({ onNavigateToAllCategory,onNavigateToNoti }){
 
   const categories = [
     { name: "Cleaning", image: userprofile },
@@ -47,7 +47,7 @@ export default function Home({ onNavigateToAllCategory }){
           </div>
 
           <div className="header-right">
-            <Bell size={18} />
+            <Bell size={18}   onClick={onNavigateToNoti} />
             <div className="avatar">
               <img src={profile} alt="profile" />
             </div>

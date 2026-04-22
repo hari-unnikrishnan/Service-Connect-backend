@@ -1,0 +1,88 @@
+.history-page {
+  background: #f2f3f7;
+  height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+}
+
+.history-container {
+  /* width: 360px; */
+  background: #f2f3f7;
+}
+
+/* HEADER */
+.history-header {
+  background: #1e2235;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  gap: 15px;
+}
+
+.history-header h2 {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.back-btn {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  background: transparent;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* CARD */
+.history-card {
+  margin: 60px 20px;
+  background: #f7f8fb;
+  border-radius: 25px;
+  padding: 50px 20px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.history-card h3 {
+  color: #1e2235;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.history-card p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+/* BUTTON */
+.explore-btn {
+  background: #1e2235;
+  color: white;
+  border: none;
+  padding: 15px 25px;
+  border-radius: 40px;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+
+ 
+}
+
+.arrowy {
+  background: white;
+  color: #1e2235;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

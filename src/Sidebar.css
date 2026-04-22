@@ -1,0 +1,219 @@
+ body {
+          margin: 0;
+          font-family: sans-serif;
+        }
+
+        /*  BACKGROUND   */
+        .edit-page {
+          height: 145vh;
+          background: #dcdfe4;
+          transition: 0.3s;
+        }
+
+        /* 🔥 BLUR EFFECT */
+        .blur-bg {
+          filter: blur(8px);
+        }
+
+        /* .header {
+          height: 90px;
+          background: #1e2230;
+            color: whithe;
+          display: flex;
+          align-items: center;
+          padding: 0 20px;
+          gap: 15px;
+        } */
+
+        .back-btn {
+          border: 1px solid #aaa;
+          border-radius: 50%;
+          padding: 8px;
+          background: transparent;
+          color: white;
+          cursor: pointer;
+        }
+
+        .profile-img-box {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+          position: relative;
+        }
+
+        .profile-img-box img {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+        }
+
+        .edit-icon {
+          position: absolute;
+          right: calc(50% - 45px);
+          bottom: 0;
+          background: white;
+          padding: 5px;
+          border-radius: 10px;
+        }
+
+        .form {
+          margin-top: 20px;
+          padding: 0 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          display:none;
+        }
+
+        .form input {
+          padding: 15px;
+          border-radius: 12px;
+          border: none;
+          background: #eee;
+          box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .update-btn {
+          margin: 25px 20px;
+          padding: 15px;
+          border-radius: 30px;
+          border: none;
+          background: #1e2230;
+          color: white;
+          font-size: 16px;
+          cursor: pointer;
+        }
+
+        /* ===== OVERLAY ===== */
+        .overlay {
+          // position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.25);
+          backdrop-filter: blur(6px);
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        
+          pointer-events: none;
+          transition: 0.3s;
+          z-index: 999;
+          width: 111%;
+          height:140%;
+     
+        border-radius: 28px;
+        
+        position: absolute;
+        top: 8%;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+
+
+        
+        }
+
+        .overlay.show {
+          opacity: 1;
+          pointer-events: all;
+        }
+
+        /* ===== SIDEBAR CARD ===== */
+        .sidebar-card {
+          width: 732px;
+         max-height: 142vh
+          overflow-y: auto;
+          background: linear-gradient(180deg, #2d2f3a, #1f212b);
+          border-radius: 20px;
+          padding: 20px;
+          color: white;
+          position: relative;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .close-btn {
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          background: transparent;
+          border: none;
+          color: white;
+          cursor: pointer;
+        }
+
+        .profile-section {
+          text-align: center;
+        }
+
+        .avatar-wrapper {
+          position: relative;
+          width: 70px;
+          height: 70px;
+          margin: auto;
+        }
+
+        .avatar-wrapper img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          border: 3px solid #ff4d6d;
+        }
+
+        .online-dot {
+          position: absolute;
+          right: 5px;
+          top: 5px;
+          width: 12px;
+          height: 12px;
+          background: #00ff4c;
+          border-radius: 50%;
+        }
+
+        .name {
+          color: #ff4d6d;
+          margin-top: 10px;
+        }
+
+        .uid {
+          color: gold;
+          font-size: 14px;
+        }
+
+        .status {
+          color: #00ff4c;
+          font-size: 14px;
+        }
+
+        .profile-btn {
+          width: 100%;
+          padding: 10px;
+          margin: 15px 0;
+          border-radius: 10px;
+          border: none;
+          background: #bbb;
+          cursor: pointer;
+        }
+
+        .menu {
+          list-style: none;
+          padding: 0;
+        }
+
+        .menu li {
+          padding: 10px;
+          border-bottom: 1px solid rgba(255,255,255,0.05);
+          cursor: pointer;
+          transition: 0.2s;
+        }
+
+        .menu li:hover {
+          color: #ff4d6d;
+          transform: translateX(5px);
+        }
+
+        .logout {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 10px;
+          cursor: pointer;
+        }

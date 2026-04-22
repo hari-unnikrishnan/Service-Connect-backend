@@ -1,0 +1,56 @@
+/* PAGE */
+.terms-page {
+  background: #f2f3f7;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+.terms-header {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* TITLE */
+.terms-header h2 {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* CONTENT */
+.terms-content {
+  padding: 20px;
+}
+
+/* HEADINGS */
+.terms-content h3 {
+  color: #2b3045;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+/* PARAGRAPH */
+.terms-content p {
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-size: 15px;
+}

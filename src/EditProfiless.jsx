@@ -11,7 +11,7 @@ import {
 
 import profileImg from "./assets/profile.png";
 
-export default function EditProfile({ onNavigateBack }) {
+export default function EditProfile({ onNavigateBack , onNavigateToHistory}) {
 
   const [formData, setFormData] = useState({
     name: "",
@@ -32,11 +32,11 @@ export default function EditProfile({ onNavigateBack }) {
   };
 
   return (
-    <div className="edit-page">
-      <div className="edit-container">
+    <div className="edit-pages">
+      <div className="edit-containers">
 
         {/* HEADER */}
-        <div className="edit-header">
+        <div className="edit-headers">
           <button className="back-btn" onClick={onNavigateBack}>
             &#8249;
           </button>
@@ -44,7 +44,7 @@ export default function EditProfile({ onNavigateBack }) {
         </div>
 
         {/* PROFILE IMAGE */}
-        <div className="profile-img-wrap">
+        <div className="profile-img-wrapse">
           <img src={profileImg} alt="profile" />
           <div className="edit-icon">
             <Image size={18} />
@@ -52,7 +52,7 @@ export default function EditProfile({ onNavigateBack }) {
         </div>
 
         {/* FORM */}
-        <div className="form">
+        <div className="formz">
 
           <input
             className="input-box"
@@ -137,7 +137,7 @@ export default function EditProfile({ onNavigateBack }) {
         </div>
 
         {/* BUTTON */}
-        <button className="update-btn">
+        <button className="update-btn" onClick={onNavigateToHistory}>
           Update
           <span className="arrow">
             <ArrowRight size={18} />

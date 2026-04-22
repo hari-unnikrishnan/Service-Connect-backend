@@ -36,6 +36,12 @@ import Transactions from './Transactions.jsx'
 import Services from './Services.jsx' 
 import Profiless from './Profiless.jsx' 
 import EditProfiless from './EditProfiless.jsx' 
+import History from './History.jsx'
+import Sidebar from './Sidebar.jsx'
+import About from './About.jsx'
+import TermsConditions from './TermsConditions.jsx'
+import Noti from './Noti.jsx'
+import HelpCenter from './HelpCenter.jsx'
 import './App.css'
 
 function App() {
@@ -89,12 +95,10 @@ function App() {
   //  COMPLAINT FORM
   const handleNavigateToComplaintForm = () => setCurrentPage('complaint')
   const handleNavigateToComplaintList = () => setCurrentPage('complaintlist')
-
   // REQUEST / BOOKINGS
   const handleNavigateToRequest = () => setCurrentPage('request')
   const handleNavigateToBookings = () => setCurrentPage('bookings')
   const handleNavigateToBookingDetails = () => setCurrentPage('bookingdetails')
-
   // PAYMENTServices
   const handleNavigateToPaymentMethods = () => setCurrentPage('paymentmethods')
   // ServiceCompleted
@@ -111,6 +115,21 @@ function App() {
   
   // EditProfiless
   const handleNavigateToEditProfiless = () => setCurrentPage('EditProfiless')
+
+  // History
+  const handleNavigateToHistory = () => setCurrentPage('History')
+
+  // Sidebar
+  const handleNavigateToSidebar = () => setCurrentPage('Sidebar')
+  // About
+  const handleNavigateToAbout = () => setCurrentPage('About')
+  // TermsConditions
+   const handleNavigateToTermsConditions = () => setCurrentPage('TermsConditions')
+
+  //  Notifications
+  const handleNavigateToNoti = () => setCurrentPage('Noti')
+  // HelpCenter
+  const handleNavigateToHelpCenter = () => setCurrentPage('HelpCenter')
 
   const handlePaymentSuccess = (selected, amount) => {
     setSelectedPayment(selected)
@@ -193,6 +212,7 @@ function App() {
           onNavigateToProfile={handleNavigateToProfile}
           onNavigateToBookings={handleNavigateToBookings}
           onNavigateToJobs={handleNavigateToJobs}
+          onNavigateToNoti={handleNavigateToNoti}
         />
 
       ) : currentPage === 'jobs' ? (
@@ -275,6 +295,44 @@ function App() {
         ) : currentPage === 'EditProfiless' ? (
         <EditProfiless
           onNavigateBack={handleNavigateToProfiless}
+          onNavigateToHistory={handleNavigateToHistory}
+          
+        />
+        
+        ) : currentPage === 'History' ? (
+        <History
+          onNavigateBack={handleNavigateToProfiless}
+           onNavigateToSidebar={handleNavigateToSidebar}
+          
+        />
+         ) : currentPage === 'Sidebar' ? (
+        <Sidebar
+          onNavigateBack={handleNavigateToHistory}
+          onNavigateToAbout={handleNavigateToAbout}
+           onNavigateToTermsConditions={handleNavigateToTermsConditions}
+            onNavigateToHelpCenter={handleNavigateToHelpCenter}
+          
+        />
+          ) : currentPage === 'About' ? (
+        <About
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+
+         ) : currentPage === 'TermsConditions' ? (
+        <TermsConditions
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+
+         ) : currentPage === 'HelpCenter' ? (
+        <HelpCenter
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+        ) : currentPage === 'Noti' ? (
+        <Noti
+          onNavigateBack={handleNavigateToHome}
           
         />
 

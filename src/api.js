@@ -446,6 +446,22 @@ export const getUserById = async (userId) => {
   return response.json();
 };
 
+// ==================== HELP CENTER API ====================
+export const getHelpArticles = async (category = null) => {
+  let url = `${API_BASE_URL}/helparticles/`;
+  if (category) {
+    url += `?category=${category.toLowerCase()}`;
+  }
+  const response = await fetch(url, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch help articles');
+  }
+  const data = await response.json();
+  return Array.isArray(data) ? data : data.results || [];
+};
+
 // ==================== RAZORPAY API ====================
 export const createOrder = async (amount = 55) => {
   const res = await fetch(`${API_BASE_URL}/payments/create-order/`, {
@@ -464,6 +480,7 @@ export const createOrder = async (amount = 55) => {
 
 
 export default {
+
 
 
   API_BASE_URL,

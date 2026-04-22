@@ -1,0 +1,95 @@
+/* PAGE */
+.notify-page {
+  background: #f2f3f7;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+.notify-header {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* TITLE */
+.notify-header h2 {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* CONTENT */
+.notify-content {
+  padding: 20px;
+}
+
+/* SECTION TITLE */
+.notify-content h3 {
+  margin: 20px 0 10px;
+  color: #2b3045;
+}
+
+/* CARD */
+.notify-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+
+  box-shadow:
+    0 6px 10px rgba(0,0,0,0.1),
+    0 10px 0 rgba(0,0,0,0.05);
+}
+
+/* ICON BOX */
+.icon-box {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #f0f1f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #2b3045;
+}
+
+/* DARK ICON */
+.icon-box.dark {
+  background: #1e2235;
+  color: white;
+}
+
+/* TEXT */
+.text h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #2b3045;
+}
+
+.text p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 14px;
+}
