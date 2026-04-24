@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { X, LogOut, ArrowLeft } from "lucide-react";
 import avatar from './assets/IMAGE BG22.png';
 
-export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter}) {
+export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter,onNavigateToSettings, onNavigateToChat , onNavigateToFriends}) {
 
 
   return (
@@ -94,6 +94,12 @@ export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNav
                     onNavigateToTermsConditions();
                   } else if (item === "Help Center") {
                     onNavigateToHelpCenter();
+                  } else if (item === "Settings") {
+                    onNavigateToSettings();
+                  } else if (item === "Message") {
+                    onNavigateToChat();
+                  } else if (item === "Invite a Friend") {
+                    onNavigateToFriends();
                   }
                 }}
               >

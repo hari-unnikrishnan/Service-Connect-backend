@@ -1,5 +1,5 @@
 // API Service for Service Connect
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = "/api";
 
 // Helper for auth headers without Content-Type (for FormData)
 const getMultipartAuthHeaders = () => {
@@ -82,6 +82,29 @@ const getAuthHeaders = () => {
   };
 };
 
+// Helper to handle fetch responses safely
+const handleResponse = async (response) => {
+  const contentType = response.headers.get('content-type');
+  const isJson = contentType && contentType.includes('application/json');
+
+  if (!response.ok) {
+    let errorMessage = `HTTP ${response.status}: ${response.statusText}`;
+    if (isJson) {
+      const errorData = await response.json();
+      errorMessage = Object.values(errorData).flat().join(', ') || errorMessage;
+    } else {
+      const text = await response.text();
+      if (text) errorMessage = `Server error (${response.status}): ${text.substring(0, 200)}`;
+    }
+    throw new Error(errorMessage);
+  }
+
+  if (isJson) {
+    return response.json();
+  }
+  return {};
+};
+
 // ==================== AUTH API ====================
 
 // Login
@@ -91,7 +114,7 @@ export const login = async (username, password) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 // Register
@@ -101,7 +124,7 @@ export const register = async (userData) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(userData),
   });
-  return response.json();
+  return handleResponse(response);
 };
 
 // Verify OTP (for registration)
@@ -478,11 +501,123 @@ export const createOrder = async (amount = 55) => {
   return res.json();
 };
 
+// ==================== CHAT API ====================
+
+// Get all conversations for current user
+export const getConversations = async () => {
+  const response = await fetch(`${API_BASE_URL}/chat/conversations/`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch conversations');
+  }
+  const data = await response.json();
+  return data.conversations || data;
+};
+
+// Get a single conversation with messages
+export const getConversation = async (conversationId) => {
+  const response = await fetch(`${API_BASE_URL}/chat/conversations/${conversationId}/`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch conversation');
+  }
+  const data = await response.json();
+  return data.conversation || data;
+};
+
+// Create a new conversation with another user
+export const createConversation = async (participantId) => {
+  const response = await fetch(`${API_BASE_URL}/chat/conversations/`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify({ participant_id: participantId }),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to create conversation');
+  }
+  const data = await response.json();
+  return data.conversation || data;
+};
+
+// Send a message in a conversation
+export const sendMessage = async (conversationId, text, file = null) => {
+  const formData = new FormData();
+  formData.append('conversation_id', conversationId);
+  if (text) formData.append('text', text);
+  if (file) formData.append('file', file);
+
+  const response = await fetch(`${API_BASE_URL}/chat/messages/send/`, {
+    method: "POST",
+    headers: getMultipartAuthHeaders(),
+    body: formData,
+  });
+  if (!response.ok) {
+    throw new Error('Failed to send message');
+  }
+  const data = await response.json();
+  return data.message || data;
+};
+
+// Mark messages in a conversation as read
+export const markMessagesRead = async (conversationId) => {
+  const response = await fetch(`${API_BASE_URL}/chat/messages/${conversationId}/read/`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to mark messages as read');
+  }
+  return response.json();
+};
+
+
+// ==================== FRIENDS API ====================
+
+// Get users available to invite
+export const getInviteUsers = async (search = '') => {
+  let url = `${API_BASE_URL}/friends/invite-users/`;
+  if (search) {
+    url += `?search=${encodeURIComponent(search)}`;
+  }
+  const response = await fetch(url, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch invite users');
+  }
+  const data = await response.json();
+  return data.users || data;
+};
+
+// Send a friend invite
+export const sendInvite = async (inviteData) => {
+  const response = await fetch(`${API_BASE_URL}/friends/send-invite/`, {
+    method: 'POST',
+    headers: getAuthHeaders(),
+    body: JSON.stringify(inviteData),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to send invite');
+  }
+  return response.json();
+};
+
+// Get my sent invites
+export const getMyInvites = async () => {
+  const response = await fetch(`${API_BASE_URL}/friends/my-invites/`, {
+    headers: getAuthHeaders(),
+  });
+  if (!response.ok) {
+    throw new Error('Failed to fetch invites');
+  }
+  const data = await response.json();
+  return data.invites || data;
+};
+
 
 export default {
-
-
-
   API_BASE_URL,
   login,
   register,
@@ -520,4 +655,12 @@ export default {
   createReview,
   getCurrentUser,
   getUserById,
+  getConversations,
+  getConversation,
+  createConversation,
+  sendMessage,
+  markMessagesRead,
+  getInviteUsers,
+  sendInvite,
+  getMyInvites,
 };

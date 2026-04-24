@@ -1,5 +1,7 @@
-from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework import viewsets, permissions, status, filters
+from rest_framework.decorators import action
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import login, logout
@@ -8,16 +10,21 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
+from django.db import models
+from rest_framework.authtoken.models import Token
 from .models import (
-    User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation, Request, Complaint, Transaction
+    User, Category, Service, ProviderProfile,
+    Booking, Review, Offer, UserLocation, Request, Complaint, Transaction, Notification, HelpArticle, UserNotificationPreferences,
+    Conversation, Message, FriendInvite
 )
 from .serializers import (
     UserSerializer, CategorySerializer, CategoryDetailSerializer, ServiceSerializer,
     ProviderProfileSerializer, BookingSerializer, ReviewSerializer, OfferSerializer,
     RegisterSerializer, LoginSerializer, OTPSerializer, UserLocationSerializer,
     ProfileUpdateSerializer, ServiceRegistrationSerializer, RequestSerializer,
-    EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer, TransactionSerializer
+    EReceiptSerializer, ComplaintSerializer, JobSerializer, ServiceDetailSerializer, TransactionSerializer, NotificationSerializer, HelpArticleSerializer, UserNotificationPreferencesSerializer, UserSecuritySettingsSerializer,
+    MessageSerializer, ConversationSerializer, ConversationDetailSerializer,
+    InviteUserSerializer, FriendInviteSerializer
 )
 from django.utils import timezone
 import random
@@ -44,9 +51,11 @@ class AuthView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             login(request, user)
+            token, _ = Token.objects.get_or_create(user=user)
             return Response({
                 'success': True,
                 'message': 'Login successful',
+                'token': token.key,
                 'user': UserSerializer(user).data
             }, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -1013,3 +1022,343 @@ class EReceiptView(APIView):
         
         serializer = EReceiptSerializer(booking)
         return Response(serializer.data)
+
+class HistoryListView(APIView):
+    """List user's transaction history (alias for TransactionsListView)"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        # Reuse TransactionsListView logic
+        user = request.user
+        transactions = Transaction.objects.filter(
+            booking__customer=user,
+            status='paid'
+        ).select_related(
+            'booking__service__category', 
+            'booking__provider'
+        ).order_by('-timestamp')
+        
+        serializer = TransactionSerializer(transactions, many=True, context={'request': request})
+        return Response({
+            'count': transactions.count(),
+            'history': serializer.data
+        })
+
+
+class NotificationListView(APIView):
+    """List user's notifications"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        unread_only = request.query_params.get('unread', 'false').lower() == 'true'
+        
+        notifications = Notification.objects.filter(user=user)
+        if unread_only:
+            notifications = notifications.filter(is_read=False)
+        
+        serializer = NotificationSerializer(notifications, many=True, context={'request': request})
+        return Response({
+            'count': notifications.count(),
+            'notifications': serializer.data
+        })
+
+
+class AboutView(APIView):
+    """Static about page data"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        return Response({
+            'title': 'About Service Connect',
+            'version': '1.0.0',
+            'description': 'Service Connect is a platform connecting customers with local service providers for home services, repairs, cleaning, and more.',
+            'sections': [
+                {
+                    'title': 'Our Mission',
+                    'content': 'To make local services accessible and reliable for everyone.'
+                },
+                {
+                    'title': 'Features',
+                    'content': 'Book services, track payments, manage bookings, leave reviews.'
+                },
+                {
+                    'title': 'Contact',
+                    'email': 'support@serviceconnect.com',
+                    'phone': '+1 234 567 8900'
+                }
+            ]
+        })
+
+
+
+
+class TermsConditionsView(APIView):
+    """Static terms and conditions data"""
+    permission_classes = [permissions.AllowAny]
+    
+    def get(self, request):
+        return Response({
+            'title': 'Terms & Conditions',
+            'last_updated': '2024-01-01',
+            'sections': [
+                {
+                    'heading': '1. Acceptance of Terms',
+                    'content': 'By using Service Connect, you agree to these terms...'
+                },
+                {
+                    'heading': '2. User Responsibilities',
+                    'content': 'Users must provide accurate information and complete payments...'
+                },
+                {
+                    'heading': '3. Payments and Refunds',
+                    'content': 'All payments are final. Refunds handled case-by-case...'
+                },
+                {
+                    'heading': '4. Dispute Resolution',
+                    'content': 'Disputes resolved through complaints system...'
+                }
+            ],
+            'contact': 'For questions, contact support@serviceconnect.com'
+        })
+
+
+
+
+class UserSettingsView(APIView):
+    """User settings view for Settings.jsx and NotificationSettings.jsx - GET/PUT preferences"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        preferences, created = UserNotificationPreferences.objects.get_or_create(user=user)
+        serializer = UserNotificationPreferencesSerializer(preferences, context={'request': request})
+        return Response({
+            'settings': serializer.data
+        })
+    
+    def put(self, request):
+        user = request.user
+        preferences, created = UserNotificationPreferences.objects.get_or_create(user=user)
+        serializer = UserNotificationPreferencesSerializer(preferences, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success': True,
+                'message': 'Settings updated successfully',
+                'settings': serializer.data
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserSecuritySettingsView(APIView):
+    """User security settings view for Security.jsx - GET/PUT settings"""
+    permission_classes = [permissions.IsAuthenticated]
+    
+    def get(self, request):
+        user = request.user
+        settings, created = UserSecuritySettings.objects.get_or_create(user=user)
+        serializer = UserSecuritySettingsSerializer(settings, context={'request': request})
+        return Response({
+            'security': serializer.data
+        })
+    
+    def put(self, request):
+        user = request.user
+        settings, created = UserSecuritySettings.objects.get_or_create(user=user)
+        serializer = UserSecuritySettingsSerializer(settings, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                'success': True,
+                'message': 'Security settings updated successfully',
+                'security': serializer.data
+            })
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class HelpArticleViewSet(viewsets.ReadOnlyModelViewSet):
+    """Help Center FAQ articles API - for HelpCenter.jsx"""
+    queryset = HelpArticle.objects.filter(is_active=True).order_by('order', 'question')
+    serializer_class = HelpArticleSerializer
+    permission_classes = [permissions.AllowAny]
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        return queryset
+
+
+class ConversationListView(APIView):
+    """List all conversations for the authenticated user"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        conversations = Conversation.objects.filter(
+            participants=request.user
+        ).prefetch_related('messages').order_by('-updated_at')
+        serializer = ConversationSerializer(conversations, many=True, context={'request': request})
+        return Response({
+            'count': conversations.count(),
+            'conversations': serializer.data
+        })
+
+    def post(self, request):
+        """Create a new conversation with another user"""
+        participant_id = request.data.get('participant_id')
+        if not participant_id:
+            return Response({'error': 'participant_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            other_user = User.objects.get(id=participant_id)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Check if conversation already exists between these two users
+        existing = Conversation.objects.filter(participants=request.user).filter(participants=other_user).first()
+        if existing:
+            serializer = ConversationSerializer(existing, context={'request': request})
+            return Response({'conversation': serializer.data})
+
+        conversation = Conversation.objects.create()
+        conversation.participants.add(request.user, other_user)
+        serializer = ConversationSerializer(conversation, context={'request': request})
+        return Response({'conversation': serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class ConversationDetailView(APIView):
+    """Get a single conversation with all messages"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, pk):
+        conversation = get_object_or_404(Conversation, pk=pk, participants=request.user)
+        serializer = ConversationDetailSerializer(conversation, context={'request': request})
+        return Response({'conversation': serializer.data})
+
+
+class SendMessageView(APIView):
+    """Send a message in a conversation"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        conversation_id = request.data.get('conversation_id')
+        text = request.data.get('text', '')
+        file = request.FILES.get('file')
+
+        if not conversation_id:
+            return Response({'error': 'conversation_id is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+        conversation = get_object_or_404(Conversation, id=conversation_id, participants=request.user)
+
+        message = Message.objects.create(
+            conversation=conversation,
+            sender=request.user,
+            text=text,
+            file=file
+        )
+        conversation.save()  # Update updated_at
+        serializer = MessageSerializer(message, context={'request': request})
+        return Response({'message': serializer.data}, status=status.HTTP_201_CREATED)
+
+
+class MarkMessagesReadView(APIView):
+    """Mark all messages in a conversation as read"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, pk):
+        conversation = get_object_or_404(Conversation, pk=pk, participants=request.user)
+        conversation.messages.filter(is_read=False).exclude(sender=request.user).update(is_read=True)
+        return Response({'success': True, 'message': 'Messages marked as read'})
+
+
+class InviteFriendsListView(APIView):
+    """List users available to invite (excludes self and already invited)"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        search = request.query_params.get('search', '')
+        # Exclude current user and users already invited by current user
+        invited_ids = FriendInvite.objects.filter(
+            inviter=request.user
+        ).values_list('invitee_id', flat=True)
+
+        users = User.objects.exclude(id=request.user.id).exclude(id__in=invited_ids)
+        if search:
+            users = users.filter(
+                models.Q(username__icontains=search) |
+                models.Q(first_name__icontains=search) |
+                models.Q(last_name__icontains=search) |
+                models.Q(phone__icontains=search)
+            )
+        users = users.order_by('first_name', 'last_name', 'username')[:50]
+        serializer = InviteUserSerializer(users, many=True, context={'request': request})
+        return Response({'count': users.count(), 'users': serializer.data})
+
+
+class SendInviteView(APIView):
+    """Send a friend invite to a user"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        invitee_id = request.data.get('invitee_id')
+        invitee_phone = request.data.get('invitee_phone')
+        invitee_email = request.data.get('invitee_email')
+        invitee_name = request.data.get('invitee_name', '')
+
+        if invitee_id:
+            try:
+                invitee = User.objects.get(id=invitee_id)
+            except User.DoesNotExist:
+                return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+            # Check if already invited
+            if FriendInvite.objects.filter(inviter=request.user, invitee=invitee).exists():
+                return Response({'error': 'Already invited'}, status=status.HTTP_400_BAD_REQUEST)
+            invite = FriendInvite.objects.create(
+                inviter=request.user,
+                invitee=invitee,
+                invitee_name=invitee_name or invitee.get_full_name() or invitee.username
+            )
+        else:
+            # Invite by phone/email without registered user
+            if not invitee_phone and not invitee_email:
+                return Response(
+                    {'error': 'invitee_id or invitee_phone/email is required'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            invite = FriendInvite.objects.create(
+                inviter=request.user,
+                invitee_name=invitee_name,
+                invitee_phone=invitee_phone or '',
+                invitee_email=invitee_email or ''
+            )
+
+        serializer = FriendInviteSerializer(invite, context={'request': request})
+        return Response({
+            'success': True,
+            'message': 'Invite sent successfully',
+            'invite': serializer.data
+        }, status=status.HTTP_201_CREATED)
+
+
+class MyInvitesView(APIView):
+    """List invites sent by current user"""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        invites = FriendInvite.objects.filter(inviter=request.user).order_by('-created_at')
+        serializer = FriendInviteSerializer(invites, many=True, context={'request': request})
+        return Response({'count': invites.count(), 'invites': serializer.data})
+
+
+
+
+
+
+
+
+
+
+
+

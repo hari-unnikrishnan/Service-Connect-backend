@@ -1,0 +1,142 @@
+/* ROOT */
+.invite {
+  background: #d6d6d6;
+  height: auto;
+ 
+}
+
+/* HEADER */
+.invite__header {
+  height: 85px;
+  background: linear-gradient(to right, #1e2235, #20243a);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  color: white;
+}
+
+.invite__back {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: white;
+}
+
+.invite__title {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.invite__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.invite__icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CARD */
+.invite__card {
+  margin: 20px;
+  background: #ececec;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ITEM */
+.invite__item {
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid #ddd;
+}
+
+.invite__item:last-child {
+  border-bottom: none;
+}
+
+/* AVATAR */
+.invite__avatar {
+  width: 55px;
+  height: 55px;
+  background: black;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* INFO */
+.invite__info {
+  flex: 1;
+}
+
+.invite__name {
+  margin: 0;
+  font-size: 17px;
+  color: #1e2235;
+}
+
+.invite__phone {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* BUTTON */
+.invite__btn {
+  border: none;
+  padding: 10px 22px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.invite__btn--dark {
+  background: #1e2235;
+  color: white;
+}
+
+.invite__btn--light {
+  background: #cfd7e3;
+  color: #1e2235;
+}
+
+/* SHARE */
+.invite__share {
+  padding: 18px 20px;
+  margin-bottom: 10px;
+}
+
+.invite__share-title {
+  margin-bottom: 12px;
+  color: #1e2235;
+}
+
+.invite__socials {
+  display: flex;
+  gap: 12px;
+}
+
+.invite__social {
+  width: 42px;
+  height: 42px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invite__social--fb { color: #1877f2; }
+.invite__social--tw { color: #1da1f2; }
+.invite__social--gp { color: #db4437; }
+.invite__social--wa { color: #25d366; }

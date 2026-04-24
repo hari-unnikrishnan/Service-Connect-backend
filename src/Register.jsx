@@ -4,6 +4,7 @@ import google from "./assets/google.png";
 import apple from "./assets/apple.png";
 import logo2 from "./assets/logo2.png";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import { register } from "./api";
 
 export default function Register({
   onNavigateToLogin,
@@ -49,48 +50,34 @@ export default function Register({
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: username,
-          email: email,
-          password: password,
-          password_confirm: confirmPassword,
-          first_name: firstName,
-          last_name: lastName,
-          phone: phone,
-          role: "customer"
-        }),
+      const data = await register({
+        username: username,
+        email: email,
+        password: password,
+        password_confirm: confirmPassword,
+        first_name: firstName,
+        last_name: lastName,
+        phone: phone,
+        role: "customer"
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // Store user_id for OTP verification
-        if (setUserId) {
-          setUserId(data.user_id);
-        }
-        localStorage.setItem("registration_user_id", data.user_id);
-        // Navigate to OTP
-        onNavigateToOTP();
-      } else {
-        // Handle errors
-        const errors = Object.values(data).flat().join(", ");
-        setError(errors || "Registration failed. Please try again.");
+      // Store user_id for OTP verification
+      if (setUserId) {
+        setUserId(data.user_id);
       }
+      localStorage.setItem("registration_user_id", data.user_id);
+      // Navigate to OTP
+      onNavigateToOTP();
     } catch (err) {
-      setError("Connection error. Please check if the server is running.");
+      setError(err.message || "Connection error. Please check if the server is running.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="signup-screen-wrapper">
-      <div className="signup-screen-box">
+    // <div className="signup-screen-wrapper">
+      <div className="signup-screen-boxs">
 
         
 
@@ -238,6 +225,6 @@ export default function Register({
         </p>
 
       </div>
-    </div>
+    // </div>
   );
 }

@@ -1,0 +1,120 @@
+/* PAGE */
+.security-page {
+  background: #f2f3f7;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+.security-header {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 0 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-size: 22px;
+}
+
+/* LIST */
+.security-list {
+  padding: 20px;
+  flex: 1;
+}
+
+/* ITEM */
+.security-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+}
+
+/* TEXT */
+.security-item span {
+  font-size: 18px;
+  font-weight: 500;
+  color: #1e2235;
+}
+
+/* ARROW ITEM */
+.arrow-item {
+  cursor: pointer;
+}
+
+/* TOGGLE */
+.togglez {
+  width: 60px;
+  height: 30px;
+  background: #cfd6e0;
+  border-radius: 30px;
+  position: relative;
+  cursor: pointer;
+}
+
+/* THUMB */
+.thumbw {
+  width: 24px;
+  height: 24px;
+  background: #1e2235;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  transition: 0.25s;
+}
+
+/* ON STATE */
+.togglez.on .thumbw {
+  left: 32px;
+}
+.togglez.on{
+    background: #2ecc71
+}
+
+/* BUTTONS */
+.security-actions {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* LIGHT BUTTON */
+.btn.light {
+  background: #e5e8ee;
+  color: #1e2235;
+  border: none;
+  padding: 16px;
+  border-radius: 35px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* DARK BUTTON */
+.btn.dark {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  border: none;
+  padding: 16px;
+  border-radius: 35px;
+  font-size: 16px;
+  font-weight: 500;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+}

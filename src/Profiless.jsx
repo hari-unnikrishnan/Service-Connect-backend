@@ -24,7 +24,7 @@ import {
 import profileImg from "./assets/profile.png";
 import { fetchProfile } from './api.js';
 
-export default function Profile({ onNavigateBack, onNavigateToEditProfiless }) {
+export default function Profile({ onNavigateBack, onNavigateToEditProfiless, onNavigateToNotificationSettings,onNavigateToSecurity,onNavigateToFriends }) {
   const [darkMode, setDarkMode] = useState(false);
 
   // Load saved dark mode
@@ -103,8 +103,16 @@ export default function Profile({ onNavigateBack, onNavigateToEditProfiless }) {
             />
 
             <MenuItem icon={<CreditCard />} text="Payment Option" />
-            <MenuItem icon={<Bell />} text="Notifications" />
-            <MenuItem icon={<Shield />} text="Security" />
+            <MenuItem 
+              icon={<Bell />} 
+              text="Notifications"  
+              onClick={onNavigateToNotificationSettings}
+            />
+            <MenuItem 
+            icon={<Shield />}
+             text="Security"
+             onClick={onNavigateToSecurity}
+              />
 
             <MenuItem
               icon={<Languages />}
@@ -127,9 +135,16 @@ export default function Profile({ onNavigateBack, onNavigateToEditProfiless }) {
               </div>
             </div>
 
+
             <MenuItem icon={<FileText />} text="Terms & Conditions" />
             <MenuItem icon={<HelpCircle />} text="Help Center" />
-            <MenuItem icon={<Mail />} text="Invite Friends" />
+
+            <MenuItem 
+            icon={<Mail />} 
+            text="Invite Friends" 
+            onClick={onNavigateToFriends}
+            />
+              
             <MenuItem icon={<Power />} text="Logout" />
 
           </div>

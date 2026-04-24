@@ -42,12 +42,19 @@ import About from './About.jsx'
 import TermsConditions from './TermsConditions.jsx'
 import Noti from './Noti.jsx'
 import HelpCenter from './HelpCenter.jsx'
+import Settings from './Settings.jsx'
+import NotificationSettings from './NotificationSettings.jsx'
+import Security from './Security.jsx'
+import Chat from './Chat.jsx'
+import ChatDetails from './ChatDetails.jsx'
+import Friends from './Friends.jsx'
 import './App.css'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('serviceconnect')
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [userId, setUserId] = useState(null)
+  const [user, setUser] = useState(null)
 
   const [selectedPayment, setSelectedPayment] = useState(null)
   const [paymentAmount, setPaymentAmount] = useState(0)
@@ -130,6 +137,18 @@ function App() {
   const handleNavigateToNoti = () => setCurrentPage('Noti')
   // HelpCenter
   const handleNavigateToHelpCenter = () => setCurrentPage('HelpCenter')
+  // Settings
+  const handleNavigateToSettings = () => setCurrentPage('Settings')
+  // NotificationSettings
+   const handleNavigateToNotificationSettings = () => setCurrentPage('NotificationSettings')
+  //  Security
+  const handleNavigateToSecurity = () => setCurrentPage('Security')
+  // Chat
+  const handleNavigateToChat = () => setCurrentPage('Chat')
+  // ChatDetails
+  const handleNavigateToChatDetails = () => setCurrentPage('ChatDetails')
+  // InviteFriends
+  const handleNavigateToFriends = () => setCurrentPage('Friends')
 
   const handlePaymentSuccess = (selected, amount) => {
     setSelectedPayment(selected)
@@ -290,6 +309,9 @@ function App() {
         <Profiless
           onNavigateBack={handleNavigateToJobses}
           onNavigateToEditProfiless={handleNavigateToEditProfiless}
+          onNavigateToNotificationSettings={handleNavigateToNotificationSettings}
+          onNavigateToSecurity={handleNavigateToSecurity}
+          onNavigateToFriends={handleNavigateToFriends}
           
         />
         ) : currentPage === 'EditProfiless' ? (
@@ -308,9 +330,13 @@ function App() {
          ) : currentPage === 'Sidebar' ? (
         <Sidebar
           onNavigateBack={handleNavigateToHistory}
-          onNavigateToAbout={handleNavigateToAbout}
+          onNavigateToAbout={handleNavigateToAbout}Settings
            onNavigateToTermsConditions={handleNavigateToTermsConditions}
             onNavigateToHelpCenter={handleNavigateToHelpCenter}
+            onNavigateToSettings={handleNavigateToSettings}
+            onNavigateToNotificationSettings={handleNavigateToNotificationSettings}
+            onNavigateToChat={handleNavigateToChat}
+            onNavigateToFriends={handleNavigateToFriends}
           
         />
           ) : currentPage === 'About' ? (
@@ -335,6 +361,40 @@ function App() {
           onNavigateBack={handleNavigateToHome}
           
         />
+        ) : currentPage === 'Settings' ? (
+        <Settings
+          onNavigateBack={handleNavigateToProfiless}
+           onNavigateToNotificationSettings={handleNavigateToNotificationSettings}
+          
+        />
+         ) : currentPage === 'NotificationSettings' ? ( 
+        <NotificationSettings
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+        ) : currentPage === 'Security' ? (
+        <Security
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+         ) : currentPage === 'Chat' ? (
+        <Chat
+          onNavigateBack={handleNavigateToProfiless}
+          onNavigateToChatDetails={handleNavigateToChatDetails}
+          
+        />
+
+         ) : currentPage === 'ChatDetails' ? (
+        <ChatDetails
+          onNavigateBack={handleNavigateToChat}
+          
+        />
+         ) : currentPage === 'Friends' ? (
+        <Friends
+          onNavigateBack={handleNavigateToProfiless}
+          
+        />
+
 
       ) : currentPage === 'filter' ? (
         <Filter

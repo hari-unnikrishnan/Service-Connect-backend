@@ -1,8 +1,16 @@
 from django.contrib import admin
 from .models import (
     User, Category, Service, ProviderProfile, 
-    Booking, Review, Offer, UserLocation
+    Booking, Review, Offer, UserLocation, HelpArticle, UserNotificationPreferences
 )
+
+@admin.register(HelpArticle)
+class HelpArticleAdmin(admin.ModelAdmin):
+    list_display = ['question', 'category', 'is_active', 'order']
+    list_filter = ['category', 'is_active']
+    search_fields = ['question', 'answer']
+    ordering = ['order', 'question']
+
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -38,7 +46,15 @@ class OfferAdmin(admin.ModelAdmin):
     list_display = ['title', 'discount_percentage', 'is_active', 'valid_until']
     list_filter = ['is_active']
 
+@admin.register(UserNotificationPreferences)
+class UserNotificationPreferencesAdmin(admin.ModelAdmin):
+    list_display = ['user', 'offers', 'sound', 'general', 'updated_at']
+    list_filter = ['offers', 'sound', 'general']
+    raw_id_fields = ['user']
+
+
 @admin.register(UserLocation)
 class UserLocationAdmin(admin.ModelAdmin):
     list_display = ['user', 'label', 'city', 'state', 'is_default']
     list_filter = ['is_default', 'city', 'state']
+

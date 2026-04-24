@@ -4,8 +4,9 @@ import google from "./assets/google.png";
 import apple from "./assets/apple.png";
 import logo2 from "./assets/logo2.png";
 import { Eye, EyeOff, ArrowRight } from "lucide-react";
+import { login } from "./api";
 
-export default function Login({ onNavigateToRegister, onNavigateToOTP,onNavigateToForgotPassword, setUser }) {
+export default function Login({ onNavigateToRegister, onNavigateToOTP, onNavigateToForgotPassword, setUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,30 +24,22 @@ export default function Login({ onNavigateToRegister, onNavigateToOTP,onNavigate
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: email,
-          password: password,
-        }),
-      });
+      const data = await login(email, password);
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // Store user data in localStorage for persistence
+      if (data.success) {
+        // Store user data and token in localStorage for persistence
         localStorage.setItem("user", JSON.stringify(data.user));
-        // Store session cookie
-        // Navigate to OTP for verification
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+        }
+        if (setUser) setUser(data.user);
+        // Navigate to Home on successful login
         onNavigateToOTP();
       } else {
-        setError(data.non_field_errors?.[0] || "Invalid username or password");
+        setError(data.non_field_errors?.[0] || data.detail || "Invalid username or password");
       }
     } catch (err) {
-      setError("Connection error. Please check if the server is running.");
+      setError(err.message || "Connection error. Please check if the server is running.");
     } finally {
       setLoading(false);
     }

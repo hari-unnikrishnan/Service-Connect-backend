@@ -1,0 +1,170 @@
+.chat-details {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #dcdcdc;
+}
+
+/* HEADER */
+.chat-headerss {
+  height: 80px;
+  background: #1e2235a0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.chat-headerss h3 {
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.header-icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* DATE */
+.date-label {
+  margin: 10px auto;
+  background: #cfd6df;
+  padding: 6px 15px;
+  border-radius: 10px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* MESSAGE AREA */
+.messages {
+  flex: 1;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+/* Scrollbar width */
+.messages::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track (background) */
+.messages::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 10px;
+}
+
+/* Thumb (scroll handle) */
+.messages::-webkit-scrollbar-thumb {
+  background: #cfd6df;
+  border-radius: 10px;
+}
+
+
+
+
+
+.Phone-icons{
+    color: #ffffff;
+}
+
+/* MESSAGE */
+.msg {
+  max-width: 70%;
+  padding: 12px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+}
+
+/* SENT */
+.msg.sent {
+  background: #cfd6df;
+  margin-left: auto;
+  border-bottom-right-radius: 4px;
+  color: #000;
+  
+}
+
+/* RECEIVED */
+.msg.received {
+  background: #7a7070;
+  color: #000;
+  margin-right: auto;
+  border-bottom-left-radius: 4px;
+}
+
+/* TIME */
+.msg .time {
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  opacity: 0.7;
+}
+
+/* IMAGE GROUP */
+.img-group {
+  display: flex;
+  gap: 10px;
+}
+
+.img-boxss {
+  width: 70px;
+  height: 70px;
+  background: black;
+  border-radius: 12px;
+}
+
+/* INPUT */
+.chat-input {
+  display: flex;
+  align-items: center;
+  background: #e6e6e6;
+  padding: 10px;
+  border-radius: 40px;
+  margin: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: #000;
+}
+
+.attach {
+  margin-right: 10px;
+  color: #000;
+}
+
+.mic-btn {
+  width: 57px;
+  height: 37px;
+  border-radius: 50%;
+  background: #1e2235;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.chat-img {
+  width: 120px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.send-btn {
+  background: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+}

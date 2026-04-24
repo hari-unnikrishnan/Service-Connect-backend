@@ -250,3 +250,193 @@ class Transaction(models.Model):
     def __str__(self):
         return f"Transaction #{self.id} - Booking {self.booking.id} ({self.status})"
 
+
+
+class Notification(models.Model):
+    """User notifications"""
+    TYPE_CHOICES = [
+        ('info', 'Info'),
+        ('success', 'Success'),
+        ('warning', 'Warning'),
+        ('error', 'Error'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    title = models.CharField(max_length=200)
+    message = models.TextField()
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='info')
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return f"{self.title} - {self.user.username}"
+
+
+class UserNotificationPreferences(models.Model):
+    """User notification settings/preferences"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='notification_preferences')
+    
+    # Toggles from NotificationSettings.jsx
+    offers = models.BooleanField(default=True)
+    sound = models.BooleanField(default=True)
+    vibrate = models.BooleanField(default=False)
+    general = models.BooleanField(default=True)
+    promo = models.BooleanField(default=False)
+    payment = models.BooleanField(default=True)
+    update = models.BooleanField(default=True)
+    service = models.BooleanField(default=False)
+    tips = models.BooleanField(default=False)
+    
+    # Extensible JSON for future settings
+    extra_settings = models.JSONField(default=dict)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Notification Preferences'
+        verbose_name_plural = 'Notification Preferences'
+    
+    def __str__(self):
+        return f"Preferences for {self.user.username}"
+    
+    def get_settings_dict(self):
+        """Return dict for frontend"""
+        fields = ['offers', 'sound', 'vibrate', 'general', 'promo', 'payment', 'update', 'service', 'tips']
+        return {field: getattr(self, field) for field in fields}
+
+
+class UserSecuritySettings(models.Model):
+    """User security settings for Security.jsx"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='security_settings')
+    
+    # Toggles from Security.jsx
+    remember_me = models.BooleanField(default=True)
+    biometric_id = models.BooleanField(default=True)
+    face_id = models.BooleanField(default=False)
+    google_auth_enabled = models.BooleanField(default=False)
+    
+    # Security fields
+    pin_hash = models.CharField(max_length=128, blank=True, null=True)  # Hashed PIN
+    last_password_change = models.DateTimeField(null=True, blank=True)
+    extra_settings = models.JSONField(default=dict)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = 'Security Settings'
+        verbose_name_plural = 'Security Settings'
+    
+    def __str__(self):
+        return f"Security settings for {self.user.username}"
+    
+    def get_settings_dict(self):
+        """Return dict for frontend"""
+        return {
+            'remember': self.remember_me,
+            'biometric': self.biometric_id,
+            'face': self.face_id,
+            'googleAuth': self.google_auth_enabled,
+        }
+
+
+class HelpArticle(models.Model):
+    """Help Center FAQ articles"""
+    CATEGORY_CHOICES = [
+        ('general', 'General'),
+        ('account', 'Account'),
+        ('payment', 'Payment'),
+        ('service', 'Service'),
+        ('booking', 'Booking'),
+        ('complaint', 'Complaint'),
+    ]
+    
+    question = models.CharField(max_length=300)
+    answer = models.TextField()
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, default='general')
+    is_active = models.BooleanField(default=True)
+    order = models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['order', 'question']
+        verbose_name = 'Help Article'
+        verbose_name_plural = 'Help Articles'
+    
+    def __str__(self):
+        return f"{self.question[:50]}... ({self.get_category_display()})"
+
+
+class FriendInvite(models.Model):
+    """Friend invitation tracking"""
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('expired', 'Expired'),
+    ]
+
+    inviter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_invites')
+    invitee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_invites', null=True, blank=True)
+    invitee_name = models.CharField(max_length=200, blank=True)
+    invitee_phone = models.CharField(max_length=20, blank=True)
+    invitee_email = models.EmailField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    accepted_at = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Invite from {self.inviter.username} to {self.invitee_name or self.invitee}"
+
+
+class Conversation(models.Model):
+    """Chat conversation between two users"""
+    participants = models.ManyToManyField(User, related_name='conversations')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        usernames = ", ".join([u.username for u in self.participants.all()])
+        return f"Conversation ({usernames})"
+
+    def get_last_message(self):
+        return self.messages.order_by('-timestamp').first()
+
+    def get_unread_count(self, user):
+        return self.messages.filter(is_read=False).exclude(sender=user).count()
+
+
+class Message(models.Model):
+    """Individual chat message"""
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    text = models.TextField(blank=True)
+    file = models.FileField(upload_to='chat_files/', blank=True, null=True)
+    is_read = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['timestamp']
+
+    def __str__(self):
+        return f"Message from {self.sender.username} at {self.timestamp}"
+
+
+
+
+
+
+
+
+
+
+

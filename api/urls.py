@@ -13,7 +13,12 @@ from .views import (
     CongratulationsView, ServiceCongratsView, ProfileAPIView,
     RequestView, BookingListView, BookingDetailView, 
     CreateRazorpayOrder, EReceiptView, JobsListView, ServiceDetailsView,
-    ServiceCompletedList, TransactionsListView, ServicesListView
+    UserSettingsView,
+    ServiceCompletedList, ServicesListView, TransactionsListView, 
+    HistoryListView, NotificationListView,
+    HelpArticleViewSet, AboutView, TermsConditionsView, UserSecuritySettingsView,
+    ConversationListView, ConversationDetailView, SendMessageView, MarkMessagesReadView,
+    InviteFriendsListView, SendInviteView, MyInvitesView
 )
 
 
@@ -45,9 +50,11 @@ router.register(r'reviews', ReviewViewSet)
 router.register(r'complaints', ComplaintViewSet)
 router.register(r'offers', OfferViewSet)
 router.register(r'locations', UserLocationViewSet)
+router.register(r'help-articles', HelpArticleViewSet)
 
 
 urlpatterns = [
+
     path('', APIRootView.as_view(), name='api-root'),
     
     # Authentication endpoints
@@ -134,4 +141,22 @@ path('profile/update/', ProfileUpdateView.as_view(), name='profile-update'),
     path('service-completed/', ServiceCompletedList.as_view(), name='service-completed'),
     path('services-list/', ServicesListView.as_view(), name='services-list'),
     path('transactions/', TransactionsListView.as_view(), name='transactions'),
+    path('history/', HistoryListView.as_view(), name='history'),
+    path('notifications/', NotificationListView.as_view(), name='notifications'),
+    path('about/', AboutView.as_view(), name='about'),
+    path('terms/', TermsConditionsView.as_view(), name='terms'),
+    path('settings/', UserSettingsView.as_view(), name='user-settings'),
+    path('security/', UserSecuritySettingsView.as_view(), name='user-security'),
+
+    # Chat endpoints
+    path('chat/conversations/', ConversationListView.as_view(), name='chat-conversations'),
+    path('chat/conversations/<int:pk>/', ConversationDetailView.as_view(), name='chat-conversation-detail'),
+    path('chat/messages/send/', SendMessageView.as_view(), name='chat-send-message'),
+    path('chat/messages/<int:pk>/read/', MarkMessagesReadView.as_view(), name='chat-mark-read'),
+
+    # Friends endpoints
+    path('friends/invite-users/', InviteFriendsListView.as_view(), name='friends-invite-users'),
+    path('friends/send-invite/', SendInviteView.as_view(), name='friends-send-invite'),
+    path('friends/my-invites/', MyInvitesView.as_view(), name='friends-my-invites'),
 ]
+

@@ -1,0 +1,79 @@
+/* PAGE */
+.settings-page {
+  background: #f2f3f7;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+.settings-header {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 0 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-size: 22px;
+}
+
+/* TITLE */
+.settings-header h2 {
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+/* LIST */
+.settings-list {
+  padding: 20px;
+}
+
+/* ITEM */
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  cursor: pointer;
+}
+
+/* LEFT SIDE */
+.leftzz{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ICON */
+.iconu {
+  color: #1e2235;
+ 
+}
+
+/* TEXT */
+.settings-item span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+}
+
+/* ARROW */
+.arrowc{
+  color: #555;
+   font-size: 22px;
+}

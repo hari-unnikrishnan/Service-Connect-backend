@@ -1,0 +1,91 @@
+/* PAGE */
+.noti-page {
+  background: #f2f3f7;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+.noti-header {
+  background: linear-gradient(180deg, #1e2235, #2b3045);
+  color: white;
+  height: 90px;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 0 20px;
+}
+
+/* BACK BUTTON */
+.back-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: white;
+  font-size: 22px;
+}
+
+/* TITLE */
+.noti-header h2 {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+/* LIST */
+.noti-list {
+  padding: 20px;
+}
+
+/* ITEM */
+.noti-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 20px 0;
+}
+
+/* TEXT */
+.noti-item span {
+  font-size: 18px;
+  color: #1e2235;
+  font-weight: 500;
+}
+
+/* TOGGLE */
+.toggle {
+  width: 44px;
+    height: 24px;
+  background: #cfd6e0;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+border: 1px solid rgb(149 147 147);
+}
+
+/* ACTIVE */
+.toggle.active {
+  background: #2ecc71;
+}
+
+/* CIRCLE */
+.circle {
+  width: 24px;
+  height: 24px;
+  background: #1e2235;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  transition: 0.3s;
+}
+
+/* MOVE RIGHT */
+.toggle.active .circle {
+  left: 28px;
+}
