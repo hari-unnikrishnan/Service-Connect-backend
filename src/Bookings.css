@@ -350,8 +350,9 @@
   
   .card-left {
     width: 100%;
-    height: 4px;
+    height: 9px;
     border-radius: 14px 14px 0 0;
+    
   }
   
   .card-content {

@@ -136,3 +136,11 @@
 .Upload{
     color: #000000;
 }
+
+@media screen and (max-width: 480px) {
+  .submit-btn {
+    font-size: 17px;
+    height: 48px;
+  }
+
+}

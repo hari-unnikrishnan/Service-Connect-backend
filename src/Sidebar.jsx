@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { X, LogOut, ArrowLeft } from "lucide-react";
 import avatar from './assets/IMAGE BG22.png';
 
-export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter,onNavigateToSettings, onNavigateToChat , onNavigateToFriends,onNavigateToHome}) {
+export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter,onNavigateToSettings, onNavigateToChat , onNavigateToFriends,onNavigateToHome,onNavigateToLogin}) {
 
 
   return (
@@ -108,7 +108,7 @@ export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNav
             ))}
           </ul>
 
-          <div className="logout">
+          <div className="logout" onClick={onNavigateToLogin}>
             <LogOut size={16} />
             <span>Log out</span>
           </div>

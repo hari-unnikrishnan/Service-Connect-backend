@@ -93,3 +93,13 @@
   color: #666;
   font-size: 14px;
 }
+
+@media screen and (max-width: 480px) {
+  .icon-box {
+    width: 51px;
+    height: 42px;
+  }
+  .text h4 {
+    font-size: 14px;
+  }
+}

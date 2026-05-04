@@ -344,6 +344,7 @@ function App() {
             onNavigateToChat={handleNavigateToChat}
             onNavigateToFriends={handleNavigateToFriends}
             onNavigateToHome={handleNavigateToHome}
+            onNavigateToLogin={handleNavigateToLogin}
           
         />
           ) : currentPage === 'About' ? (

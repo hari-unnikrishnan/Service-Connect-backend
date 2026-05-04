@@ -182,3 +182,11 @@ position: absolute;
 .servicename{
     color: #000000;
 }
+
+@media screen and (max-width: 480px) {
+  .submit-btnsz{
+    font-size: 17px;
+    height: 48px;
+  }
+
+}

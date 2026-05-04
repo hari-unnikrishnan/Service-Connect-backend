@@ -181,3 +181,32 @@
   text-decoration: underline;  
   text-decoration-color: #1fa67a; 
 }
+
+
+@media screen and (max-width: 480px) {
+  .pm-btn {
+    font-size: 15px;
+  }
+  
+  .pm-btn {
+   
+    font-size: 14px;
+   }
+
+  .pm-btn .arrow {
+    font-size: 14px;
+  }
+
+  .pm-success {
+    padding: 10px;
+  }
+
+  .success-icon {
+    font-size: 32px;
+  }
+
+  .pm-success p {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+}
