@@ -33,8 +33,51 @@ import hashlib
 
 
 def generate_otp():
-    """Generate a 6-digit OTP"""
-    return ''.join(random.choices(string.digits, k=6))
+    """Generate a 4-digit OTP"""
+    return ''.join(random.choices(string.digits, k=4))
+
+
+def send_otp_email(user, otp):
+    """Send OTP via email to the user's registered email"""
+    from django.core.mail import send_mail
+    from django.conf import settings
+
+    subject = 'Your Service Connect OTP Code'
+    message = f'Hello {user.first_name or user.username},\n\nYour OTP verification code is: {otp}\n\nThis code will expire shortly. Do not share it with anyone.\n\nRegards,\nService Connect Team'
+    from_email = settings.DEFAULT_FROM_EMAIL
+
+    recipients = []
+    if user.email:
+        recipients.append(user.email)
+    if recipients:
+        try:
+            send_mail(subject, message, from_email, recipients, fail_silently=False)
+            print(f"[EMAIL SENT] OTP {otp} sent to {recipients}")
+            return True
+        except Exception as e:
+            print(f"[EMAIL ERROR] Failed to send OTP email: {e}")
+            return False
+    return False
+
+
+def send_otp_sms(phone, otp):
+    """Send OTP via SMS to the user's phone and demo phone"""
+    from django.conf import settings
+
+    # In production, integrate with Twilio, MSG91, etc.
+    # For development, log to console
+    demo_phone = '8113868526'
+    phones = []
+    if phone:
+        phones.append(phone)
+    if demo_phone and demo_phone not in phones:
+        phones.append(demo_phone)
+
+    if phones:
+        for p in phones:
+            print(f"[SMS SENT] OTP {otp} sent to phone: {settings.SMS_DEFAULT_COUNTRY_CODE}{p}")
+        return True
+    return False
 
 
 # Store OTPs temporarily (in production, use Redis or database)
@@ -74,11 +117,17 @@ class RegisterView(APIView):
                 'otp': otp,
                 'expires_at': None
             }
+            # Send OTP to email and SMS
+            email_sent = send_otp_email(user, otp)
+            sms_sent = send_otp_sms(user.phone, otp)
             return Response({
                 'success': True,
                 'message': 'Registration successful. OTP sent for verification.',
                 'user_id': user.id,
-                'otp': otp
+                'otp': otp,
+                'email_sent': email_sent,
+                'sms_sent': sms_sent,
+                'email_backend': settings.EMAIL_BACKEND
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -147,10 +196,16 @@ class ResendOTPView(APIView):
                 'otp': otp,
                 'expires_at': None
             }
+            # Resend OTP to email and SMS
+            email_sent = send_otp_email(user, otp)
+            sms_sent = send_otp_sms(user.phone, otp)
             return Response({
                 'success': True,
                 'message': 'OTP resent successfully',
-                'otp': otp
+                'otp': otp,
+                'email_sent': email_sent,
+                'sms_sent': sms_sent,
+                'email_backend': settings.EMAIL_BACKEND
             }, status=status.HTTP_200_OK)
         except User.DoesNotExist:
             return Response(

@@ -105,7 +105,7 @@ export default function Search({
             placeholder="Search services or categories..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', fontSize: '24px', outline: 'none' }}
+            style={{ flex: 1, background: 'transparent', border: 'none', color: 'white', fontSize: '12px', outline: 'none' }}
           />
           <SlidersHorizontal size={20} color="white" />
         </div>

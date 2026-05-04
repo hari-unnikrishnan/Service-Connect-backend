@@ -45,7 +45,7 @@
   padding: 0 28px;
   gap: 22px;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
 }
 
 .recent-header {
@@ -77,4 +77,179 @@
 
 input::placeholder {
   color: black;
+}
+
+/* ============================================
+   SEARCH PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .search-phone {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px;
+  }
+  
+  .search-header {
+    margin-top: 4px;
+  }
+  
+  .search-header h1 {
+    font-size: 40px;
+  }
+  
+  .back-btn {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .search-input-box {
+    height: 90px;
+    padding: 0 26px;
+    font-size: 22px;
+  }
+  
+  .recent-header {
+    margin-top: 2%;
+  }
+  
+  .recent-header h3 {
+    font-size: 24px;
+  }
+  
+  .recent-list {
+    margin-top: 34px;
+  }
+  
+  .recent-list p {
+    font-size: 24px;
+    margin-bottom: 36px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .search-phone {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 22px;
+  }
+  
+  .search-header h1 {
+    font-size: 36px;
+  }
+  
+  .back-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .search-input-box {
+    height: 82px;
+    padding: 0 24px;
+    font-size: 20px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .search-phone {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 18px;
+  }
+  
+  .search-header {
+    gap: 10px;
+  }
+  
+  .search-header h1 {
+    font-size: 28px;
+  }
+  
+  .back-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .search-input-box {
+    height: 70px;
+    padding: 0 20px;
+    gap: 16px;
+    font-size: 18px;
+    border-radius: 14px;
+  }
+  
+  .recent-header h3 {
+    font-size: 18px;
+  }
+  
+  .recent-header span {
+    font-size: 13px;
+  }
+  
+  .recent-list {
+    margin-top: 24px;
+  }
+  
+  .recent-list p {
+    font-size: 18px;
+    margin-bottom: 28px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .search-phone {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px;
+  }
+  
+  .search-header {
+    gap: 8px;
+    margin-top: 2px;
+  }
+  
+  .search-header h1 {
+    font-size: 22px;
+  }
+  
+  .back-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .search-input-box {
+    height: 56px;
+    margin-top: 4px;
+    border-radius: 14px;
+    padding: 0 16px;
+    gap: 12px;
+    font-size: 11px;
+  }
+  
+  .recent-header {
+    margin-top: 14px;
+  }
+  
+  .recent-header h3 {
+    font-size: 16px;
+  }
+  
+  .recent-header span {
+    font-size: 12px;
+  }
+  
+  .recent-list {
+    margin-top: 20px;
+  }
+  
+  .recent-list p {
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
 }

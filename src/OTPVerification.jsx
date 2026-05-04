@@ -15,6 +15,21 @@ export default function OTPVerification({
 
   // Get userId from localStorage if not passed as prop
   const storedUserId = userId || localStorage.getItem("registration_user_id");
+  const storedEmail = localStorage.getItem("registration_email") || "";
+  const storedPhone = localStorage.getItem("registration_phone") || "";
+  const emailBackend = localStorage.getItem("registration_email_backend") || "";
+  const isConsoleBackend = emailBackend.includes("console");
+
+  const maskEmail = (email) => {
+    if (!email || !email.includes("@")) return email;
+    const [name, domain] = email.split("@");
+    return name.slice(0, 4) + "***@" + domain;
+  };
+
+  const maskPhone = (phone) => {
+    if (!phone || phone.length < 4) return phone;
+    return phone.slice(0, 2) + "******" + phone.slice(-2);
+  };
 
   const keypad = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "⌫"];
 
@@ -104,6 +119,9 @@ export default function OTPVerification({
       if (data.success) {
         // Clear stored user ID after successful verification
         localStorage.removeItem("registration_user_id");
+        localStorage.removeItem("registration_email");
+        localStorage.removeItem("registration_phone");
+        localStorage.removeItem("registration_email_backend");
         // Navigate to location after short delay
         setTimeout(() => {
           onNavigateToLocation();
@@ -133,8 +151,8 @@ export default function OTPVerification({
       
       if (data.success) {
         setResendTimer(59);
-        // For demo purposes, show OTP (in production, it would be sent via SMS)
-        alert(`OTP: ${data.otp}`);
+        // Show OTP and delivery confirmation
+        alert(`OTP resent successfully!\n\nOTP: ${data.otp}\nSent to: ${maskEmail(storedEmail)} and ${maskPhone(storedPhone)}`);
       } else {
         setError(data.error || "Failed to resend OTP");
       }
@@ -164,7 +182,7 @@ export default function OTPVerification({
         {error && <p className="otp-error-text" style={{color: 'red', marginBottom: '10px'}}>{error}</p>}
 
         <p className="otp-message-text">
-          Code has been sent to your registered email
+          Code has been sent to {storedEmail ? maskEmail(storedEmail) : "your email"} {storedPhone ? `and ${maskPhone(storedPhone)}` : ""}
         </p>
 
         <div className="otp-box-row">
@@ -187,6 +205,12 @@ export default function OTPVerification({
             </span>
           )}
         </p>
+
+        {isConsoleBackend && (
+          <p className="otp-console-notice" style={{color: '#888', fontSize: '12px', textAlign: 'center', marginBottom: '10px'}}>
+            (Development mode: emails are logged to the server console)
+          </p>
+        )}
 
         <button
           className="otp-submit-button"
@@ -217,3 +241,4 @@ export default function OTPVerification({
     </div>
   );
 }
+

@@ -77,3 +77,148 @@
   color: #555;
    font-size: 22px;
 }
+
+/* ============================================
+   SETTINGS PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+@media screen and (min-width: 1200px) {
+  .settings-page {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .settings-header {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 24px 24px 0 0;
+  }
+  
+  .settings-list {
+    width: 100%;
+    max-width: 480px;
+    padding: 24px;
+  }
+  
+  .settings-item {
+    padding: 20px 0;
+  }
+  
+  .settings-item span {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .settings-header {
+    height: 100px;
+    padding: 0 24px;
+  }
+  
+  .settings-header h2 {
+    font-size: 22px;
+  }
+  
+  .back-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .settings-list {
+    padding: 24px;
+  }
+  
+  .settings-item {
+    padding: 20px 0;
+  }
+  
+  .leftzz {
+    gap: 18px;
+  }
+  
+  .settings-item span {
+    font-size: 17px;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .settings-header {
+    height: 80px;
+    padding: 0 16px;
+    gap: 12px;
+  }
+  
+  .settings-header h2 {
+    font-size: 18px;
+  }
+  
+  .back-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .settings-list {
+    padding: 16px;
+  }
+  
+  .settings-item {
+    padding: 16px 0;
+  }
+  
+  .leftzz {
+    gap: 12px;
+  }
+  
+  .settings-item span {
+    font-size: 15px;
+  }
+  
+  .arrowc {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .settings-header {
+    height: 70px;
+    padding: 0 12px;
+    gap: 10px;
+  }
+  
+  .settings-header h2 {
+    font-size: 16px;
+    letter-spacing: 0.5px;
+  }
+  
+  .back-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+  }
+  
+  .settings-list {
+    padding: 12px;
+  }
+  
+  .settings-item {
+    padding: 14px 0;
+  }
+  
+  .leftzz {
+    gap: 10px;
+  }
+  
+  .iconu {
+    font-size: 18px;
+  }
+  
+  .settings-item span {
+    font-size: 14px;
+  }
+  
+  .arrowc {
+    font-size: 16px;
+  }
+}

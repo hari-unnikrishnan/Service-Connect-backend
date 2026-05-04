@@ -123,6 +123,270 @@
 
 .Verify-text{
     position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ============================================
+   OTP VERIFICATION PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .otp-screen-box {
+    width: 100%;
+    /* max-width: 440px; */
+    margin: 0 auto;
+  }
+  
+  .otp-header-bar {
+    height: 120px;
+    padding: 0 24px;
+  }
+  
+  .otp-back-button {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .otp-title-text {
+    font-size: 36px;
+  }
+  
+  .otp-message-text {
+    margin-top: 100px;
+    font-size: 20px;
+  }
+  
+  .otp-digit-box {
+    width: 80px;
+    height: 80px;
+    font-size: 36px;
+    border-radius: 20px;
+  }
+  
+  .otp-box-row {
+    gap: 22px;
+    margin-top: 50px;
+  }
+  
+  .otp-timer-text {
+    margin-top: 55px;
+    font-size: 22px;
+  }
+  
+  .otp-submit-button {
+    height: 84px;
+    font-size: 24px;
+  }
+  
+  .otp-arrow-circle {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .otp-keypad-grid {
+    margin-top: 100px;
+    gap: 45px;
+    padding: 0 60px;
+  }
+  
+  .otp-keypad-key {
+    font-size: 36px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .otp-screen-box {
+    width: 100%;
+    /* max-width: 420px; */
+    margin: 0 auto;
+  }
+  
+  .otp-header-bar {
+    height: 115px;
+    padding: 0 20px;
+  }
+  
+  .otp-back-button {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .otp-title-text {
+    font-size: 34px;
+  }
+  
+  .otp-digit-box {
+    width: 76px;
+    height: 76px;
+    font-size: 34px;
+  }
+  
+  .otp-box-row {
+    gap: 20px;
+  }
+  
+  .otp-submit-button {
+    height: 80px;
+    font-size: 22px;
+  }
+  
+  .otp-arrow-circle {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .otp-keypad-grid {
+    margin-top: 90px;
+    gap: 40px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .otp-screen-box {
+    width: 100%;
+    /* max-width: 380px; */
+    margin: 0 auto;
+  }
+  
+  .otp-header-bar {
+    height: 100px;
+    padding: 0 18px;
+  }
+  
+  .otp-back-button {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .otp-title-text {
+    font-size: 28px;
+  }
+  
+  .otp-message-text {
+    margin-top: 80px;
+    font-size: 16px;
+  }
+  
+  .otp-digit-box {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    border-radius: 14px;
+  }
+  
+  .otp-box-row {
+    gap: 14px;
+    margin-top: 32px;
+  }
+  
+  .otp-timer-text {
+    margin-top: 40px;
+    font-size: 18px;
+  }
+  
+  .otp-submit-button {
+    height: 68px;
+    font-size: 20px;
+    border-radius: 36px;
+  }
+  
+  .otp-arrow-circle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .otp-keypad-grid {
+    margin-top: 60px;
+    gap: 28px;
+    padding: 0 40px;
+  }
+  
+  .otp-keypad-key {
+    font-size: 28px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .otp-screen-box {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+  }
+  
+  .otp-header-bar {
+    height: 90px;
+    padding: 0 14px;
+    gap: 12px;
+  }
+  
+  .otp-back-button {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .otp-title-text {
+    font-size: 24px;
+  }
+  
+  .otp-message-text {
+    margin-top: 60px;
+    font-size: 14px;
+  }
+  
+  .otp-digit-box {
+    width: 54px;
+    height: 54px;
+    font-size: 24px;
+    border-radius: 12px;
+  }
+  
+  .otp-box-row {
+    gap: 10px;
+    margin-top: 28px;
+  }
+  
+  .otp-timer-text {
+    margin-top: 32px;
+    font-size: 16px;
+  }
+  
+  .otp-submit-button {
+    width: 90%;
+    height: 60px;
+    font-size: 18px;
+    border-radius: 30px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
+  
+  .otp-arrow-circle {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    right: 8px;
+    top:10px
+  }
+  
+  .Verify-text {
+    position: static;
+    transform: none;
+    text-align: center;
+  }
+  
+  .otp-keypad-grid {
+    margin-top: 50px;
+    gap: 24px;
+    padding: 0 40px;
+  }
+  
+  .otp-keypad-key {
+    font-size: 24px;
+  }
 }

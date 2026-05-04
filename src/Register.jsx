@@ -61,11 +61,23 @@ export default function Register({
         role: "customer"
       });
 
-      // Store user_id for OTP verification
+      // Store user_id, email, and phone for OTP verification
       if (setUserId) {
         setUserId(data.user_id);
       }
       localStorage.setItem("registration_user_id", data.user_id);
+      localStorage.setItem("registration_email", email);
+      localStorage.setItem("registration_phone", phone);
+      localStorage.setItem("registration_email_backend", data.email_backend || "");
+      // Show OTP for immediate verification (development aid)
+      if (data.otp) {
+        const isConsole = data.email_backend && data.email_backend.includes("console");
+        if (isConsole) {
+          alert(`Your OTP is: ${data.otp}\n\n(Development mode: emails are logged to the server console only. No real email was sent.)`);
+        } else {
+          alert(`Your OTP is: ${data.otp}\n\nAn email has been sent to your registered email.`);
+        }
+      }
       // Navigate to OTP
       onNavigateToOTP();
     } catch (err) {
@@ -76,12 +88,12 @@ export default function Register({
   };
 
   return (
-    // <div className="signup-screen-wrapper">
-      <div className="signup-screen-boxs">
+    <div className="signup-screen-wrapper">
+      <div className="signup-screen-boxssv">
 
         
 
-        <div className="signup-brand-row">
+        <div className="signup-brand-rowvv">
           <img src={logo2} alt="logo2" className="signup-brand-image" />
           <h1 className="signup-brand-title">Service Connect</h1>
         </div>
@@ -225,6 +237,7 @@ export default function Register({
         </p>
 
       </div>
-    // </div>
+     </div>
   );
 }
+

@@ -86,3 +86,183 @@
   align-items: center;
   justify-content: center;
 }
+
+/* ============================================
+   HISTORY PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .history-container {
+    /* width: 100%;
+    max-width: 480px; */
+    margin: 0 auto;
+  }
+  
+  .history-header {
+    padding: 24px;
+  }
+  
+  .back-btn {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .history-header h2 {
+    font-size: 22px;
+  }
+  
+  .history-card {
+    margin: 70px 24px;
+    padding: 60px 24px;
+    border-radius: 30px;
+  }
+  
+  .history-card h3 {
+    font-size: 26px;
+  }
+  
+  .history-card p {
+    font-size: 16px;
+  }
+  
+  .explore-btn {
+    padding: 18px 30px;
+    font-size: 18px;
+  }
+  
+  .arrowy {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .history-container {
+    /* width: 100%;
+    max-width: 450px; */
+    margin: 0 auto;
+  }
+  
+  .history-header {
+    padding: 22px;
+  }
+  
+  .history-card {
+    margin: 65px 22px;
+    padding: 55px 22px;
+    border-radius: 28px;
+  }
+  
+  .history-card h3 {
+    font-size: 24px;
+  }
+  
+  .explore-btn {
+    padding: 16px 28px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .history-container {
+    /* width: 100%;
+    max-width: 400px; */
+    margin: 0 auto;
+  }
+  
+  .history-header {
+    padding: 18px;
+  }
+  
+  .back-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+  
+  .history-header h2 {
+    font-size: 16px;
+  }
+  
+  .history-card {
+    margin: 55px 18px;
+    padding: 45px 18px;
+    border-radius: 22px;
+  }
+  
+  .history-card h3 {
+    font-size: 20px;
+  }
+  
+  .history-card p {
+    font-size: 13px;
+  }
+  
+  .explore-btn {
+    padding: 14px 22px;
+    font-size: 15px;
+    border-radius: 32px;
+  }
+  
+  .arrowy {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .history-container {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .history-header {
+    padding: 14px;
+    gap: 10px;
+  }
+  
+  .back-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+  
+  .history-header h2 {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+  
+  .history-card {
+    margin: 45px 14px;
+    padding: 35px 14px;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+  }
+  
+  .history-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .history-card p {
+    font-size: 12px;
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+  
+  .explore-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 28px;
+    gap: 10px;
+  }
+  
+  .arrowy {
+    width: 26px;
+    height: 26px;
+  }
+}

@@ -21,7 +21,7 @@ import {
   CircleHelp,
   ChevronRight
 } from "lucide-react";
-export default function Home({ onNavigateToAllCategory,onNavigateToNoti }){
+export default function Home({ onNavigateToAllCategory,onNavigateToNoti,onNavigateToSidebar }){
 
   const categories = [
     { name: "Cleaning", image: userprofile },
@@ -42,7 +42,7 @@ export default function Home({ onNavigateToAllCategory,onNavigateToNoti }){
 
         <header className="top-header">
           <div className="header-left">
-            <Menu size={20} />
+            <Menu size={20}  onClick={onNavigateToSidebar}/>
             <h1>SERVICE CONNECT</h1>
           </div>
 
@@ -126,11 +126,11 @@ export default function Home({ onNavigateToAllCategory,onNavigateToNoti }){
 
             <div className="service-scroll">
               {[1, 2,3,4].map((item) => (
-                <div className="service-card" key={item}>
+                <div className="service-carded" key={item}>
                   <div className="service-image"></div>
 
                   <div className="service-body">
-                    <p>Plumbing</p>
+                    <p style={{color:"black"}}>Plumbing</p>
                     <h4>Complete Residential Plumbing</h4>
 
                     <div className="service-meta">

@@ -5,7 +5,7 @@
   justify-content: center;
 }
 
-.signup-screen-box {
+.signup-screen-boxssv {
   width: 390px;
   padding: 28px 24px;
 }
@@ -16,7 +16,7 @@
   margin-bottom: 30px;
 }
 
-.signup-brand-row {
+.signup-brand-rowvv{
   display: flex;
   align-items: center;
   gap: 12px;
@@ -139,4 +139,230 @@
 .signup-footer-text {
   text-align: center;
   margin-top: 60px;
+}
+
+/* ============================================
+   REGISTER PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .signup-screen-boxssv {
+    width: 100%;
+    max-width: 440px;
+    padding: 40px 32px;
+  }
+  
+  .signup-brand-title {
+    font-size: 36px;
+  }
+  
+  .signup-heading-block h1 {
+    font-size: 48px;
+  }
+  
+  .signup-input-field {
+    height: 80px;
+    font-size: 20px;
+  }
+  
+  .signup-submit-action {
+    height: 84px;
+    font-size: 24px;
+  }
+  
+  .signup-arrow-holder {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .signup-social-button {
+    width: 68px;
+    height: 68px;
+  }
+  
+  .signup-footer-text {
+    margin-top: 70px;
+    font-size: 20px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .signup-screen-boxssv {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px;
+  }
+  
+  .signup-brand-title {
+    font-size: 34px;
+  }
+  
+  .signup-heading-block h1 {
+    font-size: 44px;
+  }
+  
+  .signup-input-field {
+    height: 76px;
+    font-size: 19px;
+  }
+  
+  .signup-submit-action {
+    height: 80px;
+    font-size: 23px;
+  }
+  
+  .signup-arrow-holder {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .signup-social-button {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .signup-footer-text {
+    margin-top: 65px;
+    font-size: 18px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .signup-screen-boxssv {
+    width: 100%;
+    max-width: 380px;
+    padding: 24px 20px;
+  }
+  
+  .signup-brand-image {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .signup-brand-title {
+    font-size: 28px;
+  }
+  
+  .signup-heading-block h1 {
+    font-size: 38px;
+  }
+  
+  .signup-input-field {
+    height: 64px;
+    font-size: 16px;
+    padding: 0 18px;
+  }
+  
+  .signup-submit-action {
+    height: 68px;
+    font-size: 20px;
+  }
+  
+  .signup-arrow-holder {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .signup-social-button {
+    width: 54px;
+    height: 54px;
+  }
+  
+  .signup-social-group {
+    gap: 24px;
+  }
+  
+  .signup-divider-label {
+    margin: 32px 0 20px;
+    font-size: 16px;
+  }
+  
+  .signup-footer-text {
+    margin-top: 48px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .signup-screen-boxssv {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px;
+    padding-bottom: 40px;
+  }
+  
+  .signup-brand-image {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .signup-brand-title {
+    font-size: 24px;
+  }
+  
+  .signup-brand-rowvv {
+    margin-bottom: 40px;
+  }
+  
+  .signup-heading-block h1 {
+    font-size: 32px;
+    margin-bottom: 28px;
+  }
+  
+  .signup-input-box {
+    margin-bottom: 18px;
+  }
+  
+  .signup-input-field {
+    height: 58px;
+    font-size: 15px;
+    padding: 0 16px;
+    border-radius: 14px;
+  }
+  
+  .signup-submit-action {
+    height: 60px;
+    font-size: 18px;
+    border-radius: 30px;
+    padding: 0 10px 0 32px;
+  }
+  
+  .signup-arrow-holder {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .signup-social-button {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .signup-social-group {
+    gap: 20px;
+  }
+  
+  .signup-divider-label {
+    margin: 28px 0 18px;
+    font-size: 14px;
+  }
+  
+  .signup-footer-text {
+    margin-top: 40px;
+    font-size: 14px;
+  }
+  
+  .signup-terms-row {
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  
+  .signup-check-circle {
+    width: 24px;
+    height: 24px;
+  }
 }

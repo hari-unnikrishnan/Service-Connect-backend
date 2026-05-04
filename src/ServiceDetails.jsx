@@ -154,7 +154,7 @@ export default function ServiceDetails({onNavigateBack,onNavigateToComplaint}) {
           <span>→</span>
         </button>
 
-        <button className="complaint-btn"  onClick={onNavigateToComplaint}>
+        <button className="complaint-btn" onClick={() => onNavigateToComplaint(1)}>
           Raise a Complaint
           <span>→</span>
         </button>

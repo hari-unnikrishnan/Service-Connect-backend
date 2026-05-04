@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -159,3 +160,24 @@ REST_FRAMEWORK = {
 # Razorpay settings
 RAZORPAY_KEY_ID = "rzp_test_xxxxx"
 RAZORPAY_KEY_SECRET = "your_secret_key"
+
+# Email settings (Gmail SMTP for production/development)
+# IMPORTANT: You must generate a Gmail App Password and set it via environment variable.
+# Go to Google Account → Security → 2-Step Verification → App passwords → Generate.
+# Then run: set EMAIL_APP_PASSWORD=your-app-password (Windows CMD)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'hariunnikrishnan16@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_APP_PASSWORD', '')
+DEFAULT_FROM_EMAIL = 'hariunnikrishnan16@gmail.com'
+SERVER_EMAIL = 'hariunnikrishnan16@gmail.com'
+
+# Fallback to console backend if no app password is configured (for local dev without email)
+if not EMAIL_HOST_PASSWORD:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# SMS settings placeholder
+SMS_ENABLED = True
+SMS_DEFAULT_COUNTRY_CODE = '+91'

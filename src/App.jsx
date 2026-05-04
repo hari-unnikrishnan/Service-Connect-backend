@@ -54,10 +54,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState('serviceconnect')
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [userId, setUserId] = useState(null)
-  const [user, setUser] = useState(null)
 
   const [selectedPayment, setSelectedPayment] = useState(null)
   const [paymentAmount, setPaymentAmount] = useState(0)
+  const [selectedBookingId, setSelectedBookingId] = useState(1)
 
   // NAVIGATION
   const handleNavigateToLogin = () => setCurrentPage('login')
@@ -100,7 +100,10 @@ function App() {
   const handleNavigateToServiceDetails = () => setCurrentPage('servicedetails')
 
   //  COMPLAINT FORM
-  const handleNavigateToComplaintForm = () => setCurrentPage('complaint')
+  const handleNavigateToComplaintForm = (bookingId = 1) => {
+    setSelectedBookingId(bookingId)
+    setCurrentPage('complaint')
+  }
   const handleNavigateToComplaintList = () => setCurrentPage('complaintlist')
   // REQUEST / BOOKINGS
   const handleNavigateToRequest = () => setCurrentPage('request')
@@ -232,6 +235,7 @@ function App() {
           onNavigateToBookings={handleNavigateToBookings}
           onNavigateToJobs={handleNavigateToJobs}
           onNavigateToNoti={handleNavigateToNoti}
+          onNavigateToSidebar={handleNavigateToSidebar}
         />
 
       ) : currentPage === 'jobs' ? (
@@ -271,7 +275,8 @@ function App() {
       ) : currentPage === 'complaint' ? (
         <ComplaintForm
           onNavigateBack={handleNavigateToServiceDetails}
-           onNavigateToComplaintList={handleNavigateToComplaintList}
+          onNavigateToComplaintList={handleNavigateToComplaintList}
+          bookingId={selectedBookingId}
         />
 
         ) : currentPage === 'complaintlist' ? (
@@ -312,6 +317,7 @@ function App() {
           onNavigateToNotificationSettings={handleNavigateToNotificationSettings}
           onNavigateToSecurity={handleNavigateToSecurity}
           onNavigateToFriends={handleNavigateToFriends}
+           onNavigateToLogin={handleNavigateToLogin}
           
         />
         ) : currentPage === 'EditProfiless' ? (
@@ -337,6 +343,7 @@ function App() {
             onNavigateToNotificationSettings={handleNavigateToNotificationSettings}
             onNavigateToChat={handleNavigateToChat}
             onNavigateToFriends={handleNavigateToFriends}
+            onNavigateToHome={handleNavigateToHome}
           
         />
           ) : currentPage === 'About' ? (

@@ -175,3 +175,288 @@ input::placeholder {
   margin-bottom: 28px;
   margin-left: 50px;
 }
+
+/* ============================================
+   REQUEST SERVICE PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .request-service-main-container {
+    /* width: 100%;
+    max-width: 480px;
+    margin: 0 auto; */
+    padding-bottom: 100px;
+  }
+  
+  .request-service-header {
+    padding: 24px;
+  }
+  
+  .request-service-user-profile-section {
+    padding: 24px;
+  }
+  
+  .request-service-user-profile-section img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .request-service-input-field-card {
+    margin: 20px;
+    padding: 18px;
+    border-radius: 16px;
+  }
+  
+  .request-service-input-field-card label {
+    font-size: 16px;
+  }
+  
+  .request-service-input-field-card input,
+  .request-service-input-field-card textarea {
+    font-size: 20px;
+  }
+  
+  textarea {
+    height: 140px;
+  }
+  
+  .request-service-media-upload-card {
+    margin: 20px;
+    padding: 22px;
+  }
+  
+  .request-service-availability-section {
+    padding: 20px;
+  }
+  
+  .request-service-availability-section h3 {
+    font-size: 20px;
+  }
+  
+  .request-service-date-time-row {
+    gap: 14px;
+  }
+  
+  .request-service-confirm-button {
+    height: 84px;
+    font-size: 24px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .request-service-main-container {
+    /* max-width: 450px;
+    margin: 0 auto; */
+  }
+  
+  .request-service-header {
+    padding: 22px;
+  }
+  
+  .request-service-user-profile-section {
+    padding: 22px;
+  }
+  
+  .request-service-input-field-card {
+    margin: 18px;
+    padding: 16px;
+  }
+  
+  .request-service-media-upload-card {
+    margin: 18px;
+    padding: 20px;
+  }
+  
+  .request-service-availability-section {
+    padding: 18px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .request-service-main-container {
+    /* max-width: 400px;
+    margin: 0 auto; */
+    padding-bottom: 70px;
+  }
+  
+  .request-service-header {
+    padding: 16px;
+    gap: 8px;
+  }
+  
+  .back-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .request-service-user-profile-section {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .request-service-user-profile-section img {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .request-service-input-field-card {
+    margin: 12px;
+    padding: 12px;
+    border-radius: 10px;
+  }
+  
+  .request-service-input-field-card label {
+    font-size: 13px;
+  }
+  
+  .request-service-input-field-card input,
+  .request-service-input-field-card textarea {
+    font-size: 15px;
+  }
+  
+  textarea {
+    height: 100px;
+  }
+  
+  .request-service-media-upload-card {
+    margin: 12px;
+    padding: 14px;
+    border-radius: 10px;
+  }
+  
+  .request-service-availability-section {
+    padding: 12px;
+  }
+  
+  .request-service-availability-section h3 {
+    font-size: 16px;
+  }
+  
+  .request-service-date-label {
+    font-size: 14px;
+  }
+  
+  .request-service-date-time-row {
+    gap: 8px;
+    flex-direction: column;
+  }
+  
+  .request-service-confirm-button {
+    height: 64px;
+    font-size: 18px;
+    border-radius: 32px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .request-service-main-container {
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 60px;
+  }
+  
+  .request-service-header {
+    padding: 12px;
+    gap: 6px;
+  }
+  
+  .back-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+  
+  .request-service-user-profile-section {
+    padding: 12px;
+    gap: 10px;
+  }
+  
+  .request-service-user-profile-section img {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .user-name {
+    font-size: 14px;
+  }
+  
+  .request-service-input-field-card {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .request-service-input-field-card label {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  
+  .request-service-input-field-card input,
+  .request-service-input-field-card textarea {
+    font-size: 14px;
+  }
+  
+  textarea {
+    height: 80px;
+  }
+  
+  .request-service-media-upload-card {
+    margin: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .request-service-availability-section {
+    padding: 10px;
+  }
+  
+  .request-service-availability-section h3 {
+    font-size: 14px;
+    gap: 4px;
+  }
+  
+  .request-service-date-label {
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  
+  .request-service-date-time-row {
+    gap: 6px;
+    flex-direction: column;
+    margin-top: 8px;
+  }
+  
+  .request-service-date-time-input {
+    padding: 8px;
+    border-radius: 10px;
+  }
+  
+  .request-service-date-time-input span {
+    font-size: 12px;
+  }
+  
+  .request-service-date-time-input p {
+    font-size: 14px;
+  }
+  
+  .request-service-confirm-button {
+    height: 56px;
+    font-size: 16px;
+    border-radius: 28px;
+    margin: 0 10px;
+  }
+  
+  .request-service-media-row {
+    gap: 14px;
+    margin-left: 30px;
+    margin-bottom: 20px;
+  }
+}

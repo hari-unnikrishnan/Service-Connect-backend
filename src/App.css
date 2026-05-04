@@ -389,7 +389,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   
 } */
-.service-card {
+.service-carded {
   min-width: 280px;
   background: white;
   border-radius: 20px;
@@ -439,5 +439,430 @@ body {
   justify-content: space-around;
   padding: 16px;
   color: white;
+}
+
+/* ============================================
+   FULL PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Base styles for all screens - Already defined above */
+
+/* Laptop/Desktop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .app-shell {
+    padding: 1px 0;
+    align-items: flex-start;
+  }
+  
+  .phone-frame {
+    /* max-width: 480px; */
+    border-radius: 0px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    min-height: 900px;
+  }
+  
+  .top-header {
+    padding: 32px 28px;
+    border-radius: 9px 0px 0 0;
+  }
+  
+  .content-area {
+    padding: 24px;
+  }
+  
+  .offer-banner {
+    height: 300px;
+    padding: 32px;
+  }
+  
+  .offer-content h2 {
+    font-size: 24px;
+  }
+  
+  .section-title h3 {
+    font-size: 20px;
+  }
+  
+  .service-carded {
+    min-width: 300px;
+  }
+  
+  .service-image {
+    height: 170px;
+  }
+  
+  .provider-avatar {
+    width: 84px;
+    height: 84px;
+  }
+  
+  .bottom-nav {
+    margin: 24px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+}
+
+/* Tablet Portrait (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .app-shell {
+    /* padding: 30px 0; */
+  }
+  
+  .phone-frame {
+    /* max-width: 450px; */
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+  }
+  
+  .top-header {
+    padding: 28px 24px;
+  }
+  
+  .content-area {
+    padding: 20px;
+  }
+  
+  .offer-banner {
+    height: 280px;
+    padding: 28px;
+  }
+  
+  .offer-content h2 {
+    font-size: 22px;
+  }
+  
+  .section-title h3 {
+    font-size: 19px;
+  }
+  
+  .service-carded {
+    min-width: 290px;
+  }
+  
+  .service-image {
+    height: 160px;
+  }
+  
+  .provider-avatar {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .bottom-nav {
+    margin: 20px;
+    padding: 18px;
+    border-radius: 20px;
+  }
+}
+
+/* Mobile Large (480px to 767px) */
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .app-shell {
+    /* padding: 20px 0; */
+  }
+  
+  .phone-frame {
+    /* max-width: 420px; */
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-header {
+    padding: 24px 20px;
+  }
+  
+  .header-left h1 {
+    font-size: 16px;
+  }
+  
+  .avatar {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .content-area {
+    padding: 16px;
+  }
+  
+  .offer-banner {
+    height: 250px;
+    padding: 24px;
+    border-radius: 20px;
+  }
+  
+  .offer-content p {
+    font-size: 22px;
+  }
+  
+  .offer-content h2 {
+    font-size: 18px;
+  }
+  
+  .offer-content span {
+    font-size: 11px;
+  }
+  
+  .section-title h3 {
+    font-size: 17px;
+  }
+  
+  .section-title span {
+    font-size: 13px;
+  }
+  
+  .service-carded {
+    min-width: 270px;
+  }
+  
+  .service-image {
+    height: 140px;
+  }
+  
+  .service-body {
+    padding: 14px;
+  }
+  
+  .service-meta {
+    font-size: 12px;
+    gap: 10px;
+  }
+  
+  .provider-avatar {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .category-row {
+    gap: 100px;
+  }
+  
+  .provider-row {
+    gap: 70px;
+  }
+  
+  .bottom-nav {
+    margin: 16px;
+    padding: 14px;
+    border-radius: 18px;
+  }
+}
+
+/* Mobile Standard (320px to 479px) */
+@media screen and (max-width: 479px) {
+  .app-shell {
+    padding: 0;
+  }
+  
+  .phone-frame {
+    max-width: 100%;
+    border-radius: 0;
+    min-height: 100vh;
+    box-shadow: none;
+  }
+  
+  .top-header {
+    padding: 20px 16px;
+  }
+  
+  .header-left h1 {
+    font-size: 14px;
+  }
+  
+  .header-left {
+    gap: 8px;
+  }
+  
+  .avatar {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .header-right {
+    gap: 10px;
+  }
+  
+  .content-area {
+    padding: 14px;
+  }
+  
+  .search-box {
+    padding: 12px 14px;
+    border-radius: 14px;
+  }
+  
+  .distance-tabs {
+    margin-top: 12px;
+  }
+  
+  .distance-tabs button {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .offer-banner {
+    height: 220px;
+    padding: 20px;
+    border-radius: 18px;
+    margin-top: 14px;
+  }
+  
+  .offer-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .offer-content p {
+    font-size: 20px;
+  }
+  
+  .offer-content h2 {
+    font-size: 16px;
+    margin: 0 0 6px 0;
+  }
+  
+  .offer-content span {
+    font-size: 10px;
+  }
+  
+  .offer-content button {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+  
+  .offer-bg {
+    left: -10px;
+    width: 110%;
+  }
+  
+  .section-title {
+    margin-bottom: 12px;
+  }
+  
+  .section-title h3 {
+    font-size: 16px;
+  }
+  
+  .section-title span {
+    font-size: 12px;
+  }
+  
+  .category-row {
+    gap: 80px;
+    margin-left: 8px;
+  }
+  
+  .category-circle {
+    width: 55px;
+    height: 55px;
+  }
+  
+  .category-item p {
+    font-size: 12px;
+  }
+  
+  .service-tabs {
+    margin: 12px 0;
+    gap: 5px;
+    margin-right: 2px;
+  }
+  
+  .service-tabs button {
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: 16px;
+  }
+  
+  .service-carded {
+    min-width: 250px;
+    border-radius: 16px;
+  }
+  
+  .service-image {
+    height: 120px;
+  }
+  
+  .service-body {
+    padding: 12px;
+  }
+  
+  .service-body p {
+    font-size: 12px;
+  }
+  
+  .service-body h4 {
+    font-size: 14px;
+  }
+  
+  .service-meta {
+    font-size: 11px;
+    gap: 8px;
+  }
+  
+  .provider-row {
+    gap: 60px;
+  }
+  
+  .provider-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+  }
+  
+  .provider-item p {
+    font-size: 12px;
+  }
+  
+  .bottom-nav {
+    margin: 14px;
+    padding: 12px;
+    border-radius: 16px;
+    gap: 8px;
+  }
+  
+  .bottom-nav svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media screen and (max-width: 319px) {
+  .app-shell {
+    padding: 0;
+  }
+  
+  .phone-frame {
+    min-height: 100vh;
+  }
+  
+  .top-header {
+    padding: 16px 12px;
+    flex-wrap: wrap;
+  }
+  
+  .header-left h1 {
+    font-size: 12px;
+  }
+  
+  .content-area {
+    padding: 12px;
+  }
+  
+  .offer-banner {
+    height: 200px;
+    padding: 16px;
+  }
+  
+  .service-carded {
+    min-width: 220px;
+  }
+  
+  .bottom-nav {
+    margin: 12px;
+    padding: 10px;
+  }
 }
 

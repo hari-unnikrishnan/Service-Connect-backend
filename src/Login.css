@@ -183,3 +183,187 @@
    color: #d9d9d9;
   
 }
+
+/* ============================================
+   LOGIN PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .login-container {
+    width: 100%;
+    max-width: 440px;
+    padding: 40px 32px;
+  }
+  
+  .logo-title {
+    font-size: 36px;
+  }
+  
+  .login-header h1 {
+    font-size: 48px;
+  }
+  
+  .form-input {
+    height: 80px;
+    font-size: 20px;
+  }
+  
+  .submit-btn {
+    height: 84px;
+    font-size: 24px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .login-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px;
+  }
+  
+  .logo-title {
+    font-size: 34px;
+  }
+  
+  .login-header h1 {
+    font-size: 44px;
+  }
+  
+  .form-input {
+    height: 76px;
+    font-size: 19px;
+  }
+  
+  .submit-btn {
+    height: 80px;
+    font-size: 23px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .login-container {
+    width: 100%;
+    max-width: 380px;
+    padding: 24px 20px;
+  }
+  
+  .logo-img {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .logo-title {
+    font-size: 28px;
+  }
+  
+  .login-header h1 {
+    font-size: 38px;
+  }
+  
+  .login-header p {
+    font-size: 16px;
+  }
+  
+  .form-input {
+    height: 64px;
+    font-size: 16px;
+    padding: 0 18px;
+  }
+  
+  .submit-btn {
+    height: 68px;
+    font-size: 20px;
+  }
+  
+  .arrow-circle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .social-circle {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .login-container {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 16px;
+    padding-bottom: 40px;
+  }
+  
+  .logo-img {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .logo-title {
+    font-size: 24px;
+  }
+  
+  .logo-row {
+    margin-bottom: 40px;
+  }
+  
+  .login-header h1 {
+    font-size: 32px;
+  }
+  
+  .login-header p {
+    font-size: 14px;
+    margin-bottom: 30px;
+  }
+  
+  .form-input {
+    height: 58px;
+    font-size: 15px;
+    padding: 0 16px;
+    border-radius: 14px;
+  }
+  
+  .form-group {
+    margin-bottom: 18px;
+  }
+  
+  .submit-btn {
+    height: 60px;
+    font-size: 18px;
+    border-radius: 30px;
+  }
+  
+  .arrow-circle {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .social-circle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .social-row {
+    gap: 20px;
+  }
+  
+  .divider {
+    margin: 30px 0 20px;
+    font-size: 16px;
+  }
+  
+  .signup-link {
+    margin-top: 40px;
+    font-size: 16px;
+  }
+  
+  .option-row {
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+}

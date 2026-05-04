@@ -3,7 +3,7 @@ import "./Sidebar.css";
 import { X, LogOut, ArrowLeft } from "lucide-react";
 import avatar from './assets/IMAGE BG22.png';
 
-export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter,onNavigateToSettings, onNavigateToChat , onNavigateToFriends}) {
+export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNavigateToHelpCenter,onNavigateToSettings, onNavigateToChat , onNavigateToFriends,onNavigateToHome}) {
 
 
   return (
@@ -58,7 +58,7 @@ export default function App({onNavigateToAbout,onNavigateToTermsConditions,onNav
           onClick={(e) => e.stopPropagation()}
         >
           <button className="close-btn" >
-            <X size={18} />
+            <X size={18} onClick={onNavigateToHome}/>
           </button>
 
           <div className="profile-section">

@@ -24,7 +24,7 @@ import {
 import profileImg from "./assets/profile.png";
 import { fetchProfile } from './api.js';
 
-export default function Profile({ onNavigateBack, onNavigateToEditProfiless, onNavigateToNotificationSettings,onNavigateToSecurity,onNavigateToFriends }) {
+export default function Profile({ onNavigateBack, onNavigateToEditProfiless, onNavigateToNotificationSettings,onNavigateToSecurity,onNavigateToFriends,onNavigateToLogin }) {
   const [darkMode, setDarkMode] = useState(false);
 
   // Load saved dark mode
@@ -145,7 +145,10 @@ export default function Profile({ onNavigateBack, onNavigateToEditProfiless, onN
             onClick={onNavigateToFriends}
             />
               
-            <MenuItem icon={<Power />} text="Logout" />
+            <MenuItem 
+            icon={<Power />} 
+            text="Logout"  onClick={onNavigateToLogin}
+              />
 
           </div>
         </div>

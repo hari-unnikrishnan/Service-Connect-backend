@@ -81,3 +81,211 @@
     padding: 16px;
     color: white;
 }
+
+/* ============================================
+   TRANSACTIONS PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .transactions-container {
+    /* width: 100%;
+    max-width: 480px; */
+    margin: 0 auto;
+  }
+  
+  .tr-header {
+    padding: 24px;
+  }
+  
+  .back-btn {
+    width: 42px;
+    height: 42px;
+  }
+  
+  .tr-header h2 {
+    font-size: 20px;
+  }
+  
+  .transaction-card {
+    margin: 20px;
+    padding: 16px;
+    border-radius: 20px;
+  }
+  
+  .thumb {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .info h4 {
+    font-size: 18px;
+  }
+  
+  .info p {
+    font-size: 15px;
+  }
+  
+  .paid {
+    font-size: 14px;
+    padding: 6px 14px;
+  }
+  
+  .bottom-navu {
+    margin: 24px;
+    padding: 20px;
+    border-radius: 24px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .transactions-container {
+    /* width: 100%;
+    max-width: 450px; */
+    margin: 0 auto;
+  }
+  
+  .tr-header {
+    padding: 22px;
+  }
+  
+  .transaction-card {
+    margin: 18px;
+    padding: 14px;
+  }
+  
+  .thumb {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .bottom-navu {
+    margin: 20px;
+    padding: 18px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .transactions-container {
+    /* width: 100%;
+    max-width: 400px; */
+    margin: 0 auto;
+  }
+  
+  .tr-header {
+    padding: 18px;
+    gap: 8px;
+  }
+  
+  .back-btn {
+    padding: 6px;
+  }
+  
+  .tr-header h2 {
+    font-size: 16px;
+  }
+  
+  .header-icons {
+    gap: 8px;
+  }
+  
+  .transaction-card {
+    margin: 14px;
+    padding: 10px;
+    border-radius: 12px;
+  }
+  
+  .thumb {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+  
+  .info h4 {
+    font-size: 14px;
+  }
+  
+  .info p {
+    font-size: 12px;
+  }
+  
+  .paid {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  
+  .bottom-navu {
+    margin: 14px;
+    padding: 14px;
+    border-radius: 18px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .transactions-container {
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 60px;
+  }
+  
+  .tr-header {
+    padding: 14px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .back-btn {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+  
+  .tr-header h2 {
+    font-size: 14px;
+  }
+  
+  .header-icons {
+    gap: 8px;
+  }
+  
+  .transaction-card {
+    margin: 10px;
+    padding: 8px;
+    border-radius: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .thumb {
+    width: 100%;
+    height: 80px;
+    border-radius: 10px;
+  }
+  
+  .info h4 {
+    font-size: 13px;
+  }
+  
+  .info p {
+    font-size: 11px;
+    margin-top: 2px;
+  }
+  
+  .paid {
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-top: 4px;
+  }
+  
+  .bottom-navu {
+    margin: 12px;
+    padding: 12px;
+    border-radius: 14px;
+    gap: 6px;
+  }
+}

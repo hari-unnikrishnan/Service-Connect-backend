@@ -131,3 +131,258 @@ width: 52px;
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* ============================================
+   VERIFY OTP PAGE RESPONSIVE STYLES
+   Desktop, Laptop, Tablet, Mobile
+   ============================================ */
+
+/* Desktop/Laptop (1200px and up) */
+@media screen and (min-width: 1200px) {
+  .verify-container {
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+  
+  .verify-header {
+    height: 120px;
+    padding: 0 24px;
+  }
+  
+  .verify-back-btn {
+    width: 56px;
+    height: 56px;
+  }
+  
+  .verify-title {
+    font-size: 28px;
+  }
+  
+  .verify-body {
+    padding: 100px 32px 0;
+  }
+  
+  .verify-text {
+    font-size: 22px;
+  }
+  
+  .otp-single-box {
+    width: 78px;
+    height: 78px;
+    font-size: 38px;
+  }
+  
+  .verify-resend {
+    font-size: 22px;
+  }
+  
+  .verify-btn {
+    height: 84px;
+    font-size: 24px;
+  }
+  
+  .verify-arrow-circle {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .verify-keypad {
+    gap: 40px 70px;
+  }
+  
+  .verify-key {
+    font-size: 38px;
+  }
+}
+
+/* Tablet (768px to 1199px) */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+  .verify-container {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  
+  .verify-header {
+    height: 115px;
+    padding: 0 20px;
+  }
+  
+  .verify-back-btn {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .verify-title {
+    font-size: 26px;
+  }
+  
+  .verify-body {
+    padding: 90px 28px 0;
+  }
+  
+  .otp-single-box {
+    width: 74px;
+    height: 74px;
+    font-size: 36px;
+  }
+  
+  .verify-btn {
+    height: 80px;
+    font-size: 22px;
+  }
+  
+  .verify-arrow-circle {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Mobile Large (481px to 767px) */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .verify-container {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  
+  .verify-header {
+    height: 100px;
+    padding: 0 18px;
+  }
+  
+  .verify-back-btn {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .verify-title {
+    font-size: 22px;
+  }
+  
+  .verify-body {
+    padding: 70px 24px 0;
+  }
+  
+  .verify-text {
+    font-size: 18px;
+  }
+  
+  .otp-single-box {
+    width: 62px;
+    height: 62px;
+    font-size: 30px;
+    border-radius: 12px;
+  }
+  
+  .otp-box-group {
+    gap: 10px;
+  }
+  
+  .verify-resend {
+    font-size: 18px;
+  }
+  
+  .verify-btn {
+    height: 68px;
+    font-size: 20px;
+    border-radius: 36px;
+  }
+  
+  .verify-arrow-circle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .verify-keypad {
+    gap: 30px 50px;
+  }
+  
+  .verify-key {
+    font-size: 30px;
+  }
+}
+
+/* Mobile Standard (320px to 480px) */
+@media screen and (max-width: 480px) {
+  .verify-container {
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+  }
+  
+  .verify-header {
+    height: 90px;
+    padding: 0 14px;
+    gap: 10px;
+  }
+  
+  .verify-back-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .verify-title {
+    font-size: 18px;
+  }
+  
+  .verify-body {
+    padding: 50px 16px 0;
+  }
+  
+  .verify-text {
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+  
+  .otp-single-box {
+    width: 54px;
+    height: 54px;
+    font-size: 26px;
+    border-radius: 10px;
+  }
+  
+  .otp-box-group {
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  
+  .verify-resend {
+    font-size: 15px;
+    margin-bottom: 32px;
+  }
+  
+  .verify-btn {
+    width: 90%;
+    height: 60px;
+    font-size: 18px;
+    border-radius: 30px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+  }
+  
+  .verify-arrow-circle {
+    width: 42px;
+    height: 42px;
+    position: absolute;
+    right: 8px;
+  }
+  
+  .Verify-otp-text {
+    position: static;
+    transform: none;
+    text-align: center;
+  }
+  
+  .verify-keypad {
+    gap: 25px 40px;
+    padding: 0 30px;
+    margin-top: 50px;
+  }
+  
+  .verify-key {
+    font-size: 26px;
+  }
+}

@@ -429,6 +429,16 @@ export const resolveComplaint = async (complaintId, status) => {
   return response.json();
 };
 
+// Create a new complaint
+export const createComplaint = async (complaintData) => {
+  const response = await fetch(`${API_BASE_URL}/complaints/`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(complaintData),
+  });
+  return handleResponse(response);
+};
+
 // Get reviews for a service
 export const getServiceReviews = async (serviceId) => {
   const response = await fetch(`${API_BASE_URL}/reviews/?service=${serviceId}`);
@@ -663,4 +673,5 @@ export default {
   getInviteUsers,
   sendInvite,
   getMyInvites,
+  createComplaint,
 };

@@ -19,7 +19,9 @@
   align-items: center;
   gap: 10px;
 }
-
+.Electrification{
+  color: #000;
+}
 .back-btn {
   border: 1px solid #ffffff80;
   border-radius: 50%;
@@ -176,4 +178,7 @@ position: absolute;
 }
 .Images{
     color: #000;
+}
+.servicename{
+    color: #000000;
 }
